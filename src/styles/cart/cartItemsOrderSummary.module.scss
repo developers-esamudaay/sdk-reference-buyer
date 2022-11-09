@@ -5,14 +5,15 @@
   left: 0;
   right: 0;
 
-  width:60%;
+  width:45%;
   top:10%;
-
-  left:20%;
-  background-color:lightgray;
+  height:80%;
+  left:27%;
+  background-color:white;
   box-shadow: -10px 0 20px 0 rgba(0, 0, 0, 0.15);
   z-index: 0;
   border-radius: 7px;
+  overflow-y: scroll;
   animation: slideOnWeb 0.5s ease forwards;
 }
 hr
@@ -23,6 +24,13 @@ hr
 .label {
     font-size: $font-24;
     font-weight: $semibold;
+
+    color: $primaryColor;
+    margin: 0;
+  }
+  .label1 {
+    font-size: $font-16;
+    font-weight: $regular;
 
     color: $primaryColor;
     margin: 0;
@@ -39,7 +47,13 @@ hr
     margin-top: 25px;
    
 }
-
+.itemCount{
+    display: flex;
+    flex-direction: row;
+     justify-content: space-around;
+     margin-bottom: 10;
+   
+}
 .cart_items_wrapper{
   display: flex;
   flex-direction: column;
@@ -50,4 +64,14 @@ hr
 }
 .item_wrapper{
     padding-top: 10px;
+}
+.bottomButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 20px;
+    
 }
