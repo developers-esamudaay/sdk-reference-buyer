@@ -1,0 +1,243 @@
+@import "../../assets/scss/variables.scss";
+
+.playground_height {
+  height: calc(100vh - 60px);
+}
+
+.illustration_header {
+  font-size: $font-20;
+  font-family: $firaSans;
+  text-align: center;
+  color: $primaryColor;
+  margin: 10px;
+}
+
+.illustration_body {
+  font-size: $font-14;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  color: $secondaryColor;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /*Resize the wrap to see the search bar change!*/
+  .wrap{
+    width: 30%;
+ 
+
+  }
+
+.searched_history_text {
+  margin: 0;
+  font-size: $font-14;
+  color: $primaryColor;
+  text-align: center;
+}
+.semibold {
+  font-weight: $medium;
+  color: $secondaryColor;
+}
+
+.product_list_without_summary_wrapper {
+  height: 85%;
+  overflow: auto;
+}
+
+.product_list_with_summary_wrapper {
+  height: 75%;
+  overflow: auto;
+}
+
+.secondary_action {
+  width: 100px;
+  height: 35px;
+  background-color: $white;
+  border: 1px solid $secondaryColor;
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-14;
+  font-weight: $medium;
+  color: $secondaryColor;
+}
+
+.secondary_action:hover {
+  background-color: $secondaryColor;
+  color: $white;
+  transition: all 0.3s;
+}
+
+.primary_action,
+.primary_action_hover {
+  width: 100px;
+  height: 35px;
+  background-color: $white;
+  border: 1px solid $accentColor;
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-14;
+  font-weight: $medium;
+  color: $accentColor;
+}
+
+.primary_action:hover {
+  background-color: $accentColor;
+  color: $white;
+  transition: all 0.3s;
+}
+
+.primary_action:disabled {
+  opacity: 0.5;
+  cursor: no-drop;
+}
+
+.filter_container_width {
+  width: 15%;
+  transition: width 0.3s;
+}
+
+.collapse_filter_container_width {
+  width: 5%;
+  transition: width 0.3s;
+}
+
+.product_list_container_width {
+  width: 85%;
+  transition: width 0.3s;
+  overflow: auto;
+}
+
+.collapse_filter_product_list_container_width {
+  width: 95%;
+  transition: width 0.3s;
+}
+
+.collapse_filter_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: $accentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotate_right {
+  transform: rotate(-90deg);
+}
+
+.filter_on_mobile_wrapper {
+  position: fixed;
+  top: 210px;
+  left: 10px;
+  width: 350px;
+  height: 75%;
+  animation: slide 0.3s ease-in forwards;
+  z-index: 10;
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .searched_history_banner {
+    height: 28%;
+    width: 30%;
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .product_list_without_summary_wrapper {
+    height: 80%;
+  }
+  .product_list_with_summary_wrapper {
+    height: 65%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .product_list_container_width {
+    width: 100%;
+  }
+  .filter_on_mobile_wrapper {
+    display: block;
+  }
+}
+
+@keyframes slide {
+  from {
+    left: -500px;
+  }
+  to {
+    left: 10px;
+  }
+}
+.pagination{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+
+}
+
+.searchBar{
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+   background-color: white;
+  
+
+  
+}
+.category_drodpwon_wrapper {
+    background: $accentColor;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  .search_type_text {
+    font-size: $font-14;
+    color: $white;
+    margin: 0;
+  }
