@@ -1,0 +1,100 @@
+@import "../../../assets/scss/variables.scss";
+.overlay {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($primaryColor, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade 1s ease forwards;
+    z-index: 1;
+  }
+  
+  .popup_card {
+    min-width: 40%;
+    max-width: 70%;
+    background-color: $white;
+    border-radius: 10px;
+    max-height: 95%;
+    overflow: auto;
+    opacity: 1;
+    animation: slide 0.5s ease forwards;
+  }
+  
+  .card_header {
+    padding: 20px 25px;
+    background-color: $white;
+    border-bottom: 1px solid rgba($secondaryColor, 0.15);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  
+    .card_header_title {
+      font-family: $firaSans;
+      font-size: $font-18;
+      font-weight: $medium;
+      text-align: left;
+      color: $primaryColor;
+      margin: 0;
+    }
+    .card_header_subtitle{
+        margin-top: 3vh;
+    }
+    .card_header_subtitle_text{
+        font-family: $firaSans;
+      font-size: $font-16;
+      font-weight: $medium;
+      text-align: left;
+      color: $primaryColor;
+      margin: 0;
+    }
+   
+
+  }
+  .card_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba($secondaryColor, 0.15);
+}
+  .order_items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color:white;
+    width:100%;
+  }
+  .order_items_text{
+
+    margin-left: 1.5vh;
+ 
+  }
+  .order_items_image{
+
+   margin-right: 1.5vh;
+ 
+  }
+  .item_name_text{
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+
+    margin-top: 2vh;
+  }
+  
+  .item_quantity_text{
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+
+    margin-top: 2vh;
+  }
+  

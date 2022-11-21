@@ -1,12 +1,8 @@
-import React from "react";
-import { ONDC_COLORS } from "../colors";
+import React from 'react'
+import { ONDC_COLORS } from '../colors'
 
 export default function IndianRupee(props) {
-  const {
-    width = "14",
-    height = "21",
-    color = ONDC_COLORS.ACCENTCOLOR,
-  } = props;
+  const { width = '10', height = '14', color = ONDC_COLORS.ACCENTCOLOR } = props
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,5 +17,5 @@ export default function IndianRupee(props) {
         style={{ fill: color }}
       />
     </svg>
-  );
+  )
 }

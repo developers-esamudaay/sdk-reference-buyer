@@ -22,6 +22,7 @@ import TransactionStatusModal from './TransactionStatusModal'
 import { transactionStatusValues } from '../../../constants/transactionStatus'
 import { delay } from '../../../commonUtils'
 import ErrorMessage from '../../../shared/error-message/errorMessage'
+import OrderCompletionCard from './OrderCompletionCard'
 const CartStatus = (props) => {
   const [loading, setLoading] = useState(false)
   const [cartVerificationStatus, setCartVerificationStatus] = useState('')
@@ -37,10 +38,14 @@ const CartStatus = (props) => {
   const [initializeOrderLoading, setInitializeOrderLoading] = useState(false)
   const [orderId, setOrderId] = useState('')
   const [transactionStatus, setTransactionStatus] = useState('')
+  const [orderItems, setOrderItems] = useState([])
+  const [orderStatus, setOrderStatus] = useState('')
+
   console.log(showTransactionModal)
   const initializrOrder = async () => {
     setInitializeOrderLoading(true)
     const id = uuid()
+    console.log('orderId', id)
     setOrderId(id)
     try {
       await createOrder(id)
@@ -61,7 +66,13 @@ const CartStatus = (props) => {
         },
       }
       await confirmOrderUsingSdk(orderPayload)
-      await getOrderDetails(orderId)
+      await delay(3000)
+      const response = await getOrderDetails(id)
+      const orderDetails = response.data()
+      setOrderItems(orderDetails?.items)
+      setOrderStatus(orderDetails?.statusOrder)
+
+      console.log(orderDetails)
     } catch (e) {
       console.log(e)
     }
@@ -92,8 +103,8 @@ const CartStatus = (props) => {
         },
         delivery_info: {
           location: {
-            lat: 12.956399,
-            lon: 77.636803,
+            lat: 13.34,
+            lon: 74.79,
           },
           address: {
             name: 'WORK',
@@ -253,7 +264,7 @@ const CartStatus = (props) => {
                 </div>
               </>
             ) : (
-              <></>
+              <ErrorMessage>{cartVerificationError}</ErrorMessage>
             )}
             {showTransactionModal && (
               <TransactionStatusModal
@@ -261,6 +272,13 @@ const CartStatus = (props) => {
                   setTransactionStatus(status)
                   setShowTransactionModal(false)
                 }}
+              />
+            )}
+            {orderStatus === 'CREATED' && (
+              <OrderCompletionCard
+                orderItems={orderItems}
+                orderStatus={orderStatus}
+                orderId={orderId}
               />
             )}
           </div>

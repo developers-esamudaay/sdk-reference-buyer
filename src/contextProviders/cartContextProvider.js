@@ -100,6 +100,26 @@ export function CartContextProvider({ children }) {
         })
       } else {
         onErrorAddToCart && onErrorAddToCart('you can not add product from diffrent provider')
+        setCartData({ items: [] })
+        setCartData((prevCart) => {
+          return {
+            ...prevCart,
+            cart_id: `CART-ID-${Math.floor(1000 + Math.random() * 900)}`,
+            bpp_uri: product?.bpp_uri,
+            bpp_id: product?.bpp_id,
+            business_id: product?.business_id,
+            city_code: product?.city_code,
+            business_location_ids: product?.locations?.map((location) => location.id),
+            items: [
+              {
+                id: product?.id,
+                quantity: quantity,
+                location_id: product?.location_id,
+                product,
+              },
+            ],
+          }
+        })
         return
       }
     }

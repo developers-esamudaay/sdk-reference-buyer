@@ -18,6 +18,7 @@ import Pagination from '../../../shared/pagination/pagination'
 import CartSummary from '../../cart/Componentes/CartSummaryBottomStrip'
 import { useLocation } from 'react-router-dom'
 import uuid from 'react-uuid'
+import OrderCompletionCard from '../../Checkout/Components/OrderCompletionCard'
 export default function ProductList() {
   const [products, setProducts] = useState([])
 
@@ -224,6 +225,7 @@ export default function ProductList() {
         </div>
       )}
       {cartItems && cartItems.length > 0 && <CartSummary />}
+      {/* <OrderCompletionCard /> */}
       {/* show Cart Summary if cart have some items */}
     </Fragment>
   )

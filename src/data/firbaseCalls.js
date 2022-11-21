@@ -74,6 +74,7 @@ export const getVerificationCartData = async (id) => {
   return await getDoc(docRef)
 }
 export const getOrderDetails = async (id) => {
+  console.log('orderId', id)
   const docRef = doc(db, 'ondcOrder', id)
   return await getDoc(docRef)
 }
