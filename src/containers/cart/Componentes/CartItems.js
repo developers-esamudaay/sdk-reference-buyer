@@ -10,7 +10,8 @@ import Button from '../../../shared/button/button'
 import ProductCard from '../../ProductListing/Components/ProductCard'
 const CartItems = ({ onClose }) => {
   console.log('in cart Items')
-  const { cartItems, setCartItems } = useContext(CartContext)
+  const { cartData, setCartData } = useContext(CartContext)
+  const cartItems = cartData?.items
   const history = useHistory()
   console.log(cartItems)
   return (
@@ -53,7 +54,7 @@ const CartItems = ({ onClose }) => {
             button_type={buttonTypes.secondary}
             button_hover_type={buttonTypes.secondary_hover}
             button_text="Clear Cart"
-            onClick={() => setCartItems([])}
+            onClick={() => setCartData({})}
           />
         </div>
         <div className="pe-3">
@@ -61,7 +62,7 @@ const CartItems = ({ onClose }) => {
             button_type={buttonTypes.primary}
             button_hover_type={buttonTypes.primary_hover}
             button_text="Checkout"
-            onClick={() => history.push('/application/initialize')}
+            onClick={() => history.push('/checkout')}
           />
         </div>
       </div>

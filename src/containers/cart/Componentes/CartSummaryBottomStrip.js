@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { CartContext } from '../../../../src/contextProviders/cartContextProvider'
+import { CartContext } from '../../../contextProviders/cartContextProvider'
 import styles from '../../../../src/styles/cart/orderSummary.module.scss'
 import { buttonTypes } from '../../../shared/button/utils'
 
@@ -13,17 +13,18 @@ function getSubTotal(cartItems) {
   let sum = 0
   cartItems.forEach(({ product, quantity }) => {
     if (quantity.count < 2) {
-      sum += Number(product.price)
+      sum += Number(product.price / 100)
       return
     } else {
-      sum += quantity.count * Number(product.price)
+      sum += quantity.count * Number(product.price / 100)
     }
   })
   return Number.isInteger(sum) ? sum : sum.toFixed(2)
 }
 
-export default function OrderSummary() {
-  const { cartItems, setCartItems } = useContext(CartContext)
+export default function CartSummary() {
+  const { cartData, setCartData } = useContext(CartContext)
+  const cartItems = cartData?.items
   const history = useHistory()
   const [toggleCollapse, setToggleCollapse] = useState(false)
   return (
@@ -84,7 +85,7 @@ export default function OrderSummary() {
                     button_type={buttonTypes.secondary}
                     button_hover_type={buttonTypes.secondary_hover}
                     button_text="Clear Cart"
-                    onClick={() => setCartItems([])}
+                    onClick={() => setCartData({})}
                   />
                 </div>
                 <div className="pe-3">
@@ -92,7 +93,7 @@ export default function OrderSummary() {
                     button_type={buttonTypes.primary}
                     button_hover_type={buttonTypes.primary_hover}
                     button_text="Checkout"
-                    onClick={() => history.push('/application/initialize')}
+                    onClick={() => history.push('/checkout')}
                   />
                 </div>
               </div>

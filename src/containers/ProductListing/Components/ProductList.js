@@ -9,13 +9,15 @@ import DropdownSvg from '../../../shared/svg/dropdonw'
 import { ONDC_COLORS } from '../../../shared/colors'
 import SearchBanner from '../Components/SearchBanner'
 import { supportedCities } from '../../../constants/ondcSupportedCities'
-import { getAllDocs, addProducts } from '../../../data/firbaseCalls'
+import { getAllDocs, addProducts, getAllBusiness } from '../../../data/firbaseCalls'
 import { search_types, searchTypeMap } from '../../../constants/searchTypes'
 import { queryTypes } from '../../../constants/queryTypes'
 import Button from '../../../shared/button/button'
 import { buttonTypes } from '../../../shared/button/utils'
 import Pagination from '../../../shared/pagination/pagination'
-import OrderSummary from '../../cart/Componentes/OrderSummary'
+import CartSummary from '../../cart/Componentes/CartSummaryBottomStrip'
+import { useLocation } from 'react-router-dom'
+import uuid from 'react-uuid'
 export default function ProductList() {
   const [products, setProducts] = useState([])
 
@@ -31,7 +33,12 @@ export default function ProductList() {
   const [firstProductId, setFirstProductId] = useState('')
   const [selectedLocation, setSelectedLocation] = useState(supportedCities[0])
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
-  const { cartItems } = useContext(CartContext)
+  const { cartData } = useContext(CartContext)
+  console.log(cartData)
+
+  const cartItems = cartData?.items
+  const location = useLocation()
+  const filterData = location?.state
 
   function checkSearch() {
     if (!search?.value) {
@@ -49,7 +56,7 @@ export default function ProductList() {
 
     setProducts([])
     const allProducts = await getAllDocs({
-      collectionName: 'products',
+      collectionName: 'ondcProducts',
       query_type: query_type,
       queryParam: queryParam,
     })
@@ -66,7 +73,11 @@ export default function ProductList() {
   }
   //fetch products on first call
   useEffect(async () => {
-    await fetchProducts(queryTypes.NO_QUERY, {})
+    if (filterData) {
+      await fetchProducts(queryTypes.PROVIDER_FILTER_QUERY, filterData)
+    } else {
+      await fetchProducts(queryTypes.NO_QUERY, {})
+    }
   }, [])
   //fetch products with search query
   useEffect(async () => {
@@ -94,14 +105,45 @@ export default function ProductList() {
     }
   }, [search.value])
   // fetch product with location fliter
-  useEffect(async () => {
-    let queryParam = {
-      type: 'city_code',
-      value: selectedLocation.city_code,
-    }
+  // useEffect(async () => {
+  //   let queryParam = {
+  //     type: 'city_code',
+  //     value: selectedLocation.city_code,
+  //   }
 
-    await fetchProducts(queryTypes.FILTER_QUERY, queryParam)
-  }, [selectedLocation])
+  //   await fetchProducts(queryTypes.FILTER_QUERY, queryParam)
+  // }, [selectedLocation])
+  useEffect(() => {
+    sessionStorage.setItem('sessionId', uuid())
+    navigator.geolocation.getCurrentPosition(function (position) {
+      sessionStorage.setItem('latitude', position?.coords?.latitude ?? '')
+      sessionStorage.setItem('longitude', position?.coords?.longitude ?? '')
+    })
+  }, [])
+  //get all business and add products in firestore
+  useEffect(async () => {
+    const allBusiness = await getAllBusiness()
+    const mySet1 = new Set()
+    for (let business of allBusiness) {
+      for (let item of business?.business_data?.items ?? []) {
+        const product = {
+          ...item,
+          id: item.id,
+          bpp_id: business?.bpp_id,
+          bpp_uri: business?.bpp_uri,
+          locations: business?.business_data?.locations,
+          business_id: business?.business_id,
+          business_name: business?.business_data?.name,
+          business_symbol: business?.business_data?.symbol,
+          city_code: business?.descriptor?.city_code,
+        }
+        if (!mySet1.has(product?.id)) {
+          mySet1.add(product?.id)
+          await addProducts(product)
+        }
+      }
+    }
+  }, [])
 
   return (
     <Fragment>
@@ -181,7 +223,7 @@ export default function ProductList() {
           {/* pagination for prev and next page */}
         </div>
       )}
-      {cartItems && cartItems.length > 0 && <OrderSummary />}
+      {cartItems && cartItems.length > 0 && <CartSummary />}
       {/* show Cart Summary if cart have some items */}
     </Fragment>
   )

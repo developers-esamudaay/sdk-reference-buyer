@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from 'react'
 
 export const CartContext = createContext({
-  cartItems: [],
-  setCartItems: () => {},
+  cartData: { items: [] },
+  setCartData: () => {},
   onRemoveProduct: () => {},
   onReduceQuantity: () => {},
   onAddQuantity: () => {},
@@ -10,21 +10,25 @@ export const CartContext = createContext({
 })
 
 export function CartContextProvider({ children }) {
-  const parsedCartItems = JSON.parse(localStorage.getItem('cartItems') || '{}')
-  const [cartItems, setCartItems] = useState(parsedCartItems.length > 0 ? parsedCartItems : [])
+  const parsedCartData = JSON.parse(localStorage.getItem('cartData') || '{"items":[]}')
+  console.log(parsedCartData, 'data')
+  const [cartData, setCartData] = useState(parsedCartData)
 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
-  }, [cartItems])
+    localStorage.setItem('cartData', JSON.stringify(cartData))
+  }, [cartData])
 
   // use this function to remove the product from cart
   function removeProductFromCart(id) {
-    setCartItems(cartItems.filter((item) => item.id !== id))
+    const newCartItems = cartData.items.filter((item) => item.id !== id)
+    setCartData((prevCart) => {
+      return { ...prevCart, items: newCartItems }
+    })
   }
 
   // use this function to reduce the quantity of the product;
   function reduceQuantityOfProduct(id) {
-    const updatedProducts = cartItems.map((item) => {
+    const updatedProducts = cartData.items.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: { count: item.quantity.count - 1 } }
       }
@@ -34,32 +38,78 @@ export function CartContextProvider({ children }) {
     const product = updatedProducts.find((item) => item.id === id)
     // if the quantity is 0 than we will remove from list
     if (product.quantity.count === 0) {
-      const filteredProducts = cartItems.filter((product) => product.id !== id)
-      setCartItems(filteredProducts)
+      const filteredProducts = cartData.items.filter((product) => product.id !== id)
+      setCartData((prevCart) => {
+        return { ...prevCart, items: filteredProducts }
+      })
       return
     }
-    setCartItems(updatedProducts)
+    setCartData((prevCart) => {
+      return { ...prevCart, items: updatedProducts }
+    })
   }
 
   // use this function to add quantity of product
   function addQuantityOfProduct(id) {
-    const updatedProducts = cartItems.map((item) => {
+    const updatedProducts = cartData.items.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: { count: item.quantity.count + 1 } }
       }
       return { ...item }
     })
-    setCartItems(updatedProducts)
+    setCartData((prevCart) => {
+      return { ...prevCart, items: updatedProducts }
+    })
   }
 
-  function onAddProductsToCart(value) {
-    setCartItems([...cartItems, value])
+  function onAddProductsToCart({ product, id, location_id, quantity, onErrorAddToCart }) {
+    if (cartData.items && cartData.items.length === 0) {
+      console.log(quantity)
+      setCartData((prevCart) => {
+        return {
+          ...prevCart,
+          cart_id: `CART-ID-${Math.floor(1000 + Math.random() * 900)}`,
+          bpp_uri: product?.bpp_uri,
+          bpp_id: product?.bpp_id,
+          business_id: product?.business_id,
+          city_code: product?.city_code,
+          business_location_ids: product?.locations?.map((location) => location.id),
+          items: [
+            {
+              id: product?.id,
+              quantity: quantity,
+              location_id: product?.location_id,
+              product,
+            },
+          ],
+        }
+      })
+    } else {
+      if (product?.bpp_id === cartData.bpp_id) {
+        const updatedProducts = [
+          ...cartData.items,
+          {
+            id: product?.id,
+            quantity: quantity,
+            location_id: product?.location_id,
+            product,
+          },
+        ]
+        setCartData((prevCart) => {
+          return { ...prevCart, items: updatedProducts }
+        })
+      } else {
+        onErrorAddToCart && onErrorAddToCart('you can not add product from diffrent provider')
+        return
+      }
+    }
   }
   return (
     <CartContext.Provider
       value={{
-        cartItems,
-        setCartItems,
+        cartData,
+
+        setCartData,
         onRemoveProduct: removeProductFromCart,
         onReduceQuantity: reduceQuantityOfProduct,
         onAddQuantity: addQuantityOfProduct,

@@ -6,18 +6,25 @@ import Subtract from '../../../shared/svg/subtract'
 import Add from '../../../shared/svg/add'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
 import { Link } from 'react-router-dom'
+import Alert from 'react-alert'
 
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
 
-  const { cartItems, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
+  const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
+
+  const cartItems = cartData?.items
   const { item_name: product_name, price, business_name: provider_name, images, id } = product
   const [quantityCount, setQuantityCount] = useState(0)
   //count of item of this product avaailable in cart
   const [toggleAddToCart, setToggleAddToCart] = useState()
+  const onErrorAddToCart = (error) => {
+    alert(error)
+  }
   //true if paroduct is available in cart
   useEffect(() => {
-    const isProductPresent = cartItems.find(({ product }) => product.id === id)
+    console.log('cartitems', cartItems)
+    const isProductPresent = cartItems?.find(({ product }) => product.id === id)
     if (isProductPresent) {
       setToggleAddToCart(true)
       setQuantityCount(isProductPresent.quantity.count)
@@ -70,9 +77,7 @@ export default function ProductCard(props) {
             <div className="pe-2">
               <IndianRupee width="10" height="14" />
             </div>
-            <p className={styles.product_price}>
-              {Number.isInteger(Number(price)) ? Number(price) : Number(price).toFixed(2)}
-            </p>
+            <p className={styles.product_price}>{Number(price / 100).toFixed(2)}</p>
           </div>
           {/* products price */}
           {show_quantity_button && (
@@ -114,8 +119,9 @@ export default function ProductCard(props) {
                     onAddProduct({
                       id,
                       quantity: { count: quantityCount + 1 },
-
+                      location_id: product?.location_id,
                       product,
+                      onErrorAddToCart,
                     })
                   }}
                 >
