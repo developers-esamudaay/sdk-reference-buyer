@@ -1,0 +1,86 @@
+@import "../../assets/scss/variables.scss";
+.card_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+     border-bottom: "2px solid black";
+   
+}
+.card_header_title {
+    font-family: $firaSans;
+    font-size: $font-20;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+    margin: 0;
+  }
+  .address_type_label {
+    font-size: $font-14;
+    color: #a1a1a1;
+    margin: 0;
+  }
+  .status_label {
+    font-size: $font-14;
+    margin: 0;
+    color: $primaryColor;
+    text-align: center;
+  }
+  
+.status_chip {
+    padding: 2px 10px;
+    border-radius: 36px;
+   
+    border: "3px solid blue";
+    background-color: cadetblue;
+  }
+  
+  .status_text {
+    font-size: $font-12;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .card_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba($secondaryColor, 0.15);
+}
+  .order_items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color:white;
+    width:100%;
+  }
+  .order_items_text{
+
+    margin-left: 1.5vh;
+ 
+  }
+  .order_items_image{
+
+   margin-right: 1.5vh;
+ 
+  }
+  .item_name_text{
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: center;
+
+    margin-top: 2vh;
+  }
+  
+  .item_quantity_text{
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+
+    margin-top: 2vh;
+  }

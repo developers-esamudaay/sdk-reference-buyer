@@ -1,0 +1,73 @@
+@import "../../assets/scss/variables.scss";
+
+.order_summary_background {
+  height: 8%;
+  width: 100%;
+  background-color: $white;
+  box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+}
+
+.collapse_button_wrapper {
+  width: 35px;
+  height: 35px;
+  background-color: $accentColor;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.collapse_button_wrapper:hover {
+  background-color: rgba($accentColor, 0.75);
+}
+
+.rotate_up {
+  transition: transform 2s;
+}
+
+.total_items_in_cart_text {
+  font-size: $font-14;
+  font-weight: 500;
+  color: $primaryColor;
+  margin: 0;
+}
+
+.sub_total_text {
+  font-size: $font-18;
+  font-weight: 500;
+  color: $primaryColor;
+  margin: 0;
+}
+
+.checkout_button_placement {
+  justify-content: flex-start;
+}
+
+@media screen and (max-width: 600px) {
+  .order_summary_back {
+    height: 120px;
+  }
+  .collapse_button_wrapper {
+    width: 25px;
+    height: 25px;
+  }
+  .total_items_in_cart_text {
+    font-size: $font-12;
+  }
+  .sub_total_text {
+    font-size: $font-14;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .order_summary_background {
+    height: 15%;
+  }
+  .checkout_button_placement {
+    justify-content: center;
+  }
+}

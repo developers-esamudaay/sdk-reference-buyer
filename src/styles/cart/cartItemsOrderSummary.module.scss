@@ -1,0 +1,80 @@
+@import "../../assets/scss/variables.scss";
+
+.overlay {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($primaryColor, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade 1s ease forwards;
+    z-index: 1;
+  }
+  
+  .popup_card {
+    min-width: 40%;
+    max-width: 80%;
+    background-color: $white;
+    border-radius: 10px;
+    max-height: 80%;
+
+    opacity: 1;
+    animation: slide 0.5s ease forwards;
+  }
+  
+hr
+
+{
+    width: 100%;
+}
+.label {
+    font-size: $font-24;
+    font-weight: $semibold;
+
+    color: $primaryColor;
+    margin: 0;
+    padding:5px;
+  }
+ 
+
+.header{
+    display: flex;
+    flex-direction: row;
+     align-items: center;
+    justify-content: space-between;
+    width:100%;
+    
+    background-color: cadetblue;
+   
+}
+.itemCount{
+    display: flex;
+    flex-direction: row;
+     justify-content: space-around;
+     margin-bottom: 10px;
+    
+   
+}
+.cart_items_wrapper{
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  overflow: auto;
+  height:400px;
+ 
+}
+.item_wrapper{
+    padding-top: 10px;
+}
+.bottomButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    
+}

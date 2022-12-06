@@ -1,0 +1,68 @@
+@import "../../assets/scss/variables.scss";
+.seller_page_header_wrapper{
+    width:100%;
+    height:20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    background-color: white;
+    margin-top: 20px;
+ 
+
+}
+.image_container{
+    width: 150px;
+    height:150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+
+ 
+
+    
+}
+.business_image{
+    width:100%;
+    height:100%;
+    border-radius: 10px;
+}
+
+.business_name{
+   
+        font-size: $font-20;
+        font-weight: $semibold;
+        color: $primaryColor;
+        padding:10px
+    
+}
+.other_info{
+    font-size: $font-16;
+        font-weight: $regular;
+        color: $secondaryColor;
+        padding:10px
+}
+.seller_page_subheader_wrapper{
+    width:100%;
+    height:7%;
+    background-color: darkslategray;
+    display: flex;
+
+    flex-direction:row ;
+
+}
+.tabbar_text{
+    font-size: $font-20;
+    font-weight: $semibold;
+    color: white;
+    padding:15px;
+   cursor: pointer;
+  
+}
+.product_screen_header_text{
+    font-size: $font-20;
+    font-weight: $regular;
+    color: $secondaryColor;
+    padding:20px
+}
