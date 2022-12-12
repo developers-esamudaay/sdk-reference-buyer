@@ -10,6 +10,7 @@ import Alert from 'react-alert'
 
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
+  console.log('cartData',product)
 
   const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
 
@@ -22,7 +23,8 @@ export default function ProductCard(props) {
     id,
     business_id: provider_id,
   } = product
-  console.log(product)
+
+  console.log(provider_id)
   const [quantityCount, setQuantityCount] = useState(0)
   //count of item of this product avaailable in cart
   const [toggleAddToCart, setToggleAddToCart] = useState()

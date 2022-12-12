@@ -189,13 +189,13 @@ export default function AddAddressModal(props) {
       console.log('add new address')
       setAddAddressLoading(true)
       const res = await getLatLngFromAddress(address)
+      console.log(res)
       const location =
-        res && res.data && res.data.length > 0
-          ? { lat: res.data[0]?.lat ?? 13.34, lon: res.data[0]?.lon ?? 74.79 }
-          : {
-              lat: 13.34,
-              lon: 74.79,
+         {
+              lat: 12.9783692,
+              lon:77.6408356,
             }
+           
 
       setAddAddressLoading(false)
 

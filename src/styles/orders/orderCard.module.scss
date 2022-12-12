@@ -1,4 +1,17 @@
 @import "../../assets/scss/variables.scss";
+.overlay {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($primaryColor, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade 1s ease forwards;
+  z-index: 1;
+}
 .card_wrapper{
     display: flex;
     align-items: center;
@@ -83,4 +96,21 @@
     color: $primaryColor;
 
     margin-top: 2vh;
+  }
+  .card_footer{
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+
+  }
+  .support_modal{
+    min-width: 40%;
+    max-width: 70%;
+    background-color: $white;
+    border-radius: 10px;
+    max-height: 95%;
+    overflow: auto;
+    opacity: 1;
+    padding:10px;
+    animation: slide 0.5s ease forwards;
   }

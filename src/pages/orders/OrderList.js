@@ -3,11 +3,14 @@ import styles from '../../styles/orders/orderList.module.scss'
 import OrderCard from './OrderCard'
 import Loading from '../../shared/loading/loading'
 import { getOrderList } from '../../data/firbaseCalls'
+import { useLocation } from 'react-router-dom'
 const OrderList = () => {
   console.log('in order')
   const [orderList, setOrderList] = useState([])
   const [loading, setLoading] = useState(false)
+  const location =useLocation()
   const [currentExpendedOrder, setCurrentExpendedOrder] = useState('')
+  console.log(currentExpendedOrder)
   useEffect(async () => {
     const sessioId = sessionStorage.getItem('sessionId')
     setLoading(true)
@@ -17,6 +20,20 @@ const OrderList = () => {
     setOrderList(orderList)
     setLoading(false)
   }, [])
+
+  useEffect(async ()=>{
+    console.log(location)
+    setCurrentExpendedOrder(location?.state?.orderId)
+  },[location])
+
+  const reloadOrders=async()=>{
+    setLoading(true)
+    const sessioId = sessionStorage.getItem('sessionId')
+    const orderList = await getOrderList(sessioId)
+    console.log(orderList)
+    setOrderList(orderList)
+    setLoading(false)
+  }
 
   return (
     <div className={styles.order_list_wrapper}>
@@ -34,6 +51,7 @@ const OrderList = () => {
                   orderData={order}
                   isOrderExpended={order?.id === currentExpendedOrder}
                   expendOrder={(id) => setCurrentExpendedOrder(id)}
+                  reloadOrders={reloadOrders}
                 />
               </div>
             )

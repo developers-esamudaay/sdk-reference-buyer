@@ -11,6 +11,7 @@ import Loading from '../../../shared/loading/loading'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import DeliveryAddress from './DeliveryAddress'
 import BillingAddress from './BillingAddress'
+import { isEmptyObject } from 'jquery'
 
 export default function AddressDetailsCard(props) {
   const { currentActiveStep, setCurrentActiveStep } = props
@@ -22,7 +23,7 @@ export default function AddressDetailsCard(props) {
     selectedBillingAddress,
     selectedDeliveryAddress,
   } = useContext(AddressContext)
-
+console.log(selectedBillingAddress,selectedDeliveryAddress)
   // function to check whether step is completed or not
   function isStepCompleted() {
     if (currentActiveStep.current_active_step_number > 1) {
@@ -139,7 +140,7 @@ export default function AddressDetailsCard(props) {
           </div>
           <div className={`${styles.card_footer} d-flex align-items-center justify-content-center`}>
             <Button
-              disabled={!selectedBillingAddress || !selectedDeliveryAddress}
+              disabled={isEmptyObject(selectedBillingAddress) || isEmptyObject(selectedDeliveryAddress)}
               button_type={buttonTypes.primary}
               button_hover_type={buttonTypes.primary_hover}
               button_text="Proceed"

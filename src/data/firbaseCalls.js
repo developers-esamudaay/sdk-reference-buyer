@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore'
 import { async } from '@firebase/util'
 import { queryTypes } from '../constants/queryTypes'
+
 const db = getFirestore(app)
 const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) => {
   console.log(query_type)
@@ -54,7 +55,9 @@ const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) =
 //function to get products with filter and limit
 export async function getProducts({ queryParam, collectionName, query_type, offset }) {
   const q = genrateQuery({ queryParam, collectionName, query_type, offset })
-  console.log('query', q)
+  // const geoQuery=geo.query()
+  // // geoQuery.within( geo.point(sessionStorage.getItem(latitude),sessionStorage.getItem(longitude)) , 100, )
+  // //       .subscribe((hits) => console.log((hits)))
   const querySnapshot = await getDocs(q)
   const products = querySnapshot.docs.map((doc) => doc.data())
   console.log(products, 'products')
@@ -109,6 +112,7 @@ export async function getAllBusiness() {
 export const getOrderList = async (sessionId) => {
   const q = query(
     collection(db, firestoreCollections.ONDC_ORDER),
+    orderBy("statusUpdatedOn","desc"),
     where('session_id', '==', sessionId),
   )
   const querySnapshot = await getDocs(q)
@@ -117,6 +121,19 @@ export const getOrderList = async (sessionId) => {
 }
 
 export const getBusinessDetailsById = async (id) => {
-  const docRef = doc(db, firestoreCollections.ONDC_CATALOG, id)
+  const businessRef = collection(db, firestoreCollections.ONDC_CATALOG)
+  const q= query(
+    businessRef,
+   
+    where('business_id', '==', id),
+  )
+  const querySnapshot = await getDocs(q)
+  const businesses = querySnapshot.docs.map((doc) => doc.data())
+  return businesses
+  
+}
+export const getSupportData=async(id)=>{
+  const docRef = doc(db, firestoreCollections.ONDC_SUPPORT, id)
   return await getDoc(docRef)
+
 }

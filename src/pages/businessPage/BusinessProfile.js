@@ -46,12 +46,14 @@ const BusinessProfile = () => {
     </div>
   )
   const tabScreens = [ProductScreen, tab2]
-
+console.log(products)
   useEffect(async () => {
+   console.log(id)
     setLoading(true)
-    console.log(id)
-    const businessDetails = await (await getBusinessDetailsById('0ihUtad4eowGZ3r5b4OD')).data()
-    setProducts(businessDetails?.business_data?.items ?? [])
+    
+    const businessDetails = await getBusinessDetailsById(id);
+    console.log(businessDetails[0].business_data)
+    setProducts((Array.isArray (businessDetails)&&businessDetails.length>0)?(businessDetails[0].business_data?.items ?? []):[])
     setBusinessImages(businessDetails?.business_data?.images ?? [])
     setBusinessName(businessDetails?.business_data?.name ?? '')
     setLoading(false)

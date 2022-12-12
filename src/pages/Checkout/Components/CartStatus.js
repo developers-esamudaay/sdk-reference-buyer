@@ -42,6 +42,8 @@ const CartStatus = (props) => {
   const [transactionStatus, setTransactionStatus] = useState('')
   const [orderItems, setOrderItems] = useState([])
   const [orderStatus, setOrderStatus] = useState('')
+  const [transactionId,setTransactionId]=useState("")
+  
   const history = useHistory()
   console.log(showTransactionModal)
   const initializrOrder = async () => {
@@ -69,24 +71,39 @@ const CartStatus = (props) => {
       }
       await confirmOrderUsingSdk(orderPayload)
       await delay(3000)
-      const response = await getOrderDetails(id)
-      const orderDetails = response.data()
-      setOrderItems(orderDetails?.items)
-      setOrderStatus(orderDetails?.statusOrder)
+      setInitializeOrderLoading(false)
+      history.push({pathname:"/orders",state:{orderId:id}})
 
-      console.log(orderDetails)
+      
+
+   
     } catch (e) {
       console.log(e)
     }
+  }
+  const reloadOrders=async()=>{
+    try{
+      const response = await getOrderDetails(orderId)
+      const orderDetails = response.data()
+      setOrderItems(orderDetails?.items)
+      setOrderStatus(orderDetails?.statusOrder)
+      
+    }
+    catch(e){
+      console.log(e)
+    }
+    
   }
 
   useEffect(async () => {
     if (isCurrentStep) {
       setLoading(true)
+      console.log(selectedDeliveryAddress)
       const payload = {
         ...cartData,
         items: cartData.items.map((item) => {
-          return { quantity: item?.quantity?.count, id: item.id, location_id: item?.location_id }
+          const ids=item.id.split('_')
+          return { quantity: item?.quantity?.count, id: Array.isArray(ids)&&ids.length>1?ids[0]:"", location_id: item?.location_id }
         }),
         fulfillment_type: 'DA_DELIVERY',
         billing_info: {
@@ -299,13 +316,15 @@ const CartStatus = (props) => {
                 }}
               />
             )}
-            {orderStatus === 'CREATED' && (
+            {/* {orderStatus && (
               <OrderCompletionCard
                 orderItems={orderItems}
                 orderStatus={orderStatus}
                 orderId={orderId}
+                reloadOrders={reloadOrders}
+                transactionId={transactionId}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>

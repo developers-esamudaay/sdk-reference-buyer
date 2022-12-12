@@ -10,7 +10,7 @@ const axoisInstanceSdk = axios.create({
 })
 const axoisInstanceMap = axios.create({
   baseURL: 'https://nominatim.openstreetmap.org/search',
-  timeout: 2000,
+  timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': 'https://o2cj2q.csb.app',
   },
@@ -31,4 +31,24 @@ export const getLatLngFromAddress = async (address) => {
     &postalcode=${address.areaCode}&format=json`
   console.log()
   return await axoisInstanceMap.post(url)
+}
+export const trackOrderFromSdk=async(orderId)=>{
+  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/track`,{
+    "city_code": "std_080"
+})
+
+}
+export const cancelOrderFromSdk=async(orderId)=>{
+  console.log(orderId)
+  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/cancel`,{
+    "city_code": "std:080",
+    "type": "CANCEL",
+    "meta": {
+        "cancel_reason_code": "001",
+        
+    }
+})
+}
+export const supportOrderFromSdk=async(orderId,payload)=>{
+  return axoisInstanceSdk.post("/api/v1/ondc/sdk/buyer/support",payload)
 }

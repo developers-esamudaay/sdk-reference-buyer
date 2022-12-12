@@ -3,4 +3,5 @@ export const firestoreCollections = {
   ONDC_ORDER: 'ondcOrder',
   ONDC_PRODUCTS: 'ondcProducts',
   ONDC_CATALOG: 'ondcCatalog',
+  ONDC_SUPPORT:"ondcSupport"
 }

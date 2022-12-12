@@ -1,8 +1,92 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styles from '../../../styles/checkout/order/OrderCompletionCard.module.scss'
 import Pending from '../../../shared/svg/pending'
 import IndianRupee from '../../../shared/svg/indian-rupee'
-const OrderCompletionCard = ({ orderId, orderItems, orderStatus }) => {
+import Button from '../../../shared/button/button'
+import { buttonTypes } from '../../../shared/button/utils'
+import { cancelOrderFromSdk, supportOrderFromSdk, trackOrderFromSdk } from "../../../data/apiCall"
+import ErrorMessage from "../../../shared/error-message/errorMessage"
+import { getSupportData } from '../../../data/firbaseCalls'
+import { delay } from '../../../commonUtils'
+const OrderCompletionCard = ({ orderId, orderItems, orderStatus,reloadOrders ,transactionId               
+}) => {
+  const [trackingError,setTrackingError]=useState("")
+  const [trackLoading,setTrackLoading]=useState(false)
+  const [cancelLoading,setCancelLoading]=useState(false)
+  const [orderSupportLoading,setOrderSupportLoading]=useState(false)
+  const [supportData,setSupportData]=useState()
+  console.log(reloadOrders)
+  const SupportModal=()=>(
+    <>
+    <div className={styles.overlay}>
+     <div className={styles.support_modal}>
+      <div style={{display:"flex",justifyContent:"content"}}>
+       <p>{supportData?.email}</p>
+      </div>
+      <div style={{display:"flex",justifyContent:"content"}}>
+       <p>{supportData?.phone}</p>
+      </div>
+      <div style={{display:"flex",justifyContent:"content"}}>
+       <Button button_type={buttonTypes.secondary_hover} button_text={"Support Page Url"} onClick={()=>window.Location=supportData?.uri}/>
+      </div>
+     </div>
+    </div>
+    </>
+  )
+  const trackOrder=async()=>{
+    setTrackLoading(true)
+    try{
+     const trackRes= await trackOrderFromSdk(orderId)
+     if(trackRes.status === 200 && trackRes?.data?.message?.ack?.status === 'ACK'){
+        
+     }
+     else if( trackRes?.data?.message?.ack?.status === 'NACK'){
+         setTrackingError("tracking service is not enabled for this order")
+     }
+      
+    }
+  
+    catch(err){
+      console.log(err)
+    }
+    setTrackLoading(false)  
+  }
+  const cancelOrder=async()=>{
+    setCancelLoading(true)
+    try{
+      const cancelRes= await cancelOrderFromSdk(orderId)
+      if(cancelRes.status === 200 && cancelRes?.data?.message?.ack?.status === 'ACK'){
+              await reloadOrders()
+      }
+      setCancelLoading(false)
+     }
+     catch(err){
+       console.log(err)
+     }
+    
+  }
+  const supportOrder=async()=>{
+    setOrderSupportLoading(true)
+    console.log(transactionId)
+    try{
+      const payload={
+       
+      transaction_id: transactionId,
+      city_code: "std_080"
+  
+      }
+      const supportRes=await supportOrderFromSdk(orderId,payload)
+      if(supportRes.status === 200 && supportRes?.data?.message?.ack?.status === 'ACK'){
+            await delay(3000)
+            const supportData=await (await getSupportData(transactionId)).data()
+            setSupportData(supportData)
+            
+       }
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
   return (
     <div className={styles.overlay}>
       <div className={styles.popup_card}>
@@ -34,7 +118,24 @@ const OrderCompletionCard = ({ orderId, orderItems, orderStatus }) => {
             <p className={styles.item_name_text}>{`OrderStatus: ${orderStatus}`}</p>
           </div>
         </div>
-        <div></div>
+        <>
+        <div className={styles.card_footer}>
+      <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/>
+      {orderStatus!=="CANCELLED"&&<Button onClick={()=>cancelOrder()}button_type={buttonTypes.secondary_hover} button_text={"Cancel"} isloading={cancelLoading}/>}
+      <Button button_type={buttonTypes.secondary_hover} button_text={"Support"} onClick={()=>supportOrder()} isloading={orderSupportLoading?1:0}/>
+        </div>
+        <div style={{
+          display:"flex",
+          justifyContent:"center",
+          padding:"10px"
+
+        }}>
+          {
+            trackingError&&<ErrorMessage><p>{trackingError}</p></ErrorMessage>
+          }
+        
+        </div>
+        </>
       </div>
     </div>
   )

@@ -97,4 +97,20 @@
 
     margin-top: 2vh;
   }
+
+    .card_footer{
+      display: flex;
+      justify-content: space-between;
+      padding:20px;
   
+    }
+  .support_modal{
+    min-width: 40%;
+    max-width: 70%;
+    background-color: $white;
+    border-radius: 10px;
+    max-height: 95%;
+    overflow: auto;
+    opacity: 1;
+    animation: slide 0.5s ease forwards;
+  }
