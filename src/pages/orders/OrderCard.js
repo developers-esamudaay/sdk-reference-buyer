@@ -8,6 +8,8 @@ import { cancelOrderFromSdk, supportOrderFromSdk, trackOrderFromSdk } from '../.
 import ErrorMessage from "../../shared/error-message/errorMessage"
 import { delay } from "../../commonUtils"
 import { getSupportData } from "../../data/firbaseCalls"
+import CrossIcon from '../../../src/shared/svg/cross-icon'
+import { ONDC_COLORS } from "../../shared/colors"
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders, }) => {
   const [trackingError,setTrackingError]=useState("")
   const [trackLoading,setTrackLoading]=useState(false)
@@ -19,6 +21,15 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders, }) =>
     <>
     <div className={styles.overlay}>
      <div className={styles.support_modal}>
+     <div style={{display:"flex",justifyContent:"end"}}>
+     <CrossIcon
+              width="20"
+              height="20"
+              color={ONDC_COLORS.SECONDARYCOLOR}
+              style={{ cursor: 'pointer' }}
+              onClick={()=>setSupportData()}
+            />
+      </div>
       <div style={{display:"flex",justifyContent:"center"}}>
        <p>{supportData?.email}</p>
       </div>
@@ -26,7 +37,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders, }) =>
        <p>{supportData?.phone}</p>
       </div>
       <div style={{display:"flex",justifyContent:"center"}}>
-       <Button button_type={buttonTypes.secondary_hover} button_text={"Support Page Url"} onClick={()=>window.Location=supportData?.uri}/>
+       <Button button_type={buttonTypes.secondary_hover} button_text={"Support Page Url"} onClick={()=>window.location=supportData?.uri}/>
       </div>
      </div>
     </div>
@@ -80,6 +91,7 @@ const supportOrder=async()=>{
           await delay(3000)
           const supportData=await (await getSupportData(orderData?.transactionId)).data()
           setSupportData(supportData)
+          setOrderSupportLoading(false)
           
      }
   }
@@ -142,7 +154,7 @@ const supportOrder=async()=>{
                     <p className={styles.item_name_text}>{item?.title}</p>
                     <p className={styles.item_quantity_text}>{`Qt: ${item?.quantity} item`}</p>
 
-                    <p className={styles.item_name_text}>{`Price: ${item?.price / 100} rs`} </p>
+                    <p className={styles.item_quantity_text}>{`Price: ${item?.price / 100} rs`} </p>
                   </div>
                   <div className={styles.order_items_image}>
                     <Pending />
