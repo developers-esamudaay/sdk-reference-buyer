@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import styles from '../../styles/businessProfile/BusinessPage.module.scss'
 import no_image_found from '../../assets/images/no_image_found.png'
-import { getBusinessDetailsById } from '../../data/firbaseCalls'
+import { getBusinessDetailsById, getProducts } from '../../data/firbaseCalls'
 import ProductCard from '../ProductListing/Components/ProductCard'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { queryTypes } from '../../constants/queryTypes'
+import { CartContext } from '../../contextProviders/cartContextProvider'
+import CartSummary from '../cart/Componentes/CartSummaryBottomStrip'
 const BusinessProfile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [products, setProducts] = useState([])
@@ -11,6 +14,8 @@ const BusinessProfile = () => {
   const [businessImages, setBusinessImages] = useState([])
   const [businessName, setBusinessName] = useState('')
   const { id } = useParams()
+  const { cartData } = useContext(CartContext)
+  const cartItems = cartData?.items
   const tab1 = <p>first tab</p>
   const tab2 = <p>second tab</p>
 
@@ -51,13 +56,14 @@ console.log(products)
    console.log(id)
     setLoading(true)
     
-    const businessDetails = await getBusinessDetailsById(id);
-    console.log(businessDetails[0].business_data)
-    setProducts((Array.isArray (businessDetails)&&businessDetails.length>0)?(businessDetails[0].business_data?.items ?? []):[])
-    setBusinessImages(businessDetails?.business_data?.images ?? [])
-    setBusinessName(businessDetails?.business_data?.name ?? '')
-    setLoading(false)
-    console.log(businessDetails)
+    const products = await getProducts({queryParam:{filterValue:id},collectionName:"ondcProducts",query_type:queryTypes.PROVIDER_FILTER_QUERY});
+    console.log(products)
+    setProducts(products)
+    // setProducts((Array.isArray (businessDetails)&&businessDetails.length>0)?(businessDetails[0].business_data?.items ?? []):[])
+    // setBusinessImages(businessDetails?.business_data?.images ?? [])
+    // setBusinessName(businessDetails?.business_data?.name ?? '')
+   setLoading(false)
+    // console.log(businessDetails)
   }, [])
   const screenNames = [' Products', 'About']
   const TabBar = (
@@ -103,6 +109,7 @@ console.log(products)
         {tabScreens.map((Screen, index) => {
           return selectedTabIndex === index ? <>{Screen}</> : null
         })}
+         {cartItems && cartItems.length > 0 && <CartSummary />}
       </div>
     </>
   )

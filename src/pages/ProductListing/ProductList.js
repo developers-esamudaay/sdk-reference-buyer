@@ -227,6 +227,17 @@ export default function ProductList() {
       {loading ? (
         <Loading />
       ) : (
+        <div
+        style={{
+          backgroundColor: 'white',
+          padding: '5px 5px 5px 5px',
+          width: '90%',
+          marginTop: '40px',
+          marginLeft: '5%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <div className="container" style={{ marginBottom: '10px' }}>
           <div className={`row pe-2`}>
             {products.map((product) => {
@@ -252,6 +263,7 @@ export default function ProductList() {
           )}
 
           {/* pagination for prev and next page */}
+        </div>
         </div>
       )}
       {cartItems && cartItems.length > 0 && <CartSummary />}

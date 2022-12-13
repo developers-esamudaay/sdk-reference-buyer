@@ -1,19 +1,20 @@
 @import "../../assets/scss/variables.scss";
 
 .product_card_background {
-  padding: 15px;
+  padding: 5px;
   width: 100%;
-  border-radius: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: $white;
+  position:relative
 }
 
 .product_img_container {
-  height: 200px;
-  width: 200px;
+  height: 250px;
+  width: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,4 +162,28 @@ margin-top: 20px;
 
 .remove_product_text:hover {
   font-weight: $medium;
+}
+.card__overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+ 
+ 
+  transition: .5s ease;
+  background-color: #cfcccf;
+  z-index: 1;
+}
+.no_delivery_text{
+  
+    font-size: $font-20;
+    font-weight: $medium;
+    color: $accentColor;
+    margin-left: 10%;
+    width:80%
+
+  
 }

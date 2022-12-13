@@ -42,12 +42,11 @@ const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) =
       console.log(queryParam.lastProductId)
       return query(productRef, limit(offset), orderBy('id'), endAt(queryParam?.firstProductId))
     case queryTypes.PROVIDER_FILTER_QUERY:
-      console.log(offset)
+      console.log(queryParam)
       return query(
         productRef,
-        limit(offset),
-        orderBy('id'),
-        where('business_name', '==', queryParam.filterValue),
+       
+        where('business_id', '==', queryParam.filterValue),
       )
   }
 }

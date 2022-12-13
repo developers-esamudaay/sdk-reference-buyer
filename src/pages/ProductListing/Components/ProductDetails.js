@@ -264,13 +264,9 @@ export default function ProductDetails() {
                     ) : null}
                     <div className="d-flex align-items-center justify-content-center py-1">
                       <Link
-                        to={{
-                          pathname: `/products`,
-                          state: {
-                            filterType: 'business_name',
-                            filterValue: product?.business_name,
-                          },
-                        }}
+                          to={{
+                            pathname: `/business/${product?.business_id}`,
+                          }}
                         title={product_name}
                       >
                         {`view more products from ${product?.business_name}`}
