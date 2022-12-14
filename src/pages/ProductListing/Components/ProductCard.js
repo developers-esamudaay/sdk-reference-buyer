@@ -36,15 +36,15 @@ export default function ProductCard(props) {
 const defaultRadius=6666*1000;
 
   const userLocation={
-    latitude:12.9783692,
-    longitude:77.6408356
+    latitude:12.9217705,
+    longitude:77.5855874
   }
   const providerLocation={
     latitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lat:defaultLatLng,
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius=Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultLatLng
+  const deliveryRadius=10000000000
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
 console.log(inDeliveryDistance)
   const onErrorAddToCart = (error) => {

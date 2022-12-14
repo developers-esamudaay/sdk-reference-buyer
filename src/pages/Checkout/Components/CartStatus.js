@@ -44,6 +44,7 @@ const CartStatus = (props) => {
   const [orderStatus, setOrderStatus] = useState('')
   const [transactionId,setTransactionId]=useState("")
   
+  
   const history = useHistory()
   console.log(showTransactionModal)
   const initializrOrder = async () => {
@@ -158,8 +159,9 @@ const CartStatus = (props) => {
           setTotalOrderPrice(
             cartVerifiedData?.cost?.breakup?.reduce((acc, val) => val.price / 100 + acc, 0),
           )
-          setLoading(false)
+         
         }
+        setLoading(false)
       } catch (err) {
         console.log(err)
       }
@@ -304,9 +306,27 @@ const CartStatus = (props) => {
                 </>
               )
             ) : (
-              <ErrorMessage>
-                <p>cart is not verified</p>
-              </ErrorMessage>
+              <>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <ErrorMessage>
+                  <p>Oops something went wrong with the seller partner</p>
+                </ErrorMessage>
+              </div>
+              <div
+                className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
+              >
+                <Button
+                  button_type={buttonTypes.primary}
+                  button_hover_type={buttonTypes.primary_hover}
+                  button_text="Go to Products"
+                  onClick={() => {
+                    setCartData({ items: [] })
+                    history.push('/products')
+                  }}
+                />
+              </div>
+            </>
+             
             )}
             {showTransactionModal && (
               <TransactionStatusModal
