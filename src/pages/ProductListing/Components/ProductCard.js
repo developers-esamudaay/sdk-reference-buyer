@@ -12,7 +12,7 @@ import haversine from 'haversine-distance'
 
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
-  console.log('cartData',product)
+
 
   const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
 
@@ -27,7 +27,7 @@ export default function ProductCard(props) {
     locations
   } = product
 
-  console.log(provider_id)
+  
   const [quantityCount, setQuantityCount] = useState(0)
   //count of item of this product avaailable in cart
   const [toggleAddToCart, setToggleAddToCart] = useState()
@@ -36,23 +36,23 @@ export default function ProductCard(props) {
 const defaultRadius=6666*1000;
 
   const userLocation={
-    latitude:12.9217705,
-    longitude:77.5855874
+    latitude:sessionStorage.getItem("latitude"),
+    longitude:sessionStorage.getItem("longitude")
   }
   const providerLocation={
     latitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lat:defaultLatLng,
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius=10000000000
+  const deliveryRadius=Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
-console.log(inDeliveryDistance)
+
   const onErrorAddToCart = (error) => {
     alert(error)
   }
   //true if paroduct is available in cart
   useEffect(() => {
-    console.log('cartitems', cartItems)
+    
     const isProductPresent = cartItems?.find(({ product }) => product.id === id)
     if (isProductPresent) {
       setToggleAddToCart(true)
@@ -62,7 +62,7 @@ console.log(inDeliveryDistance)
       setQuantityCount(0)
     }
   }, [cartItems, id])
-  console.log(styles.card__overlay,"dd")
+
   // check product is available is cart or not and set quantity value if product is in cart
   return (
     <div className={`${styles.product_card_background}`}>

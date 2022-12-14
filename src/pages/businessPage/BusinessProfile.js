@@ -13,11 +13,24 @@ const BusinessProfile = () => {
   const [loading, setLoading] = useState(false)
   const [businessImages, setBusinessImages] = useState([])
   const [businessName, setBusinessName] = useState('')
+  const [businessLocation,setBusinessLocation]=useState({})
+  const [bppId,setBppId]=useState("")
+  const [bppUri,setBppUri]=useState("")
+  const[desc,setDesc]=useState("")
   const { id } = useParams()
   const { cartData } = useContext(CartContext)
+  console.log(bppId,bppUri,"bpp")
   const cartItems = cartData?.items
   const tab1 = <p>first tab</p>
   const tab2 = <p>second tab</p>
+  const About=(
+<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:"40px"}}>
+ 
+   <p>bpp_id:<span>{bppId}</span></p>
+   <p>bpp_uri:<span>{bppUri}</span></p>
+   <p>description:<span>{desc}</span></p>
+</div>
+  )
 
   const ProductScreen = (
     <div
@@ -50,18 +63,23 @@ const BusinessProfile = () => {
       </div>
     </div>
   )
-  const tabScreens = [ProductScreen, tab2]
+  const tabScreens = [ProductScreen, About]
 console.log(products)
   useEffect(async () => {
    console.log(id)
     setLoading(true)
     
     const products = await getProducts({queryParam:{filterValue:id},collectionName:"ondcProducts",query_type:queryTypes.PROVIDER_FILTER_QUERY});
-    console.log(products)
+ 
     setProducts(products)
-    // setProducts((Array.isArray (businessDetails)&&businessDetails.length>0)?(businessDetails[0].business_data?.items ?? []):[])
-    // setBusinessImages(businessDetails?.business_data?.images ?? [])
-    // setBusinessName(businessDetails?.business_data?.name ?? '')
+    const businessDetails=await getBusinessDetailsById(id)
+    const businessInfo=Array.isArray(businessDetails)&&businessDetails.length>0?businessDetails[0]:{}
+     setBusinessImages(businessInfo?.business_data?.images ?? [])
+     setBusinessName(businessInfo?.business_data?.name ?? '')
+     setBusinessLocation(businessInfo?.business_data?.locations)
+     setDesc(businessInfo?.business_data?.long_desc)
+     setBppId(businessInfo?.bpp_id)
+     setBppUri(businessInfo?.bpp_uri)
    setLoading(false)
     // console.log(businessDetails)
   }, [])
