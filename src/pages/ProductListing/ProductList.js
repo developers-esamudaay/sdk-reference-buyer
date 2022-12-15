@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import styles from '../../styles/products/productList.module.scss'
-
+import { Link } from 'react-router-dom'
 import Loading from '../../shared/loading/loading'
 import ProductCard from './Components/ProductCard'
 import { CartContext } from '../../contextProviders/cartContextProvider'
@@ -178,34 +178,21 @@ export default function ProductList() {
     <Fragment>
       {/* <Navbar /> */}
 
-      <div className={styles.searchBar}>
-        <Dropdown
-          header={
-            <div className={`${styles.category_drodpwon_wrapper} d-flex align-items-center`}>
-              <div className="px-2">
-                <p className={styles.search_type_text}>{'Banglore'}</p>
-              </div>
-              <div className="px-2">
-                <DropdownSvg width="10" height="7" color={ONDC_COLORS.WHITE} />
-              </div>
-            </div>
-          }
-          body_classes="dropdown-menu-right"
-          click={(search_type) => {
-            setSearch((search) => ({
-              ...search,
-              type: search_type,
-              value: '',
-            }))
-          }}
-          options={supportedCities.map((city) => ({
-            value: city.name,
-          }))}
-          show_icons={false}
-        />
-
-        {/* Location Dropdown menu  */}
-        <SearchBanner
+      <nav className={styles.navBar}>
+       <div style={{display:"flex",justifyContent:"space-between"}}>
+        <div className={styles.nav_item}>
+        <Link
+            to={{
+              pathname: `/products`,
+            
+            }}
+            className={styles.nav_item_text}
+            
+          >
+            Home
+          </Link>
+        </div>
+       <SearchBanner
           search={search}
           setSearch={setSearch}
           checkSearch={checkSearch}
@@ -221,8 +208,40 @@ export default function ProductList() {
             return true
           }}
         />
+       </div>
+       <div style={{ display: "flex"}}>
+       <div className={styles.nav_item}>
+       <Link
+            to={{
+              pathname: `/products`,
+            
+            }}
+            className={styles.nav_item_text}
+            
+          >
+            Cart
+          </Link>
+      
+        </div>
+        <div className={styles.nav_item}>
+        <Link
+            to={{
+              pathname: `/orders`,
+            
+            }}
+            className={styles.nav_item_text}
+            
+          >
+            Orders
+          </Link>
+        </div>
+
+       </div>
+
+        {/* Location Dropdown menu  */}
+        
         {/* Search bar to search product */}
-      </div>
+      </nav>
       {/* header */}
       {loading ? (
         <Loading />

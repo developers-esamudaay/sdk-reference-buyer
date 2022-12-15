@@ -22,8 +22,9 @@ export default function SearchBanner({
       <div class={bannerStyles.search}>
         <input
           type="text"
+          
           class={bannerStyles.searchTerm}
-          placeholder="What are you looking for?"
+          placeholder="What are you looking for  ?"
           onChange={(event) => {
             const searchValue = event.target.value
             setSearch((search) => ({
@@ -37,7 +38,7 @@ export default function SearchBanner({
             }))
           }}
         />
-        <button styles={bannerStyles.searchButton}>search</button>
+        
       </div>
       {inlineError.search_error && <ErrorMessage>{inlineError.search_error}</ErrorMessage>}
     </div>
