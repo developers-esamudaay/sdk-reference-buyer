@@ -44,7 +44,8 @@ const defaultRadius=6666*1000;
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius=Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius
+  const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
+ 
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
 
   const onErrorAddToCart = (error) => {
@@ -67,24 +68,24 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
   return (
     <div className={`${styles.product_card_background}`}>
       {
-        !inDeliveryDistance&&(   <div className={styles.card__overlay} style={{opacity:inDeliveryDistance?0:0.9}}>
-          <div style={{marginTop:"50%",opacity:1}}>
-          <img
-                src={no_delivery}
+        // !inDeliveryDistance&&(   <div className={styles.card__overlay} style={{opacity:inDeliveryDistance?0:0.9}}>
+        //   <div style={{marginTop:"50%",opacity:1}}>
+        //   <img
+        //         src={no_delivery}
       
-                alt={product_name}
-                width="80"
-                height="80"
-               style={{marginLeft:"40%"}}
-                onError={(event) => {
-                  event.target.onerror = null
-                  event.target.src = no_image_found
-                }}
-              />
-          <p className={styles.no_delivery_text}> Delivery for this product is not available at your location</p>
+        //         alt={product_name}
+        //         width="80"
+        //         height="80"
+        //        style={{marginLeft:"40%"}}
+        //         onError={(event) => {
+        //           event.target.onerror = null
+        //           event.target.src = no_image_found
+        //         }}
+        //       />
+        //   <p className={styles.no_delivery_text}> Delivery for this product is not available at your location</p>
             
-          </div>
-        </div>)
+        //   </div>
+        // </div>)
       }
     
       <div className={styles.product_img_container}>
@@ -130,7 +131,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
             </Link>
           )}
 
-          {/* provider name */}
+          {/* seller name */}
         </div>
         <div>
           <div
@@ -157,7 +158,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
               }}
             >
               {
-                inDeliveryDistance&&( <> {toggleAddToCart && quantityCount > 0 ? (
+                inDeliveryDistance?( <> {toggleAddToCart && quantityCount > 0 ? (
                   <div className={styles.quantity_count_wrapper}>
                     <div
                       className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
@@ -202,7 +203,11 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                   >
                     Add
                   </button>
-                )}</>)
+                )}</>):(
+                  <div style={{display:"flex",justifyContent:"center"}}>
+                  <p className={styles.no_delivery_text}>Delivery out of range</p>
+                  </div>
+                )
               }
               
              
