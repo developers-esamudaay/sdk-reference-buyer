@@ -4,7 +4,7 @@ import styles from "./Navbar.module.scss"
 const Navbar=({search,
     setSearch,
     checkSearch,
-    inlineError,setInlineError,fromProductPage})=>(
+    inlineError,setInlineError,fromProductPage,setToggleCollapse})=>(
 <nav className={styles.navBar}>
 <div style={{display:"flex",justifyContent:"space-between"}}>
  <div className={styles.nav_item}>
@@ -33,12 +33,9 @@ const Navbar=({search,
 <div style={{ display: "flex",justifyContent:"space-between",width:"15%"}}>
 <div className={styles.nav_item}>
 <Link
-     to={{
-       pathname: `/products`,
-     
-     }}
-     className={styles.nav_item_text}
-     x
+    
+    onClick={()=>setToggleCollapse(true)} 
+    className={styles.nav_item_text}
    >
      Cart
    </Link>

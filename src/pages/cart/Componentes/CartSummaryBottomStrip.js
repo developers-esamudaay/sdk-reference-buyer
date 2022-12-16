@@ -10,11 +10,11 @@ import DropdownSvg from '../../../shared/svg/dropdonw'
 import IndianRupee from '../../../shared/svg/indian-rupee'
 import CartItems from './CartItems'
 
-export default function CartSummary() {
+export default function CartSummary({toggleCollapse,setToggleCollapse}) {
   const { cartData, setCartData, cartTotalPrice } = useContext(CartContext)
   const cartItems = cartData?.items
   const history = useHistory()
-  const [toggleCollapse, setToggleCollapse] = useState(false)
+
   return (
     <Fragment>
       {toggleCollapse ? (

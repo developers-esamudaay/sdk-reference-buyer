@@ -35,8 +35,9 @@ export default function ProductList() {
   const [firstProductId, setFirstProductId] = useState('')
   const [selectedLocation, setSelectedLocation] = useState(supportedCities[0])
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
+  const [toggleCollapse, setToggleCollapse] = useState(false)
   const { cartData } = useContext(CartContext)
-  console.log(cartData)
+  console.log(toggleCollapse)
 
   const cartItems = cartData?.items
   const location = useLocation()
@@ -181,7 +182,7 @@ export default function ProductList() {
    <Navbar search={search}
    setSearch={setSearch}
    checkSearch={checkSearch}
-   inlineError={inlineError} fromProductPage/>
+   inlineError={inlineError} fromProductPage setToggleCollapse={setToggleCollapse}/>
 
       {/* header */}
       {loading ? (
@@ -226,7 +227,7 @@ export default function ProductList() {
         </div>
         </div>
       )}
-      {cartItems && cartItems.length > 0 && <CartSummary />}
+      {cartItems && cartItems.length > 0 && <CartSummary toggleCollapse={toggleCollapse} setToggleCollapse={setToggleCollapse}/>}
       {/* <OrderCompletionCard /> */}
       {/* show Cart Summary if cart have some items */}
     </Fragment>
