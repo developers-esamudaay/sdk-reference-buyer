@@ -44,8 +44,8 @@ const defaultRadius=6666*1000;
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius= 1000000000000;
- //Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
+  const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;;
+ //
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
 
   const onErrorAddToCart = (error) => {
