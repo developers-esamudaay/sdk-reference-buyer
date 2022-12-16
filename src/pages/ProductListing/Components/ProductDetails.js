@@ -21,7 +21,7 @@ import Navbar from "../../../shared/navBar/Navbar"
 const extractTimeInfo = (time) => {
   let numberValue = ''
   let stringValue
-  for (let i = 0; i < time.length; i++) {
+  for (let i = 0; i < time?.length??0; i++) {
     if (time[i] === 'P' || time[i] === 'T') {
       continue
     } else if (time[i] >= '0' && time[i] <= '9') {

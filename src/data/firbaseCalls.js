@@ -14,6 +14,7 @@ import {
   endAt,
   setDoc,
   doc,
+  limitToLast
 } from 'firebase/firestore'
 import { async } from '@firebase/util'
 import { queryTypes } from '../constants/queryTypes'
@@ -25,7 +26,7 @@ const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) =
   switch (query_type) {
     case queryTypes.NO_QUERY:
       console.log(offset)
-      return query(productRef, limit(offset), orderBy('id'))
+      return query(productRef,limit(offset), orderBy('id'))
 
     case queryTypes.SEARCH_QUERY:
       console.log(queryParam.type, queryParam.value, 'VALUE')
@@ -38,9 +39,9 @@ const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) =
     case queryTypes.NEXT_PAGE_QUERY:
       console.log(queryParam.lastProductId)
       return query(productRef, limit(offset), orderBy('id'), startAfter(queryParam?.lastProductId))
-    case queryTypes.NEXT_PAGE_QUERY:
-      console.log(queryParam.lastProductId)
-      return query(productRef, limit(offset), orderBy('id'), endAt(queryParam?.firstProductId))
+    case queryTypes.PREV_PAGE_QUERY:
+      console.log(queryParam.firstProductId)
+      return query(productRef, limit(offset), orderBy('id'), endAt(queryParam?.firstProductId),limitToLast(offset))
     case queryTypes.PROVIDER_FILTER_QUERY:
       console.log(queryParam)
       return query(

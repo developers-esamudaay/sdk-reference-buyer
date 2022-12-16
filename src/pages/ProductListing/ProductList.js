@@ -37,7 +37,8 @@ export default function ProductList() {
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
   const [toggleCollapse, setToggleCollapse] = useState(false)
   const { cartData } = useContext(CartContext)
-  console.log(toggleCollapse)
+  const [firstProduct,setFirstProduct]=useState("")
+console.log(products,"productId")
 
   const cartItems = cartData?.items
   const location = useLocation()
@@ -69,6 +70,11 @@ export default function ProductList() {
     setLastProductId(
       Array.isArray(allProducts) && allProducts.length > 0
         ? allProducts[allProducts.length - 1]?.id
+        : '',
+    )
+    setFirstProduct(
+      Array.isArray(allProducts) && allProducts.length > 0
+        ? allProducts[0]?.item_name
         : '',
     )
     setProducts(allProducts)

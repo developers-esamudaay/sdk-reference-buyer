@@ -33,7 +33,7 @@ export default function ProductCard(props) {
   const [toggleAddToCart, setToggleAddToCart] = useState()
   
   const defaultLatLng=0.00
-const defaultRadius=6666*1000;
+const defaultRadius=6666*1000000;
 
   const userLocation={
     latitude:sessionStorage.getItem("latitude"),
