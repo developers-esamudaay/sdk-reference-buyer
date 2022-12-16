@@ -19,6 +19,7 @@ import CartSummary from '../cart/Componentes/CartSummaryBottomStrip'
 import { useLocation } from 'react-router-dom'
 import uuid from 'react-uuid'
 import OrderCompletionCard from '../Checkout/Components/OrderCompletionCard'
+import Navbar from "../../shared/navBar/Navbar"
 export default function ProductList() {
   const [products, setProducts] = useState([])
 
@@ -177,71 +178,11 @@ export default function ProductList() {
   return (
     <Fragment>
       {/* <Navbar /> */}
+   <Navbar search={search}
+   setSearch={setSearch}
+   checkSearch={checkSearch}
+   inlineError={inlineError} fromProductPage/>
 
-      <nav className={styles.navBar}>
-       <div style={{display:"flex",justifyContent:"space-between"}}>
-        <div className={styles.nav_item}>
-        <Link
-            to={{
-              pathname: `/products`,
-            
-            }}
-            className={styles.nav_item_text}
-            
-          >
-            Home
-          </Link>
-        </div>
-       <SearchBanner
-          search={search}
-          setSearch={setSearch}
-          checkSearch={checkSearch}
-          inlineError={inlineError}
-          setInlineError={function checkSearch() {
-            if (!search?.value) {
-              setInlineError((error) => ({
-                ...error,
-                search_error: `${search?.type} cannot be empty`,
-              }))
-              return false
-            }
-            return true
-          }}
-        />
-       </div>
-       <div style={{ display: "flex"}}>
-       <div className={styles.nav_item}>
-       <Link
-            to={{
-              pathname: `/products`,
-            
-            }}
-            className={styles.nav_item_text}
-            
-          >
-            Cart
-          </Link>
-      
-        </div>
-        <div className={styles.nav_item}>
-        <Link
-            to={{
-              pathname: `/orders`,
-            
-            }}
-            className={styles.nav_item_text}
-            
-          >
-            Orders
-          </Link>
-        </div>
-
-       </div>
-
-        {/* Location Dropdown menu  */}
-        
-        {/* Search bar to search product */}
-      </nav>
       {/* header */}
       {loading ? (
         <Loading />
@@ -251,7 +192,7 @@ export default function ProductList() {
           backgroundColor: 'white',
           padding: '5px 5px 5px 5px',
           width: '90%',
-          marginTop: '40px',
+          marginTop: '100px',
           marginLeft: '5%',
           display: 'flex',
           flexDirection: 'column',

@@ -10,11 +10,12 @@ a {
 }
 
 .back_text {
-  font-size: $font-12;
+  font-size: $font-16;
   color: #aaa;
   text-align: left;
   cursor: pointer;
   margin: 0;
+  text-decoration: none;
 }
 
 .back_text:hover {
@@ -25,7 +26,7 @@ a {
 .width {
  display: flex;
  flex-direction: row;
- justify-content: space-around;
+ justify-content: left;
  align-items: center;
 }
 

@@ -1,16 +1,32 @@
 @import "../../assets/scss/variables.scss";
+.overlay {
+    height:100%;
+    width:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+
+    justify-content: center;
+    animation: fade 1s ease forwards;
+    
+  }
 .order_list_wrapper{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh-60px);
+    justify-content: left;
+    
+   
+
+
 }
 .order_list_label_wrapper{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+
 }
 .list_label_text{
   

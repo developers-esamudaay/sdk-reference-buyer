@@ -3,12 +3,18 @@ import styles from '../../styles/orders/orderList.module.scss'
 import OrderCard from './OrderCard'
 import Loading from '../../shared/loading/loading'
 import { getOrderList } from '../../data/firbaseCalls'
-import { useLocation } from 'react-router-dom'
+import { useLocation,useHistory } from 'react-router-dom'
+import Navbar from "../..//shared/navBar/Navbar"
+import no_order_image from "../../assets/images/no_order_image.png"
+import Button from '../../shared/button/button'
+import { buttonTypes } from '../..//shared/button/utils'
+
 const OrderList = () => {
   console.log('in order')
   const [orderList, setOrderList] = useState([])
   const [loading, setLoading] = useState(false)
   const location =useLocation()
+  const history=useHistory()
   const [currentExpendedOrder, setCurrentExpendedOrder] = useState('')
   console.log(currentExpendedOrder)
   useEffect(async () => {
@@ -36,14 +42,54 @@ const OrderList = () => {
   }
 
   return (
+    <>
+    
     <div className={styles.order_list_wrapper}>
-      <div className={styles.order_list_label_wrapper}>
-        <p className={styles.list_label_text}>Orders</p>
-      </div>
+    <Navbar/>
+     
       {loading ? (
         <Loading />
       ) : (
+        <div className={styles.overlay}>
         <div className={styles.order_card_wrapper}>
+      
+          {
+            orderList.length===0&&(
+              <>
+              <div style={{display:"flex",justifyContent:"center"}} >
+            <img
+              src={no_order_image}
+    
+             
+              width="400"
+              height="400"
+              // className={styles.product_img}
+              // onError={(event) => {
+              //   event.target.onerror = null
+              //   event.target.src = no_image_found
+              // }}
+            />
+            
+            </div>
+            <div style={{display:"flex",justifyContent:"center"}}>
+              <p>No Orders Available</p>
+            </div>
+            <div style={{display:"flex",justifyContent:"center"}}>
+            <Button
+                  button_type={buttonTypes.primary}
+                  button_hover_type={buttonTypes.primary_hover}
+                  button_text="Go to Products"
+                  onClick={() => {
+                    
+                    history.push('/products')
+                  }}
+                />
+            </div>
+            </>
+
+            )
+          }
+        
           {orderList.map((order) => {
             return (
               <div key={order?.id}>
@@ -57,8 +103,11 @@ const OrderList = () => {
             )
           })}
         </div>
+        </div>
+
       )}
     </div>
+    </>
   )
 }
 export default OrderList

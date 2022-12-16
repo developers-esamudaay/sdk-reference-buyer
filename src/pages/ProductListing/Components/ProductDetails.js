@@ -15,6 +15,7 @@ import { getProducts } from '../../../data/firbaseCalls'
 import { queryTypes } from '../../../constants/queryTypes'
 import ProductCard from './ProductCard'
 import { firestoreCollections } from '../../../constants/firestoreCollections'
+import Navbar from "../../../shared/navBar/Navbar"
 
 // extract time info from time String
 const extractTimeInfo = (time) => {
@@ -88,6 +89,7 @@ export default function ProductDetails() {
 
   return (
     <Fragment>
+      <Navbar/>
       <div>
         <div
           className={`py-2 ${
@@ -98,11 +100,7 @@ export default function ProductDetails() {
         >
           <div className="container">
             <div className="row py-3 px-2">
-              <div className="d-inline-flex">
-                <Link to={{ pathname: '/application/products' }}>
-                  <p className={styles.back_text}>back</p>
-                </Link>
-              </div>
+            
             </div>
             <div
               className="row"
@@ -131,6 +129,18 @@ export default function ProductDetails() {
               <div className="col-md-12 col-lg-8 p-3">
                 {/* NAME AND ORDERING FROM  */}
                 <div>
+                <div className="d-inline-flex">
+                <Link to={{ pathname: '/products' }}>
+                  <p className={styles.back_text}>Products</p>
+                </Link>
+                {">>"}
+                <Link to={{ pathname: `/products/${id}`,state: {
+                product,
+                price,
+              }, }}>
+                  <p className={styles.back_text}>{product_name}</p>
+                </Link>
+              </div>
                   <p className={`${styles.product_name} ${styles.width}`}>{product_name}</p>
                   <p className={styles.ordered_from}>
                     Ordering from <span className={styles.bold}>{provider_name}</span>
