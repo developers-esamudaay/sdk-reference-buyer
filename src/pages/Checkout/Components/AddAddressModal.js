@@ -21,7 +21,7 @@ export default function AddAddressModal(props) {
   const { address_type, selectedAddress, onClose, onAddAddress } = props
 
   // STATES
-    
+    console.log(address_type)
   const [address, setAddress] = useState(selectedAddress)
   const { addNewDeliveryAddresses, addNewBillingAddresses,currentAddress } = useContext(AddressContext)
   const [addAddressLoading, setAddAddressLoading] = useState(false)
@@ -186,13 +186,22 @@ export default function AddAddressModal(props) {
       checkName(),
       checkEmail(),
       checkPhoneNumber(),
-      checkStreetName(),
+    
       checkLandMark(),
       checkCity(),
       checkState(),
       checkPinCode(),
     ].every(Boolean)
+    console.log(checkName(),
+    checkEmail(),
+    checkPhoneNumber(),
+
+    checkLandMark(),
+    checkCity(),
+    checkState(),
+    checkPinCode())
     if (!allChecksPassed) {
+      console.log("test")
       return
     } else {
       console.log('add new address')
@@ -402,13 +411,14 @@ export default function AddAddressModal(props) {
         </div>
         <div className={`${styles.card_footer} d-flex align-items-center justify-content-center`}>
           <Button
-            isLoading={addAddressLoading}
+            isloading={addAddressLoading}
             button_type={buttonTypes.primary}
             button_hover_type={buttonTypes.primary_hover}
             button_text="Add Address"
             onClick={() => {
-              if (address_type === address_types.delivery) return handleAddDeliveryAddress()
-              handleAddBillingAddress()
+              address_type === address_types.delivery?handleAddDeliveryAddress():    handleAddBillingAddress()
+           
+          
             }}
           />
         </div>
