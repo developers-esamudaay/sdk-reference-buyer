@@ -7,19 +7,22 @@ import { CartContext } from '../../contextProviders/cartContextProvider'
 import Dropdown from '../../shared/dropdown/dropdown'
 import DropdownSvg from '../../shared/svg/dropdonw'
 import { ONDC_COLORS } from '../../shared/colors'
-import SearchBanner from './Components/SearchBanner'
+import CartInfo from '../cart/Components/CartInfo'
 import { supportedCities } from '../../constants/ondcSupportedCities'
 import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCalls'
+import { getAddressFromLatLng } from '../../data/apiCall'
 import { search_types, searchTypeMap } from '../../constants/searchTypes'
 import { queryTypes } from '../../constants/queryTypes'
 import Button from '../../shared/button/button'
 import { buttonTypes } from '../../shared/button/utils'
 import Pagination from '../../shared/pagination/pagination'
-import CartSummary from '../cart/Componentes/CartSummaryBottomStrip'
+
 import { useLocation } from 'react-router-dom'
 import uuid from 'react-uuid'
 import OrderCompletionCard from '../Checkout/Components/OrderCompletionCard'
 import Navbar from "../../shared/navBar/Navbar"
+import { AddressContext } from '../../contextProviders/addressContextProvider'
+import LocationSearchModal from '../../shared/locationSearch/LocationSearchModal'
 export default function ProductList() {
   const [products, setProducts] = useState([])
 
@@ -36,8 +39,11 @@ export default function ProductList() {
   const [selectedLocation, setSelectedLocation] = useState(supportedCities[0])
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
   const [toggleCollapse, setToggleCollapse] = useState(false)
-  const { cartData } = useContext(CartContext)
+  const [addressLoading,setAddressLoading]=useState(false)
+  const { cartData,showCartInfo,setShowCartInfo } = useContext(CartContext)
+  
   const [firstProduct,setFirstProduct]=useState("")
+const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal}=useContext(AddressContext)
 console.log(products,"productId")
 
   const cartItems = cartData?.items
@@ -80,6 +86,16 @@ console.log(products,"productId")
     setProducts(allProducts)
     setLoading(false)
   }
+
+  
+
+  useEffect(async()=>{
+    setAddressLoading(true);
+    const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
+    console.log(currentAddress,"add")
+    setCurrentAddress((prev)=>{return{...prev,city:currentAddress.data?.address?.city||currentAddress.data?.address?.state_district,state:currentAddress.data?.address?.state??"",country:currentAddress.data?.address?.country,areaCode:currentAddress.data?.address?.postcode,door:currentAddress.data?.address?.road||currentAddress.data?.address?.neighbourhood}})
+    setAddressLoading(false)
+  },[currentLocation])
   //fetch products on first call
   useEffect(async () => {
     if (filterData) {
@@ -160,10 +176,12 @@ console.log(products,"productId")
 
   //   await fetchProducts(queryTypes.FILTER_QUERY, queryParam)
   // }, [selectedLocation])
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      sessionStorage.setItem('latitude', position?.coords?.latitude ?? '')
-      sessionStorage.setItem('longitude', position?.coords?.longitude ?? '')
+  useEffect(async () => {
+    navigator.geolocation.getCurrentPosition(async function (position) {
+  
+      setCurrentLocation({lat: position?.coords?.latitude ?? 0.00,lon:position?.coords?.longitude ??0.00})
+      
+ 
     })
   }, [])
 
@@ -188,6 +206,9 @@ console.log(products,"productId")
    <Navbar search={search}
    setSearch={setSearch}
    checkSearch={checkSearch}
+  currentAddress={currentAddress}
+  addressLoading={addressLoading}
+  setShowSearchLocationModal={setShowSearchLocationModal}
    inlineError={inlineError} fromProductPage setToggleCollapse={setToggleCollapse}/>
 
       {/* header */}
@@ -233,9 +254,11 @@ console.log(products,"productId")
         </div>
         </div>
       )}
-      {cartItems && cartItems.length > 0 && <CartSummary toggleCollapse={toggleCollapse} setToggleCollapse={setToggleCollapse}/>}
+    {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
+
       {/* <OrderCompletionCard /> */}
-      {/* show Cart Summary if cart have some items */}
+      {showSearchLocationModal&&<LocationSearchModal/>}
+      
     </Fragment>
   )
 }

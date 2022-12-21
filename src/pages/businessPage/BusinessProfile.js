@@ -6,7 +6,7 @@ import ProductCard from '../ProductListing/Components/ProductCard'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { queryTypes } from '../../constants/queryTypes'
 import { CartContext } from '../../contextProviders/cartContextProvider'
-import CartSummary from '../cart/Componentes/CartSummaryBottomStrip'
+
 const BusinessProfile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [products, setProducts] = useState([])
@@ -127,7 +127,7 @@ console.log(products)
         {tabScreens.map((Screen, index) => {
           return selectedTabIndex === index ? <>{Screen}</> : null
         })}
-         {cartItems && cartItems.length > 0 && <CartSummary />}
+         
       </div>
     </>
   )

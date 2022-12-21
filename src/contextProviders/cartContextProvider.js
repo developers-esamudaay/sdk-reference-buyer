@@ -8,6 +8,8 @@ export const CartContext = createContext({
   onAddQuantity: () => {},
   onAddProduct: () => {},
   cartTotalPrice: 0,
+  showCartInfo:false,
+  setShowCartInfo:()=>{}
 })
 
 
@@ -15,6 +17,7 @@ export function CartContextProvider({ children }) {
   const parsedCartData = JSON.parse(localStorage.getItem('cartData') || '{"items":[]}')
   console.log(parsedCartData, 'data')
   const [cartData, setCartData] = useState(parsedCartData)
+  const [showCartInfo,setShowCartInfo]=useState(false)
   console.log(cartData,"cartData")
   useEffect(() => {
     localStorage.setItem('cartData', JSON.stringify(cartData))
@@ -149,6 +152,8 @@ export function CartContextProvider({ children }) {
         onAddQuantity: addQuantityOfProduct,
         onAddProduct: onAddProductsToCart,
         cartTotalPrice: totalCartPrice,
+        showCartInfo:showCartInfo,
+        setShowCartInfo:setShowCartInfo
       }}
     >
       {children}

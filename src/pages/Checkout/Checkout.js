@@ -12,7 +12,7 @@ const Checkout = () => {
   )
   console.log(currentActiveStep)
   return (
-    <AddressContextProvider>
+ 
       <div className={styles.playground_height}>
         <div className="container">
           <div className="row py-3">
@@ -40,7 +40,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </AddressContextProvider>
+
   )
 }
 export default Checkout

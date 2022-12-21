@@ -13,6 +13,13 @@ export const AddressContext = createContext({
   setSelectedDeliveryAddress: () => {},
   selectedBillingAddress: {},
   setSelectedBillingAddress: () => {},
+  currentAddress:{},
+  setCurrentAddress:()=>{},
+  currentLocation:{},
+  setCurrentLocation:()=>{},
+  showSearchLocationModal:false,
+  setShowSearchLocationModal:()=>{}
+
 })
 
 export const AddressContextProvider = ({ children }) => {
@@ -25,6 +32,9 @@ export const AddressContextProvider = ({ children }) => {
 
   const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState({})
   const [selectedBillingAddress, setSelectedBillingAddress] = useState({})
+  const [currentAddress,setCurrentAddress]=useState({})
+  const [currentLocation,setCurrentLocation]=useState({})
+  const [showSearchLocationModal,setShowSearchLocationModal]=useState(false)
   console.log(deliveryAddresses)
   const addNewBillingAddresses = (newAddress) => {
     setBillingAddresses((prev) => [...prev, newAddress])
@@ -57,6 +67,13 @@ export const AddressContextProvider = ({ children }) => {
         setSelectedDeliveryAddress: setSelectedDeliveryAddress,
         selectedBillingAddress: selectedBillingAddress,
         setSelectedBillingAddress: setSelectedBillingAddress,
+        currentAddress:currentAddress,
+        setCurrentAddress:setCurrentAddress,
+        currentLocation:currentLocation,
+        setCurrentLocation:setCurrentLocation,
+        showSearchLocationModal:showSearchLocationModal,
+        setShowSearchLocationModal:setShowSearchLocationModal
+
       }}
     >
       {children}

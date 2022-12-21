@@ -9,13 +9,14 @@ import { Link } from 'react-router-dom'
 import no_delivery from "../../../../src/assets/images/no_delivery.png"
 import Alert from 'react-alert'
 import haversine from 'haversine-distance'
+import { AddressContext } from '../../../contextProviders/addressContextProvider'
 
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
 
 
   const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
-
+  const {currentLocation,setCurrentLocation}=useContext(AddressContext)
   const cartItems = cartData?.items
   const {
     item_name: product_name,
@@ -36,8 +37,8 @@ export default function ProductCard(props) {
 const defaultRadius=6666*1000000;
 
   const userLocation={
-    latitude:sessionStorage.getItem("latitude"),
-    longitude:sessionStorage.getItem("longitude")
+    latitude:currentLocation?.lat,
+    longitude:currentLocation?.lon
   }
   const providerLocation={
     latitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lat:defaultLatLng,

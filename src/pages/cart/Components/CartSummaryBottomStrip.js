@@ -8,7 +8,7 @@ import Button from '../../../shared/button/button'
 import { ONDC_COLORS } from '../../../shared/colors'
 import DropdownSvg from '../../../shared/svg/dropdonw'
 import IndianRupee from '../../../shared/svg/indian-rupee'
-import CartItems from './CartItems'
+import CartItems from './CartInfo'
 
 export default function CartSummary({toggleCollapse,setToggleCollapse}) {
   const { cartData, setCartData, cartTotalPrice } = useContext(CartContext)

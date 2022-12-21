@@ -8,7 +8,7 @@ import { buttonTypes } from '../../../shared/button/utils'
 
 import Button from '../../../shared/button/button'
 import ProductCard from '../../ProductListing/Components/ProductCard'
-const CartItems = ({ onClose }) => {
+const CartInfo = ({ onClose }) => {
   console.log('in cart Items')
   const { cartData, setCartData, cartTotalPrice } = useContext(CartContext)
   const cartItems = cartData?.items
@@ -72,4 +72,4 @@ const CartItems = ({ onClose }) => {
     </div>
   )
 }
-export default CartItems
+export default CartInfo

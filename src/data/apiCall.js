@@ -9,7 +9,7 @@ const axoisInstanceSdk = axios.create({
   headers: { apid: process.env.API_ID ?? 'd1e7f644-552c-4a4e-a4e3-3233b876c060' },
 })
 const axoisInstanceMap = axios.create({
-  baseURL: 'https://nominatim.openstreetmap.org/search',
+  baseURL: 'https://nominatim.openstreetmap.org',
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': 'https://o2cj2q.csb.app',
@@ -23,7 +23,7 @@ export const confirmOrderUsingSdk = async (payload) => {
   return await axoisInstanceSdk.post('/api/v1/ondc/sdk/buyer/orders', payload)
 }
 export const getLatLngFromAddress = async (address) => {
-  let url = `https://nominatim.openstreetmap.org/search?
+  let url = `/search?
     street=${address.street}
     &city=${address.city}
     &state=${address.state}
@@ -52,3 +52,10 @@ export const cancelOrderFromSdk=async(orderId)=>{
 export const supportOrderFromSdk=async(orderId,payload)=>{
   return axoisInstanceSdk.post("/api/v1/ondc/sdk/buyer/support",payload)
 }
+export const getAddressFromLatLng=async({lat,lon})=>{
+  return await axoisInstanceMap.get(`/reverse?lat=${lat}&lon=${lon}&format=json`)
+}
+export const getLocationSuggetion=async(query)=>{
+  return await axoisInstanceMap.get(`/search?q=${query}&format=json`)
+}
+
