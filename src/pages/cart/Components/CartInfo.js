@@ -5,7 +5,7 @@ import CartItemsStyles from '../../../styles/cart/cartItemsOrderSummary.module.s
 import CrossIcon from '../../../shared/svg/cross-icon'
 import { ONDC_COLORS } from '../../../shared/colors'
 import { buttonTypes } from '../../../shared/button/utils'
-
+import epmpty_cart from "../../../assets/images/empty_cart.png"
 import Button from '../../../shared/button/button'
 import ProductCard from '../../ProductListing/Components/ProductCard'
 const CartInfo = ({ onClose }) => {
@@ -41,6 +41,9 @@ const CartInfo = ({ onClose }) => {
                     </div>
                   )
                 })}
+                {
+                  cartItems.length==0&&(<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:"20px"}}><img src={epmpty_cart} width={"200px"} height={"200px"}/> <p>Cart is empty</p></div>)
+                }
               </div>
             </div>
           </div>
@@ -53,12 +56,15 @@ const CartInfo = ({ onClose }) => {
             <p className={CartItemsStyles.label1}>{cartTotalPrice}</p>
           </div>
           <div className={CartItemsStyles.bottomButtons}>
-            <Button
+            {
+              cartItems.length>0&& <Button
               button_type={buttonTypes.secondary}
               button_hover_type={buttonTypes.secondary_hover}
               button_text="Clear Cart"
-              onClick={() => setCartData({})}
+              onClick={() => setCartData({items:[]})}
             />
+            }
+           
 
             <Button
               button_type={buttonTypes.primary}

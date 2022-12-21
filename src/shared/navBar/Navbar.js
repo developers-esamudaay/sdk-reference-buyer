@@ -10,13 +10,13 @@ import { CartContext } from "../../contextProviders/cartContextProvider"
 const ShowCurrentAddress=({currentAddress,addressLoading,setShowSearchLocationModal})=>{
   const {city,state,country,areaCode,door}=currentAddress
   console.log(city,state,country,areaCode,door,"pre")
-  const prettyAddress=(city??"")+", "+(state??"")+", "+", "+(areaCode??"");
+  const prettyAddress=(city??"")+", "+(state??"")+", "+(areaCode??"");
   console.log(prettyAddress,"pretty")
 return (
   <>
   {
-    addressLoading?<Loading/>:(  <div style={{display:"flex",justifyContent:"center",alignItems:"center",cursor:"pointer",width:"300px"}} onClick={()=>setShowSearchLocationModal(true)}>
-      <img src={location} height={"35px"}/>
+    addressLoading?<Loading/>:(  <div style={{display:"flex",cursor:"pointer",marginTop:"10px"}} onClick={()=>setShowSearchLocationModal(true)}>
+      <img src={location} height={"20px"}/>
       <p className={styles.addres_text}>{prettyAddress}</p>
       </div>)
   }
@@ -34,7 +34,7 @@ const Navbar=({search,
       console.log(cartData,"cart")
      return   (
       <nav className={styles.navBar}>
-      <div style={{display:"flex",justifyContent:"space-between",width:"40%"}}>
+      <div style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
       
        {
        
@@ -50,7 +50,8 @@ const Navbar=({search,
        }
       
       </div>
-      <div style={{ display: "flex",justifyContent:"space-between"}}>
+      <div >
+       <div className={styles.nav_right_items}>
     
     {
       showSearchBar&&<SearchBar
@@ -95,7 +96,10 @@ const Navbar=({search,
       
       <div class={styles.cart_wrapper}>
        <img src={cartIcon} width={"20px"}/>
-        <span>{cartData.items.length} </span>
+       {
+        cartData.items.length>0&& <span>{cartData.items.length} </span>
+       }
+       
       </div>
 
       <Link
@@ -120,6 +124,7 @@ const Navbar=({search,
          </Link>
        </div>
       
+      </div>
       </div>
       
        {/* Location Dropdown menu  */}

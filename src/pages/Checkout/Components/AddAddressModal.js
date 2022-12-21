@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import axios from 'axios'
 // import { postCall } from '../../../../api/axios'
 import styles from '../../../../src/styles/checkout/address/addAddressModal.module.scss'
@@ -21,9 +21,9 @@ export default function AddAddressModal(props) {
   const { address_type, selectedAddress, onClose, onAddAddress } = props
 
   // STATES
-
+    
   const [address, setAddress] = useState(selectedAddress)
-  const { addNewDeliveryAddresses, addNewBillingAddresses } = useContext(AddressContext)
+  const { addNewDeliveryAddresses, addNewBillingAddresses,currentAddress } = useContext(AddressContext)
   const [addAddressLoading, setAddAddressLoading] = useState(false)
   const [error, setError] = useState({
     name_error: '',
@@ -40,6 +40,15 @@ export default function AddAddressModal(props) {
   //   const dispatch = useContext(ToastContext)
 
   // HOOKS
+  useEffect(()=>{
+    setAddress((address) => ({
+      ...address,
+      door:currentAddress?.door,
+      city:currentAddress?.city,
+      state:currentAddress?.state,
+      areaCode:currentAddress?.areaCode
+    }))
+  },[])
 
   function checkName() {
     if (!address?.name) {
@@ -211,27 +220,14 @@ export default function AddAddressModal(props) {
   // use this function to fetch city and pincode
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.popup_card}>
-        <div className={`${styles.card_header} d-flex align-items-center`}>
-          <p className={styles.card_header_title}>Add {address_type} Address</p>
-          <div className="ms-auto">
-            <CrossIcon
-              width="20"
-              height="20"
-              color={ONDC_COLORS.SECONDARYCOLOR}
-              style={{ cursor: 'pointer' }}
-              onClick={onClose}
-            />
-          </div>
-        </div>
+ <>
         <div className={styles.card_body}>
           <div className={styles.address_form_wrapper}>
             <div className={'container-fluid'}>
               <div className="row">
-                <div className="col-sm-12">
+                <div className="col-sm-12 col-md-6 col-lg-4">
                   <Input
-                    label_name="Name"
+                                       style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     type="text"
                     placeholder="Enter Name"
                     id="name"
@@ -249,16 +245,16 @@ export default function AddAddressModal(props) {
                       }))
                     }}
                     onBlur={checkName}
-                    required
+                    
                   />
                   <ErrorMessage>{error.name_error}</ErrorMessage>
                 </div>
-                <div className="col-md-6 col-sm-12">
+                <div className="col-md-6 col-sm-12 col-lg-4">
                   <Input
                     type="email"
                     placeholder="Enter Email"
                     id="email"
-                    label_name="Email"
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     value={address?.email}
                     has_error={error.email_error}
                     onChange={(event) => {
@@ -273,18 +269,19 @@ export default function AddAddressModal(props) {
                       }))
                     }}
                     onBlur={checkEmail}
-                    required
+                    
                   />
                   <ErrorMessage>{error.email_error}</ErrorMessage>
                 </div>
-                <div className="col-md-6 col-sm-12">
+                <div className="col-md-6 col-sm-12 col-lg-4">
                   <Input
                     type="text"
                     maxlength="10"
                     placeholder="Enter Phone"
                     id="phone"
-                    label_name="Phone Number"
+                  
                     value={address?.phone}
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     has_error={error.phone_error}
                     onChange={(event) => {
                       const regexp = /^[0-9]+$/
@@ -300,40 +297,17 @@ export default function AddAddressModal(props) {
                       }))
                     }}
                     onBlur={checkPhoneNumber}
-                    required
+                    
                   />
                   <ErrorMessage>{error.phone_error}</ErrorMessage>
                 </div>
-                <div className="col-sm-12">
-                  <Input
-                    label_name="Street"
-                    type="text"
-                    placeholder="Enter Street"
-                    id="street"
-                    has_error={error.street_name_error}
-                    value={address?.street}
-                    onChange={(event) => {
-                      const name = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        street: name,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        street_name_error: '',
-                      }))
-                    }}
-                    onBlur={checkStreetName}
-                    required
-                  />
-                  <ErrorMessage>{error.street_name_error}</ErrorMessage>
-                </div>
+               
                 <div className="col-md-6 col-sm-12">
                   <Input
                     type="text"
                     placeholder="Enter Landmark"
                     id="landmark"
-                    label_name="Landmark"
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     has_error={error.door_error}
                     value={address?.door}
                     onChange={(event) => {
@@ -348,7 +322,7 @@ export default function AddAddressModal(props) {
                       }))
                     }}
                     onBlur={checkLandMark}
-                    required
+                    
                   />
                   <ErrorMessage>{error.door_error}</ErrorMessage>
                 </div>
@@ -359,7 +333,7 @@ export default function AddAddressModal(props) {
                     maxlength="6"
                     placeholder="Enter Pin code"
                     id="pin_code"
-                    label_name="Pin Code"
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     value={address?.areaCode}
                     has_error={error.areaCode_error}
                     onChange={(event) => {
@@ -380,7 +354,7 @@ export default function AddAddressModal(props) {
                       }))
                     }}
                     onBlur={checkPinCode}
-                    required
+                    
                   />
                   <ErrorMessage>{error.areaCode_error}</ErrorMessage>
                 </div>
@@ -389,10 +363,10 @@ export default function AddAddressModal(props) {
                     type="text"
                     placeholder="Enter City"
                     id="city"
-                    label_name="City"
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     value={address?.city}
                     has_error={error.city_name_error}
-                    required
+                    
                     onChange={(event) => {
                       const city = event.target.value
                       setAddress((address) => ({
@@ -408,10 +382,10 @@ export default function AddAddressModal(props) {
                     type="text"
                     placeholder="Enter State"
                     id="state"
-                    label_name="State"
+                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
                     has_error={error.state_name_error}
                     value={address?.state}
-                    required
+                    
                     onChange={(event) => {
                       const state = event.target.value
                       setAddress((address) => ({
@@ -438,7 +412,7 @@ export default function AddAddressModal(props) {
             }}
           />
         </div>
-      </div>
-    </div>
+        </>
+    
   )
 }

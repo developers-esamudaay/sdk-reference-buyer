@@ -17,6 +17,9 @@
   
     
   }
+  .nav_right_items{
+    display: flex;justify-content:space-between
+  }
 .nav_item  {
     display: flex;
     justify-content: center;
@@ -60,7 +63,7 @@
   }
   .addres_text{
     text-decoration: none;
-    font-size: $font-18;
+    font-size: $font-16;
     font-weight: $semibold;
     color: rgb(201, 217, 212);
   }
@@ -78,4 +81,19 @@
     background:rgb(198, 73, 171);
     text-align: center;
 }
+
+
 }
+@media screen and (max-width: 780px) {
+  .nav_right_items{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+  };
+  .navBar{
+    flex-direction: column;
+  }
+ 
+ }

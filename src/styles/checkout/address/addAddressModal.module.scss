@@ -1,50 +1,13 @@
 @import "../../../assets/scss/variables.scss";
 
-.overlay {
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba($primaryColor, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fade 1s ease forwards;
-  z-index: 1;
-}
 
-.popup_card {
-  min-width: 40%;
-  max-width: 70%;
-  background-color: $white;
-  border-radius: 10px;
-  max-height: 95%;
-  overflow: auto;
-  opacity: 1;
-  animation: slide 0.5s ease forwards;
-}
-
-.card_header {
-  padding: 20px 25px;
-  background-color: $white;
-  border-bottom: 1px solid rgba($secondaryColor, 0.15);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-
-  .card_header_title {
-    font-family: $firaSans;
-    font-size: $font-18;
-    font-weight: $medium;
-    text-align: left;
-    color: $primaryColor;
-    margin: 0;
-  }
-}
 
 .card_body {
   padding: 20px 25px;
-  border-bottom: 1px solid rgba($secondaryColor, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   .card_body_text {
     font-size: $font-14;
@@ -62,6 +25,14 @@
     color: $secondaryColor;
     margin: 0;
   }
+}
+.input_style{
+  border-top:0px solid;
+  border-left:0px solid;
+  border-right:0px solid;
+  outline:none;
+  border-radius:0px;
+  background-color: yellow;
 }
 
 .modal_input_wrappper {
@@ -181,8 +152,7 @@
 }
 
 .address_form_wrapper {
-  max-height: 300px;
-  overflow: auto;
+ 
   max-width: 500px;
 }
 
