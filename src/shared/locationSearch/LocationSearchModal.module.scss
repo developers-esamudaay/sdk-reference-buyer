@@ -31,4 +31,10 @@
        justify-content: center;
        margin-top: 10%;
        
+       
+      }
+      @media screen and (max-width: 780px) {
+        .popup_card{
+          width:70%;
+        }
       }

@@ -25,8 +25,9 @@ export default function SearchBar({
         <input
           type="text"
           autoFocus
-          style={{padding:padding,backgroundColor:"white",width:"300px"}}
+          className={bannerStyles.input_style}
           placeholder={placeholder}
+
           onChange={(event) => {
             const searchValue = event.target.value
             setSearch((search) => ({
@@ -42,7 +43,7 @@ export default function SearchBar({
         />
         </form>
         <div >
-        <img src={searchIcon} width={"40px"}/>
+        <img src={searchIcon} width={"45px"}/>
         </div>
      
       {inlineError&&inlineError?.search_error && <ErrorMessage>{inlineError.search_error}</ErrorMessage>}
