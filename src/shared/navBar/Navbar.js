@@ -10,7 +10,7 @@ import { CartContext } from "../../contextProviders/cartContextProvider"
 const ShowCurrentAddress=({currentAddress,addressLoading,setShowSearchLocationModal})=>{
   const {city,state,country,areaCode,door}=currentAddress
   console.log(city,state,country,areaCode,door,"pre")
-  const prettyAddress=""+(door??"")+", "+(city??"")+", "+(state??"")+", "+(country??"")+", "+(areaCode??"");
+  const prettyAddress=(city??"")+", "+(state??"")+", "+", "+(areaCode??"");
   console.log(prettyAddress,"pretty")
 return (
   <>
