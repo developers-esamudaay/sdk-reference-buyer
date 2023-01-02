@@ -1,17 +1,17 @@
 @import "../../../src/assets/scss/variables.scss";
 
 .btn_back {
-  border-radius: 36px;
+  border-radius: 20px;
   text-align: center;
   height: 40px;
-  max-width: 300px;
+  max-width: 200px;
   min-width: 150px;
   padding: 0 10px;
 }
 
 .button_text {
   margin: 0;
-  font-size: $font-14;
+  font-size: $font-16;
   font-weight: $medium;
   text-align: center;
 }

@@ -18,11 +18,14 @@ export const AddressContext = createContext({
   currentLocation:{},
   setCurrentLocation:()=>{},
   showSearchLocationModal:false,
-  setShowSearchLocationModal:()=>{}
+  setShowSearchLocationModal:()=>{},
+  addressLoading:false,
+  setAddressLoading:()=>{}
 
 })
 
 export const AddressContextProvider = ({ children }) => {
+  const [addressLoading,setAddressLoading]=useState(false)
   const [deliveryAddresses, setDeliveryAddresses] = useState(
     JSON.parse(localStorage.getItem('deliveraddresses')) || [],
   )
@@ -72,7 +75,9 @@ export const AddressContextProvider = ({ children }) => {
         currentLocation:currentLocation,
         setCurrentLocation:setCurrentLocation,
         showSearchLocationModal:showSearchLocationModal,
-        setShowSearchLocationModal:setShowSearchLocationModal
+        setShowSearchLocationModal:setShowSearchLocationModal,
+        addressLoading:addressLoading,
+        setAddressLoading:setAddressLoading
 
       }}
     >

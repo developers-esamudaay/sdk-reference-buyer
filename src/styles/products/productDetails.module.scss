@@ -31,15 +31,12 @@ a {
 }
 
 .product_list_without_summary_wrapper {
-  height: 100%;
+  margin-top: 30px;
   overflow: auto;
+ 
 }
 
-.product_list_with_summary_wrapper {
-  height: 100%;
-  overflow: auto;
-  
-}
+
 
 .product_img_container {
   display: flex;

@@ -13,6 +13,7 @@ const CartInfo = ({ onClose }) => {
   const { cartData, setCartData, cartTotalPrice } = useContext(CartContext)
   const cartItems = cartData?.items
   const history = useHistory()
+
   console.log(cartItems)
   return (
     <div className={CartItemsStyles.overlay}>

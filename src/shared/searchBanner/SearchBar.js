@@ -42,8 +42,8 @@ export default function SearchBar({
           }}
         />
         </form>
-        <div >
-        <img src={searchIcon} width={"45px"}/>
+        <div style={{backgroundColor:"gray",borderRadius:"2px"}} >
+        <img src={searchIcon} width={"35px"}/>
         </div>
      
       {inlineError&&inlineError?.search_error && <ErrorMessage>{inlineError.search_error}</ErrorMessage>}

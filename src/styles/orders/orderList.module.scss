@@ -9,6 +9,7 @@
     background-color: white;
     display: flex;
 
+
     justify-content: center;
     animation: fade 1s ease forwards;
     
@@ -16,7 +17,9 @@
 .order_list_wrapper{
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
     
    
 
@@ -39,11 +42,16 @@
       
 }
 .order_card_wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
    
-    width:50%;
+ 
+    height:100%;
+    width:100%;
+    margin-top: 70px;
+    
+  
+
+   
+   
 
   
     

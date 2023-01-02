@@ -86,10 +86,12 @@ export const getVerificationCartData = async (id) => {
 //order
 
 //create new order in firestore
-export async function createOrder(id) {
+export async function createOrder(id,businessId) {
+  console.log(businessId)
   return await setDoc(doc(db, firestoreCollections.ONDC_ORDER, id), {
     session_id: sessionStorage.getItem('sessionId'),
     id: id,
+    business_id:businessId
   })
 }
 

@@ -90,12 +90,11 @@ export default function ProductDetails() {
   return (
     <Fragment>
       <Navbar/>
-      <div>
+
         <div
-          className={`py-2 ${
-            cartItems.length > 0
-              ? styles.product_list_with_summary_wrapper
-              : styles.product_list_without_summary_wrapper
+          className={`py-20 ${
+          
+              styles.product_list_without_summary_wrapper
           }`}
         >
           <div className="container">
@@ -289,7 +288,7 @@ export default function ProductDetails() {
           </div>
         </div>
         {/* {cartItems.length > 0 && <OrderSummary />} */}
-      </div>
+    
     </Fragment>
   )
 }

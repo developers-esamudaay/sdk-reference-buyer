@@ -1,4 +1,6 @@
 @import "../../assets/scss/variables.scss";
+
+
 .overlay {
   height: 100vh;
   position: fixed;
@@ -16,20 +18,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-     border-bottom: "2px solid black";
+  background-color: #2b538e;
+  border-radius: 7px;
+   
    
 }
 .card_header_title {
-    font-family: $firaSans;
-    font-size: $font-20;
-    font-weight: $medium;
-    text-align: left;
-    color: $primaryColor;
-    margin: 0;
+  font-size: $font-16;
+  color: #a1a1a1;
+  margin: 0;
   }
-  .address_type_label {
-    font-size: $font-14;
-    color: #a1a1a1;
+  .date_label {
+    font-size: $font-16;
+    color: #4582dd;
     margin: 0;
   }
   .status_label {
@@ -56,9 +57,9 @@
   .card_body{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 25px;
+  
+
+   
     border-bottom: 1px solid rgba($secondaryColor, 0.15);
 }
   .order_items{
@@ -67,11 +68,13 @@
     justify-content: space-between;
     align-items: center;
     background-color:white;
-    width:100%;
+    padding: 5px;
+
   }
   .order_items_text{
 
-    margin-left: 1.5vh;
+padding-left: 20px;
+padding-right: 20px;
  
   }
   .order_items_image{
@@ -79,32 +82,39 @@
    margin-right: 1.5vh;
  
   }
-  .item_name_text{
+  .items_heading{
     font-family: $firaSans;
     font-size: $font-18;
+    font-weight: $bold;
+    text-align: center;
+    color: #2b538e;
+  }
+  .item_name_text{
+    font-family: $firaSans;
+    font-size: $font-16;
     font-weight: $medium;
     text-align: center;
-
+    color: $primaryColor;
     margin-top: 2vh;
   }
   
   .item_quantity_text{
     font-family: $firaSans;
-    font-size: $font-18;
+    font-size: $font-16;
     font-weight: $medium;
-    text-align: left;
+    text-align: center;
     color: $primaryColor;
 
     margin-top: 2vh;
   }
   .card_footer{
     display: flex;
-    justify-content: space-between;
-    padding:20px;
+    justify-content: space-evenly;
+    padding:10px;
 
   }
   .support_modal{
-    min-width: 40%;
+    min-width: 30%;
     max-width: 70%;
     background-color: $white;
     border-radius: 10px;
@@ -113,4 +123,49 @@
     opacity: 1;
     padding:10px;
     animation: slide 0.5s ease forwards;
+  }
+  .return_modal_items{
+    display: flex;
+   margin-top: 5px;
+  
+   justify-content: space-between;
+   align-items: center;
+   margin-left: 10px;
+
+  }
+  .return_modal_heading{
+    display: flex;
+  
+  
+   justify-content: space-between;
+   align-items: center;
+   margin-left: 10px;
+   padding-left: 30px;
+   padding-right: 20px;
+   margin-top: 20px;
+  }
+  .left_section{
+    display: flex;
+  
+  justify-content: space-evenly;
+  
+  }
+  .return_item_title{
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+  }
+  .action_text{
+    font-family: $firaSans;
+    font-size: $font-16;
+    font-weight: $medium;
+    text-align: center;
+    color: #1f3b64;
+    cursor:pointer,
+
+  }
+  .action_text:hover{
+    color: rgb(89, 95, 176);
   }

@@ -53,7 +53,7 @@ const CartStatus = (props) => {
     console.log('orderId', id)
     setOrderId(id)
     try {
-      await createOrder(id)
+      await createOrder(id,cartData?.business_id)
 
       const orderPayload = {
         cart_id: cartData.cart_id,
@@ -72,6 +72,7 @@ const CartStatus = (props) => {
       }
       await confirmOrderUsingSdk(orderPayload)
       await delay(3000)
+      setCartData({items:[]})
       setInitializeOrderLoading(false)
       history.push({pathname:"/orders",state:{orderId:id}})
 

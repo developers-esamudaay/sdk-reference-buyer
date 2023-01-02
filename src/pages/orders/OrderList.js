@@ -44,14 +44,15 @@ const OrderList = () => {
   return (
     <>
     
-    <div className={styles.order_list_wrapper}>
+
     <Navbar/>
      
       {loading ? (
         <Loading />
       ) : (
-        <div className={styles.overlay}>
-        <div className={styles.order_card_wrapper}>
+     <>
+       
+        
       
           {
             orderList.length===0&&(
@@ -89,7 +90,7 @@ const OrderList = () => {
 
             )
           }
-        
+        <div className={styles.order_card_wrapper}>
           {orderList.map((order) => {
             return (
               <div key={order?.id}>
@@ -103,10 +104,11 @@ const OrderList = () => {
             )
           })}
         </div>
-        </div>
+   
+</>
 
       )}
-    </div>
+ 
     </>
   )
 }

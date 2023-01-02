@@ -39,11 +39,11 @@ export default function ProductList() {
   const [selectedLocation, setSelectedLocation] = useState(supportedCities[0])
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
   const [toggleCollapse, setToggleCollapse] = useState(false)
-  const [addressLoading,setAddressLoading]=useState(false)
+
   const { cartData,showCartInfo,setShowCartInfo } = useContext(CartContext)
   
   const [firstProduct,setFirstProduct]=useState("")
-const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal}=useContext(AddressContext)
+const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal,addressLoading}=useContext(AddressContext)
 console.log(products,"productId")
 
   const cartItems = cartData?.items
@@ -62,6 +62,7 @@ console.log(products,"productId")
   console.log(cartItems)
   // use this function to fetch products
   async function fetchProducts(query_type, queryParam) {
+    console.log(query_type, queryParam)
     setLoading(true)
 
     setProducts([])
@@ -89,13 +90,7 @@ console.log(products,"productId")
 
   
 
-  useEffect(async()=>{
-    setAddressLoading(true);
-    const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
-    console.log(currentAddress,"add")
-    setCurrentAddress((prev)=>{return{...prev,city:currentAddress.data?.address?.city||currentAddress.data?.address?.state_district,state:currentAddress.data?.address?.state??"",country:currentAddress.data?.address?.country,areaCode:currentAddress.data?.address?.postcode,door:currentAddress.data?.address?.road||currentAddress.data?.address?.neighbourhood}})
-    setAddressLoading(false)
-  },[currentLocation])
+
   //fetch products on first call
   useEffect(async () => {
     if (filterData) {
@@ -176,14 +171,7 @@ console.log(products,"productId")
 
   //   await fetchProducts(queryTypes.FILTER_QUERY, queryParam)
   // }, [selectedLocation])
-  useEffect(async () => {
-    navigator.geolocation.getCurrentPosition(async function (position) {
-  
-      setCurrentLocation({lat: position?.coords?.latitude ?? 0.00,lon:position?.coords?.longitude ??0.00})
-      
- 
-    })
-  }, [])
+
 
   const EmptyProductView = (
     <div classNamer={styles.empty_product_view}>

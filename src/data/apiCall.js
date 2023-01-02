@@ -52,6 +52,9 @@ export const cancelOrderFromSdk=async(orderId)=>{
 export const supportOrderFromSdk=async(orderId,payload)=>{
   return axoisInstanceSdk.post("/api/v1/ondc/sdk/buyer/support",payload)
 }
+export const returnOrderUsingSdk=(payload,orderId)=>{
+  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/return`,payload)
+}
 export const getAddressFromLatLng=async({lat,lon})=>{
   return await axoisInstanceMap.get(`/reverse?lat=${lat}&lon=${lon}&format=json`)
 }
