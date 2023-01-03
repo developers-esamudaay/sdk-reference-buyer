@@ -148,6 +148,7 @@ const cancelOrder=async()=>{
   
 }
 const supportOrder=async()=>{
+  console.log("support clicked")
   setOrderSupportLoading(true)
 
   try{
@@ -254,7 +255,7 @@ const returnOrder=async()=>{
         </div>
         <div className={styles.card_footer}>
       {/* <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/> */}
-      <Button oonClick={()=>supportOrder()}button_type={buttonTypes.primary} button_text={"Support"} />
+      <Button onClick={()=>supportOrder()}button_type={buttonTypes.primary} button_text={"Support"} isloading={orderSupportLoading?1:0} />
       {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()}button_type={buttonTypes.primary_hover} button_text={"Cancel"} isloading={cancelLoading}/>}
       {/* <Button button_type={buttonTypes.secondary_hover} button_text={"Support"} onClick={()=>supportOrder()} isloading={orderSupportLoading?1:0}/> */}
         </div>
