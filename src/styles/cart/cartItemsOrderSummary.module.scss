@@ -15,8 +15,8 @@
   }
   
   .popup_card {
-    min-width: 40%;
-    max-width: 80%;
+    min-width: 70%;
+    max-width: 90%;
     background-color: $white;
     border-radius: 10px;
     max-height: 80%;
@@ -31,12 +31,12 @@ hr
     width: 100%;
 }
 .label {
-    font-size: $font-24;
+    font-size: $font-20;
     font-weight: $semibold;
 
-    color: white;
-    margin: 0;
-    padding:5px;
+    color: rgb(15, 13, 13);
+
+    padding:25px;
   }
  
 
@@ -47,14 +47,15 @@ hr
     justify-content: space-between;
     width:100%;
     
-    background-color:rgb(103, 119, 243);
+    background-color:white;
    
 }
 .itemCount{
     display: flex;
     flex-direction: row;
-     justify-content: space-around;
-     margin-bottom: 10px;
+    justify-content: end;
+     margin-bottom: 40px;
+     margin-right: 40px;
     
    
 }
@@ -73,8 +74,59 @@ hr
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
-    justify-content: space-around;
+    width: 90%;
+    justify-content: space-between;
     margin-bottom: 20px;
+    margin-left:5%;
+  
     
+}
+.label1{
+  font-size: $font-20;
+    font-weight: $semibold;
+
+    color: rgb(15, 13, 13);
+
+
+
+}
+.total_price{
+  font-size: $font-20;
+  font-weight: $semibold;
+  margin-left: 10px;
+  color: rgb(10, 28, 221);
+}
+.table_image{
+
+  
+    thead {
+      td, th {
+        border: 0;
+        color: #666;
+        font-size: 1.0rem;
+      }
+    }
+    
+    td, th {
+      vertical-align: middle;
+      text-align: center;
+      
+      &.qty {
+        max-width: 2rem;
+        margin-left: 3rem;
+      }
+    
+  }
+  
+  .add_svg_color {
+    fill: white;
+  }
+  .qty_label {
+    font-size: $font-20;
+    font-weight: $semibold;
+
+    color: white;
+    align-items: center;
+
+  }
 }

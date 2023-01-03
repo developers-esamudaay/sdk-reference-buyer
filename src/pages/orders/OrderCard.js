@@ -186,23 +186,10 @@ const returnOrder=async()=>{
 }
   return (
     <div
-      style={{
-       
-      marginTop:"10px",
-        borderRadius: '20px',
-        cursor: 'pointer',
-        width:"50%",
-        marginLeft:"25%",
-        backgroundColor:"white"
-
-
-
-   
-       
-      }}
+   className={styles.card_wrapper}
     >
       <div
-        className={styles.card_wrapper}
+        className={styles.card_header}
         onClick={() => expendOrder(isOrderExpended ? '' : orderData?.id)}
       >
         <div style={{ padding: '30px' }}>

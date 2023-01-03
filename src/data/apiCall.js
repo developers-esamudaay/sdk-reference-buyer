@@ -59,6 +59,6 @@ export const getAddressFromLatLng=async({lat,lon})=>{
   return await axoisInstanceMap.get(`/reverse?lat=${lat}&lon=${lon}&format=json`)
 }
 export const getLocationSuggetion=async(query)=>{
-  return await axoisInstanceMap.get(`/search?q=${query}&format=json`)
+  return await axoisInstanceMap.get(`/search?q=${query}&format=json&countrycode=IN&&limit=5`)
 }
 

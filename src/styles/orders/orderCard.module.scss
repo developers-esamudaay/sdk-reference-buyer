@@ -15,6 +15,14 @@
   z-index: 1;
 }
 .card_wrapper{
+  margin-top:10px;
+  border-radius: 20px;
+  cursor: pointer;
+  width:50%;
+  margin-left:25%;
+  background-color:white
+}
+.card_header{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -168,4 +176,10 @@ padding-right: 20px;
   }
   .action_text:hover{
     color: rgb(89, 95, 176);
+  }
+  @media screen and (max-width: 780px) {
+    .card_wrapper{
+      width:90%;
+      margin-left: 5%;
+    }
   }

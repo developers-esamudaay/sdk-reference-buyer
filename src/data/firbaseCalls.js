@@ -115,7 +115,7 @@ export const getOrderList = async (sessionId) => {
   const q = query(
     collection(db, firestoreCollections.ONDC_ORDER),
     orderBy("statusUpdatedOn","desc"),
-    where('session_id', '==', sessionId),
+    where('id', '==', "cfe18f5e-bb85-7321-ce4c-a1b191b0f51c"),
   )
   const querySnapshot = await getDocs(q)
   const orderList = querySnapshot.docs.map((doc) => doc.data())
