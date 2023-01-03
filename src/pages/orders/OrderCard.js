@@ -13,6 +13,7 @@ import { ONDC_COLORS } from "../../shared/colors"
 
 
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => {
+  console.log(orderData?.statusOrder,"status")
   const [trackingError,setTrackingError]=useState("")
   const [trackLoading,setTrackLoading]=useState(false)
   const [cancelLoading,setCancelLoading]=useState(false)
@@ -249,12 +250,12 @@ const returnOrder=async()=>{
         </div>
         <div >
          <p className={styles.action_text} onClick={()=>trackOrder()}>Track Order</p>
-         <p className={styles.action_text}  onClick={()=>setShowReturnModal(true)}>Return Order</p>
+         {orderData?.statusOrder==="COMPLETED"&&<p className={styles.action_text}  onClick={()=>setShowReturnModal(true)}>Return Order</p>}
         </div>
         <div className={styles.card_footer}>
       {/* <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/> */}
       <Button oonClick={()=>supportOrder()}button_type={buttonTypes.primary} button_text={"Support"} />
-      {orderData?.statusOrder!=="CANCELLED"&&<Button onClick={()=>cancelOrder()}button_type={buttonTypes.primary_hover} button_text={"Cancel"} isloading={cancelLoading}/>}
+      {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()}button_type={buttonTypes.primary_hover} button_text={"Cancel"} isloading={cancelLoading}/>}
       {/* <Button button_type={buttonTypes.secondary_hover} button_text={"Support"} onClick={()=>supportOrder()} isloading={orderSupportLoading?1:0}/> */}
         </div>
         {trackingError&& <div style={{
