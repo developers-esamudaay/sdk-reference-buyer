@@ -8,14 +8,14 @@ import { Carousel } from 'react-responsive-carousel'
 // import OrderSummary from '../../cart/order-summary/orderSummary'
 import { useContext } from 'react'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
-import Subtract from '../../../shared/svg/subtract'
-import Add from '../../../shared/svg/add'
-import ExpendedView from '../../../shared/expededView/ExpededView'
+import Subtract from '../../../assets/icons/Subtract'
+import Add from '../../../assets/icons/Add'
+import ExpendedView from '../../../sharedComponents/expededView/ExpededView'
 import { getProducts } from '../../../data/firbaseCalls'
 import { queryTypes } from '../../../constants/queryTypes'
 import ProductCard from './ProductCard'
 import { firestoreCollections } from '../../../constants/firestoreCollections'
-import Navbar from "../../../shared/navBar/Navbar"
+import Navbar from "../../../sharedComponents/navBar/Navbar"
 
 // extract time info from time String
 const extractTimeInfo = (time) => {

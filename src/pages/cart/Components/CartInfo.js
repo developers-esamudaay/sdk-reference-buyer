@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
 import CartItemsStyles from '../../../styles/cart/cartItemsOrderSummary.module.scss'
-import CrossIcon from '../../../shared/svg/cross-icon'
-import { ONDC_COLORS } from '../../../shared/colors'
-import { buttonTypes } from '../../../shared/button/utils'
+import CrossIcon from '../../../assets/icons/CrossIcon'
+import { APP_COLORS } from '../../../constants/colors'
+
 import epmpty_cart from "../../../assets/images/empty_cart.png"
-import Button from '../../../shared/button/button'
+import Button from '../../../sharedComponents/button/Button'
 import ProductCard from '../../ProductListing/Components/ProductCard'
-import Add from '../../../shared/svg/add'
-import Subtract from '../../../shared/svg/subtract'
+import Add from '../../../assets/icons/Add'
+import Subtract from '../../../assets/icons/Subtract'
 const CartInfo = ({ onClose }) => {
   console.log('in cart Items')
   const { cartData, setCartData, cartTotalPrice, onRemoveProduct,onAddQuantity,onReduceQuantity} = useContext(CartContext)
@@ -28,7 +28,7 @@ const CartInfo = ({ onClose }) => {
                 width="45"
                 height="45"
                 style={{ cursor: 'pointer', paddingRight: '20px' }}
-                color={ONDC_COLORS.PRIMARYCOLOR}
+                color={APP_COLORS.PRIMARYCOLOR}
                 onClick={onClose}
               />
             </div>
@@ -109,8 +109,11 @@ const CartInfo = ({ onClose }) => {
                cartItems.length>0&&  <div className={CartItemsStyles.bottomButtons}>
                
                 <Button
-                 button_type={buttonTypes.secondary}
-                 button_hover_type={buttonTypes.secondary_hover}
+                btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.SECONDARYCOLOR}
+                buttonTextColor={APP_COLORS.SECONDARYCOLOR}
+                hoverTextColor={APP_COLORS.WHITE}
+                
                  button_text="Clear Cart"
                  onClick={() => setCartData({items:[]})}
                />
@@ -118,8 +121,11 @@ const CartInfo = ({ onClose }) => {
               
    
                <Button
-                 button_type={buttonTypes.primary}
-                 button_hover_type={buttonTypes.primary_hover}
+                btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                hoverTextColor={APP_COLORS.WHITE}
+  
                  button_text="Checkout"
                  onClick={() => history.push('/checkout')}
                />

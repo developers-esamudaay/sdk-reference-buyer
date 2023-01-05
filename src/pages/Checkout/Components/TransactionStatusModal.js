@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from '../../../shared/button/button'
-import { buttonTypes } from '../../../shared/button/utils'
+import Button from '../../../sharedComponents/button/Button'
+import { APP_COLORS } from '../../../constants/colors'
 import { transactionStatusValues } from '../../../constants/transactionStatus'
 const TransactionModal = ({ updateTrasactionStatus }) => {
   return (
@@ -37,14 +37,18 @@ const TransactionModal = ({ updateTrasactionStatus }) => {
         }}
       >
         <Button
-          button_type={buttonTypes.success}
-          button_hover_type={buttonTypes.success_hover}
+           btnBackColor={APP_COLORS.WHITE}
+           hoverBackColor={APP_COLORS.ACCENTCOLOR}
+           buttonTextColor={APP_COLORS.ACCENTCOLOR}
+           hoverTextColor={APP_COLORS.WHITE}
           button_text="Success"
           onClick={() => updateTrasactionStatus(transactionStatusValues.SUCCESS)}
         />
         <Button
-          button_type={buttonTypes.danger}
-          button_hover_type={buttonTypes.danger_hover}
+            btnBackColor={APP_COLORS.WHITE}
+            hoverBackColor={APP_COLORS.ACCENTCOLOR}
+            buttonTextColor={APP_COLORS.ACCENTCOLOR}
+            hoverTextColor={APP_COLORS.WHITE}
           button_text="Failed"
           onClick={() => updateTrasactionStatus(transactionStatusValues.FAILED)}
         />

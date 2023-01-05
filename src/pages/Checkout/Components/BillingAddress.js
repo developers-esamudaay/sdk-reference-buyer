@@ -1,8 +1,8 @@
 import React, { Fragment, useContext, useState } from 'react'
-import { address_types } from '../../../constants/address-types'
+import { address_types } from '../../../constants/addressTypes'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import styles from '../../../../src/styles/cart/cartView.module.scss'
-import Add from '../../../shared/svg/add'
+import Add from '../../../assets/icons/Add'
 import AddAddressModal from './AddAddressModal'
 import AddressRadioButton from './AddressRadioButton'
 

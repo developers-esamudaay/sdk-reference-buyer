@@ -1,28 +1,28 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import styles from '../../styles/products/productList.module.scss'
 import { Link } from 'react-router-dom'
-import Loading from '../../shared/loading/loading'
+import Loading from '../../sharedComponents/loading/Loading'
 import ProductCard from './Components/ProductCard'
 import { CartContext } from '../../contextProviders/cartContextProvider'
-import Dropdown from '../../shared/dropdown/dropdown'
-import DropdownSvg from '../../shared/svg/dropdonw'
-import { ONDC_COLORS } from '../../shared/colors'
+
+import DropdownSvg from '../../assets/icons/Dropdown'
+
 import CartInfo from '../cart/Components/CartInfo'
 import { supportedCities } from '../../constants/ondcSupportedCities'
 import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCalls'
 import { getAddressFromLatLng } from '../../data/apiCall'
 import { search_types, searchTypeMap } from '../../constants/searchTypes'
 import { queryTypes } from '../../constants/queryTypes'
-import Button from '../../shared/button/button'
-import { buttonTypes } from '../../shared/button/utils'
-import Pagination from '../../shared/pagination/pagination'
+import Button from '../../sharedComponents/button/Button'
+
+import Pagination from '../../sharedComponents/pagination/Pagination'
 
 import { useLocation } from 'react-router-dom'
 import uuid from 'react-uuid'
-import OrderCompletionCard from '../Checkout/Components/OrderCompletionCard'
-import Navbar from "../../shared/navBar/Navbar"
+
+import Navbar from "../../sharedComponents/navBar/Navbar"
 import { AddressContext } from '../../contextProviders/addressContextProvider'
-import LocationSearchModal from '../../shared/locationSearch/LocationSearchModal'
+import LocationSearchModal from '../../sharedComponents/locationSearch/LocationSearchModal'
 export default function ProductList() {
   const [products, setProducts] = useState([])
 
@@ -244,7 +244,7 @@ console.log(products,"productId")
       )}
     {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
 
-      {/* <OrderCompletionCard /> */}
+ 
       {showSearchLocationModal&&<LocationSearchModal/>}
       
     </Fragment>

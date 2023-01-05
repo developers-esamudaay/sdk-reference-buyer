@@ -1,13 +1,13 @@
 import React, { useEffect, useContext, useState } from 'react'
 import styles from '../../styles/orders/orderList.module.scss'
 import OrderCard from './OrderCard'
-import Loading from '../../shared/loading/loading'
+import Loading from '../../sharedComponents/loading/Loading'
 import { getOrderList } from '../../data/firbaseCalls'
 import { useLocation,useHistory } from 'react-router-dom'
-import Navbar from "../..//shared/navBar/Navbar"
+import Navbar from "../../sharedComponents/navBar/Navbar"
 import no_order_image from "../../assets/images/no_order_image.png"
-import Button from '../../shared/button/button'
-import { buttonTypes } from '../..//shared/button/utils'
+import Button from '../../sharedComponents/button/Button'
+import { APP_COLORS } from '../../constants/colors'
 
 const OrderList = () => {
   console.log('in order')
@@ -77,8 +77,10 @@ const OrderList = () => {
             </div>
             <div style={{display:"flex",justifyContent:"center"}}>
             <Button
-                  button_type={buttonTypes.primary}
-                  button_hover_type={buttonTypes.primary_hover}
+                  btnBackColor={APP_COLORS.WHITE}
+                  hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                  buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                  hoverTextColor={APP_COLORS.WHITE}
                   button_text="Go to Products"
                   onClick={() => {
                     

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styles from '../../../../src/styles/products/productCard.module.scss'
 import no_image_found from '../../../../src/assets/images/no_image_found.png'
-import IndianRupee from '../../../shared/svg/indian-rupee'
-import Subtract from '../../../shared/svg/subtract'
-import Add from '../../../shared/svg/add'
+import IndianRupee from '../../../assets/icons/IndianRupee'
+import Subtract from '../../../assets/icons/Subtract'
+import Add from '../../../assets/icons/Add'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
 import { Link } from 'react-router-dom'
 import no_delivery from "../../../../src/assets/images/no_delivery.png"

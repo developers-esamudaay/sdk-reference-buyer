@@ -8,7 +8,7 @@ import uuid from 'react-uuid'
 import OrderList from './pages/orders/OrderList'
 import BusinessProfile from './pages/businessPage/BusinessProfile'
 import { getAddressFromLatLng } from '../src/data/apiCall'
-export default function OndcRoutes() {
+export default function AppRoutes() {
   const {currentAddress,currentLocation,setCurrentLocation,setCurrentAddress,setAddressLoading}=useContext(AddressContext)
   useEffect(async() => {
     let sessionId = sessionStorage.getItem('sessionId')

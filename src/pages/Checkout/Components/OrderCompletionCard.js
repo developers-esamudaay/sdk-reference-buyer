@@ -1,11 +1,11 @@
 import React,{useState} from 'react'
 import styles from '../../../styles/checkout/order/OrderCompletionCard.module.scss'
-import Pending from '../../../shared/svg/pending'
-import IndianRupee from '../../../shared/svg/indian-rupee'
-import Button from '../../../shared/button/button'
-import { buttonTypes } from '../../../shared/button/utils'
+import Pending from '../../../sharedComponents/svg/pending'
+import IndianRupee from '../../../sharedComponents/svg/indian-rupee'
+import Button from '../../../sharedComponents/button/button'
+import { buttonTypes } from '../../../sharedComponents/button/utils'
 import { cancelOrderFromSdk, supportOrderFromSdk, trackOrderFromSdk } from "../../../data/apiCall"
-import ErrorMessage from "../../../shared/error-message/errorMessage"
+import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage"
 import { getSupportData } from '../../../data/firbaseCalls'
 import { delay } from '../../../commonUtils'
 const OrderCompletionCard = ({ orderId, orderItems, orderStatus,reloadOrders ,transactionId               

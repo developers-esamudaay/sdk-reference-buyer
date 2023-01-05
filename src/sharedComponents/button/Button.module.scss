@@ -1,0 +1,26 @@
+@import "../../styles/variables.scss";
+
+.btn {
+  border-radius: 5px;
+  text-align: center;
+  height: 40px;
+  max-width: 200px;
+  min-width: 150px;
+  padding: 5px 10px;
+}
+
+.button_text {
+  margin: 0;
+  font-size: $font-18;
+  font-weight: $medium;
+  text-align: center;
+}
+
+.btn:disabled {
+  max-width: 300px;
+  min-width: 150px;
+  height: 40px;
+  opacity: 0.7;
+  cursor: no-drop;
+  background-color: $secondaryColor;
+}

@@ -1,15 +1,15 @@
 import {useState} from "react"
 import styles from '../../../src/styles/orders/orderCard.module.scss'
-import DropdownSvg from '../../shared/svg/dropdonw'
-import Pending from '../../shared/svg/pending'
-import Button from '../../shared/button/button'
-import { buttonTypes } from '../../shared/button/utils'
+import DropdownSvg from '../../assets/icons/Dropdown'
+
+import Button from '../../sharedComponents/button/Button'
+
 import { cancelOrderFromSdk, supportOrderFromSdk, trackOrderFromSdk,returnOrderUsingSdk } from '../../data/apiCall'
-import ErrorMessage from "../../shared/error-message/errorMessage"
+import ErrorMessage from "../../sharedComponents/errorMessage/ErrorMessage"
 import { delay } from "../../commonUtils"
 import { getSupportData } from "../../data/firbaseCalls"
-import CrossIcon from '../../../src/shared/svg/cross-icon'
-import { ONDC_COLORS } from "../../shared/colors"
+import CrossIcon from '../../../src/assets/icons/CrossIcon'
+import { APP_COLORS } from "../../constants/colors"
 
 
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => {
@@ -48,7 +48,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
      <CrossIcon
               width="20"
               height="20"
-              color={ONDC_COLORS.SECONDARYCOLOR}
+              color={APP_COLORS.SECONDARYCOLOR}
               style={{ cursor: 'pointer' }}
               onClick={()=>setShowReturnModal(false)}
             />
@@ -80,7 +80,10 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
      }
      <div style={{display:"flex",justifyContent:"center",padding:"15px"}}>
       {
-        returnItems?.length>0&&     <Button button_type={buttonTypes.secondary_hover} button_text={`Return ${returnItems?.length} Items`} onClick={()=>returnOrder()} isloading={returnLoading?1:0}/>
+        returnItems?.length>0&&     <Button           btnBackColor={APP_COLORS.WHITE}
+        hoverBackColor={APP_COLORS.SECONDARYCOLOR}
+        buttonTextColor={APP_COLORS.SECONDARYCOLOR}
+        hoverTextColor={APP_COLORS.WHITE} button_text={`Return ${returnItems?.length} Items`} onClick={()=>returnOrder()} isloading={returnLoading?1:0}/>
       }
 
      </div>
@@ -96,7 +99,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
      <CrossIcon
               width="20"
               height="20"
-              color={ONDC_COLORS.SECONDARYCOLOR}
+              color={APP_COLORS.SECONDARYCOLOR}
               style={{ cursor: 'pointer' }}
               onClick={()=>setSupportData()}
             />
@@ -108,7 +111,10 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
        <p>{supportData?.phone}</p>
       </div>
       <div style={{display:"flex",justifyContent:"center"}}>
-       <Button button_type={buttonTypes.secondary_hover} button_text={"Support Page Url"} onClick={()=>window.location=supportData?.uri}/>
+       <Button           btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.SECONDARYCOLOR}
+                buttonTextColor={APP_COLORS.SECONDARYCOLOR}
+                hoverTextColor={APP_COLORS.WHITE} button_text={"Support Page Url"} onClick={()=>window.location=supportData?.uri}/>
       </div>
      </div>
     </div>
@@ -173,18 +179,35 @@ const supportOrder=async()=>{
 }
 const returnOrder=async()=>{
  setReturnLoading(true)
- const payload={
-  city_code: "std:080",
-  business_id:orderData?.business_id,
-  return_items:returnItems.map((item)=>{return {
-    item_id:item?.id,
-    quantity:item?.quantity,
-    return_reason_code:"001"
-
-  }})
+ try{
+  const payload={
+    city_code: "std:080",
+    business_id:orderData?.business_id,
+    return_items:returnItems.map((item)=>{return {
+      item_id:item?.id,
+      quantity:item?.quantity,
+      return_reason_code:"001",
+      images:"",
+      ttl_approval: "P1D",
+      ttl_reverseqc: "P3D",
+  
+  
+    }})
+   }
+   const returnRes=await returnOrderUsingSdk(payload,orderData?.id)
+    if(returnRes.status === 200 && returnRes?.data?.message?.ack?.status === 'ACK'){
+   
+      await delay(2000)
+      await reloadOrders()
+    }
+    
+    setReturnLoading(false)
  }
- const returnRes=await returnOrderUsingSdk(payload,orderData?.id)
- console.log(returnRes)
+
+ catch(e){
+  console.log(e)
+ }
+ 
 }
   return (
     <div
@@ -217,6 +240,35 @@ const returnOrder=async()=>{
           </div>
         </div>
       </div>
+      {/* <div style={{display:"flex",justifyContent:"space-between",width:"480px",marginLeft:"20%",padding:"20px"}}>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div className={styles.dot}>
+        
+        </div>
+        <p>Created</p>
+        </div>
+        <span className={styles.line}></span>
+       
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div className={styles.dot}>
+        
+        </div>
+        <p>Created</p>
+        </div>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div className={styles.dot}>
+        
+        </div>
+        <p>Created</p>
+        </div>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div className={styles.dot}>
+        
+        </div>
+        <p>Created</p>
+        </div>
+
+      </div> */}
       {isOrderExpended && (
         <>
         
@@ -255,8 +307,14 @@ const returnOrder=async()=>{
         </div>
         <div className={styles.card_footer}>
       {/* <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/> */}
-      <Button onClick={()=>supportOrder()}button_type={buttonTypes.primary} button_text={"Support"} isloading={orderSupportLoading?1:0} />
-      {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()}button_type={buttonTypes.primary_hover} button_text={"Cancel"} isloading={cancelLoading}/>}
+      <Button onClick={()=>supportOrder()} btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                hoverTextColor={APP_COLORS.WHITE} button_text={"Support"} isloading={orderSupportLoading?1:0} />
+      {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()} btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                hoverTextColor={APP_COLORS.WHITE} button_text={"Cancel"} isloading={cancelLoading}/>}
       {/* <Button button_type={buttonTypes.secondary_hover} button_text={"Support"} onClick={()=>supportOrder()} isloading={orderSupportLoading?1:0}/> */}
         </div>
         {trackingError&& <div style={{

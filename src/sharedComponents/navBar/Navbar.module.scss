@@ -1,0 +1,100 @@
+@import "../../styles/variables.scss";
+.navBar{
+    overflow: hidden;
+    width:100%;
+    z-index: 1;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+     background-color:rgb(103, 119, 243);
+     padding-left: 30px;
+     padding-right: 10px;
+    
+    
+  
+    
+  }
+  .nav_right_items{
+    display: flex;justify-content:space-between
+  }
+.nav_item  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 10px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 25px;
+
+   
+  }
+  .nav_item_search  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    padding-top: 10px;
+
+   
+  }
+  .nav_item_search_text{
+    text-decoration: none;
+    font-size: $font-18;
+    font-weight: $semibold;
+    color: white;
+    padding-top: 7px;
+
+    
+  }
+  .nav_item_text{
+    text-decoration: none;
+    font-size: $font-18;
+    font-weight: $semibold;
+    color: white;
+
+    
+  }
+  .addres_text{
+    text-decoration: none;
+    font-size: $font-16;
+    font-weight: $semibold;
+    color: rgb(201, 217, 212);
+  }
+
+.cart_wrapper{
+  margin-right: 20px;
+  span{
+    font-size: 12px;
+    font-weight: 600;
+    position: absolute;
+
+   border-radius: 70%;
+    height: 18px;
+    width: 18px;
+    background:rgb(198, 73, 171);
+    text-align: center;
+}
+
+
+}
+@media screen and (max-width: 780px) {
+  .nav_right_items{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+  };
+  .navBar{
+    flex-direction: column;
+    position: relative;
+  }
+ 
+ }

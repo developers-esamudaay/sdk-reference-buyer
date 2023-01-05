@@ -1,5 +1,5 @@
 import styles from './styles/globalStyles.module.scss'
-import OndcRoutes from './routes'
+import AppRoutes from './routes'
 import { useEffect } from 'react'
 
 import { CartContextProvider } from './contextProviders/cartContextProvider'
@@ -11,7 +11,7 @@ function App() {
     <div className={styles.background}>
        <CartContextProvider>
         <AddressContextProvider>
-          <OndcRoutes />
+          <AppRoutes />
       </AddressContextProvider>
         </CartContextProvider>
     </div>

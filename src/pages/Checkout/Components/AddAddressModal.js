@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 // import axios from 'axios'
 // import { postCall } from '../../../../api/axios'
 import styles from '../../../../src/styles/checkout/address/addAddressModal.module.scss'
-import { buttonTypes } from '../../../shared/button/utils'
-import Button from '../../../shared/button/button'
-import { ONDC_COLORS } from '../../../shared/colors'
-import Input from '../../../shared/input/input'
-import CrossIcon from '../../../shared/svg/cross-icon'
-import { address_types } from '../../../constants/address-types'
+
+import Button from '../../../sharedComponents/button/Button'
+import { APP_COLORS } from '../../../constants/colors'
+import Input from '../../../sharedComponents/input/Input'
+import CrossIcon from '../../../assets/icons/CrossIcon'
+import { address_types } from '../../../constants/addressTypes'
 import { getLatLngFromAddress } from '../../../data/apiCall'
 // import { toast_actions, toast_types } from '../../../shared/toast/utils/toast'
 // import { restoreToDefault } from './utils/restoreDefaultAddress'
 // import { ToastContext } from '../../../../context/toastContext'
-import ErrorMessage from '../../../shared/error-message/errorMessage'
+import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
 import validator from 'validator'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 // import useCancellablePromise from '../../../../api/cancelRequest'
@@ -412,8 +412,10 @@ export default function AddAddressModal(props) {
         <div className={`${styles.card_footer} d-flex align-items-center justify-content-center`}>
           <Button
             isloading={addAddressLoading}
-            button_type={buttonTypes.primary}
-            button_hover_type={buttonTypes.primary_hover}
+            btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                hoverTextColor={APP_COLORS.WHITE}
             button_text="Add Address"
             onClick={() => {
               address_type === address_types.delivery?handleAddDeliveryAddress():    handleAddBillingAddress()

@@ -3,7 +3,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { checkoutSteps } from '../../../constants/checkoutSteps'
 import styles from '../../../../src/styles/cart/cartView.module.scss'
 import { getCurrentStep } from '../utils'
-import { ONDC_COLORS } from '../../../shared/colors'
+import { APP_COLORS } from '../../../constants/colors'
 import {
   createCart,
   getVerificationCartData,
@@ -12,17 +12,17 @@ import {
 } from '../../../data/firbaseCalls'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
-import Checkmark from '../../../shared/svg/checkmark'
-import Button from '../../../shared/button/button'
-import Loading from '../../../shared/loading/loading'
+import Checkmark from '../../../assets/icons/Checkmark'
+import Button from '../../../sharedComponents/button/Button'
+import Loading from '../../../sharedComponents/loading/Loading'
 import { verfyCartUsingSdk, confirmOrderUsingSdk } from '../../../data/apiCall'
-import { buttonTypes } from '../../../shared/button/utils'
+
 import uuid from 'react-uuid'
 import TransactionStatusModal from './TransactionStatusModal'
 import { transactionStatusValues } from '../../../constants/transactionStatus'
 import { delay } from '../../../commonUtils'
-import ErrorMessage from '../../../shared/error-message/errorMessage'
-import OrderCompletionCard from './OrderCompletionCard'
+import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
+
 import { useHistory } from 'react-router-dom'
 
 const CartStatus = (props) => {
@@ -180,7 +180,7 @@ const CartStatus = (props) => {
         style={
           isCurrentStep
             ? {
-                borderBottom: `1px solid ${ONDC_COLORS.BACKGROUNDCOLOR}`,
+                borderBottom: `1px solid ${APP_COLORS.BACKGROUNDCOLOR}`,
                 borderBottomRightRadius: 0,
                 borderBottomLeftRadius: 0,
               }
@@ -201,7 +201,7 @@ const CartStatus = (props) => {
         {isCurrentStep && (
           <div style={{ width: '100% ' }}>
             {loading ? (
-              <Loading backgroundColor={ONDC_COLORS.ACCENTCOLOR} />
+              <Loading backgroundColor={APP_COLORS.ACCENTCOLOR} />
             ) : cartVerificationStatus ? (
               cartVerificationStatus !== 'FAILED' ? (
                 <>
@@ -277,8 +277,10 @@ const CartStatus = (props) => {
                   >
                     <Button
                       isloading={initializeOrderLoading ? 1 : 0}
-                      button_type={buttonTypes.primary}
-                      button_hover_type={buttonTypes.primary_hover}
+                      btnBackColor={APP_COLORS.WHITE}
+                      hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                      buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                      hoverTextColor={APP_COLORS.WHITE}
                       button_text="Place Order"
                       onClick={() => setShowTransactionModal(true)}
                     />
@@ -295,8 +297,10 @@ const CartStatus = (props) => {
                     className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
                   >
                     <Button
-                      button_type={buttonTypes.primary}
-                      button_hover_type={buttonTypes.primary_hover}
+                 btnBackColor={APP_COLORS.WHITE}
+                 hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                 buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                 hoverTextColor={APP_COLORS.WHITE}
                       button_text="Go to Products"
                       onClick={() => {
                         setCartData({ items: [] })
@@ -317,8 +321,10 @@ const CartStatus = (props) => {
                 className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
               >
                 <Button
-                  button_type={buttonTypes.primary}
-                  button_hover_type={buttonTypes.primary_hover}
+                btnBackColor={APP_COLORS.WHITE}
+                hoverBackColor={APP_COLORS.ACCENTCOLOR}
+                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                hoverTextColor={APP_COLORS.WHITE}
                   button_text="Go to Products"
                   onClick={() => {
                     setCartData({ items: [] })
@@ -337,15 +343,7 @@ const CartStatus = (props) => {
                 }}
               />
             )}
-            {/* {orderStatus && (
-              <OrderCompletionCard
-                orderItems={orderItems}
-                orderStatus={orderStatus}
-                orderId={orderId}
-                reloadOrders={reloadOrders}
-                transactionId={transactionId}
-              />
-            )} */}
+       
           </div>
         )}
       </div>

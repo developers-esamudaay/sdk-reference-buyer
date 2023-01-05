@@ -1,12 +1,12 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { buttonTypes } from '../../../shared/button/utils'
+
 import styles from '../../../../src/styles/cart/cartView.module.scss'
-import Button from '../../../shared/button/button'
-import { ONDC_COLORS } from '../../../shared/colors'
+import Button from '../../../sharedComponents/button/Button'
+import { APP_COLORS } from '../../../constants/colors'
 import { checkoutSteps } from '../../../constants/checkoutSteps'
 import { getCurrentStep } from '../utils'
-import Checkmark from '../../../shared/svg/checkmark'
-import Loading from '../../../shared/loading/loading'
+import Checkmark from '../../../assets/icons/Checkmark'
+import Loading from '../../../sharedComponents/loading/Loading'
 
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import DeliveryAddress from './DeliveryAddress'
@@ -50,7 +50,7 @@ console.log(selectedBillingAddress,selectedDeliveryAddress)
 
   const in_card_loading = (
     <div className="d-flex align-items-center justify-content-center" style={{ height: '100px' }}>
-      <Loading backgroundColor={ONDC_COLORS.ACCENTCOLOR} />
+      <Loading backgroundColor={APP_COLORS.ACCENTCOLOR} />
     </div>
   )
 
@@ -61,7 +61,7 @@ console.log(selectedBillingAddress,selectedDeliveryAddress)
         style={
           isCurrentStep()
             ? {
-                borderBottom: `1px solid ${ONDC_COLORS.BACKGROUNDCOLOR}`,
+                borderBottom: `1px solid ${APP_COLORS.BACKGROUNDCOLOR}`,
                 borderBottomRightRadius: 0,
                 borderBottomLeftRadius: 0,
               }
@@ -134,15 +134,17 @@ console.log(selectedBillingAddress,selectedDeliveryAddress)
           <div className={styles.card_body}>
             <DeliveryAddress />
 
-            <hr style={{ background: ONDC_COLORS.SECONDARYCOLOR }} />
+            <hr style={{ background: APP_COLORS.SECONDARYCOLOR }} />
 
             <BillingAddress />
           </div>
           <div className={`${styles.card_footer} d-flex align-items-center justify-content-center`}>
             <Button
               disabled={isEmptyObject(selectedBillingAddress) || isEmptyObject(selectedDeliveryAddress)}
-              button_type={buttonTypes.primary}
-              button_hover_type={buttonTypes.primary_hover}
+              btnBackColor={APP_COLORS.WHITE}
+              hoverBackColor={APP_COLORS.SECONDARYCOLOR}
+              buttonTextColor={APP_COLORS.SECONDARYCOLOR}
+              hoverTextColor={APP_COLORS.WHITE}
               button_text="Proceed"
               onClick={() => setCurrentActiveStep(getCurrentStep(checkoutSteps.CART_STATUS))}
             />

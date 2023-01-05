@@ -1,0 +1,46 @@
+@import "../../styles/variables.scss";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper > div {
+  margin: 0 3px;
+}
+.dot1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: scale 0.5s 0.1s ease infinite alternate;
+}
+.dot2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: scale 0.5s 0.2s ease infinite alternate;
+}
+.dot3 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: scale 0.5s 0.3s ease infinite alternate;
+}
+.dot4 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: scale 0.5s 0.4s ease infinite alternate;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+}

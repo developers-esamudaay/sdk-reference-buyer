@@ -1,0 +1,40 @@
+@import "../../styles/variables.scss";
+
+
+    .overlay {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba($primaryColor, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        animation: fade 1s ease forwards;
+        z-index: 1;
+      }
+
+      .popup_card {
+      width:35%;
+        background-color: $white;
+       
+       height: 100%;
+    
+        opacity: 1;
+        animation: slide 0.5s ease forwards;
+      }
+      .content{
+        display: flex;
+        flex-direction: column;
+     align-items: center;
+       justify-content: center;
+       margin-top: 10%;
+       
+       
+      }
+      @media screen and (max-width: 780px) {
+        .popup_card{
+          width:70%;
+        }
+      }

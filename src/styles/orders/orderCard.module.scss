@@ -1,4 +1,4 @@
-@import "../../assets/scss/variables.scss";
+@import "../variables.scss";
 
 
 .overlay {
@@ -177,6 +177,30 @@ padding-right: 20px;
   .action_text:hover{
     color: rgb(89, 95, 176);
   }
+//   .dot{
+//     width:20px;
+//     height:20px;
+//     border-radius: 50%;
+//     align-items: center;
+//     background-color: #4582dd;
+//   }
+
+
+//  .dot:after
+//  {
+//     display: block;
+//     position: relative;
+//     top: 40%;
+//    width:165px;
+//     height: 6px;
+
+//     background-color: #366c97;
+//     content: '';
+//     z-index: 1
+// }
+// .dot:last-child ::after {
+//   display: none
+// }
   @media screen and (max-width: 780px) {
     .card_wrapper{
       width:90%;
