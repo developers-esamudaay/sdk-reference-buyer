@@ -30,7 +30,7 @@ export const getLatLngFromAddress = async (address) => {
     &state=${address.state}
     &country=India
     &postalcode=${address.areaCode}&format=json`
-  console.log()
+ 
   return await axoisInstanceMap.post(url)
 }
 export const trackOrderFromSdk=async(orderId)=>{
@@ -40,7 +40,7 @@ export const trackOrderFromSdk=async(orderId)=>{
 
 }
 export const cancelOrderFromSdk=async(orderId)=>{
-  console.log(orderId)
+ 
   return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/cancel`,{
     "city_code": "std:080",
     "type": "CANCEL",
@@ -58,7 +58,7 @@ export const returnOrderUsingSdk=(payload,orderId)=>{
 }
 export const getAddressFromLatLng=async({lat,lon})=>{
   const url=`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`
-  console.log(url,"loc")
+
   return await axoisInstanceMap.get(url)
 }
 export const getLocationSuggetion=async(query)=>{

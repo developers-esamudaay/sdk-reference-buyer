@@ -19,7 +19,7 @@ const BusinessProfile = () => {
   const[desc,setDesc]=useState("")
   const { id } = useParams()
   const { cartData } = useContext(CartContext)
-  console.log(bppId,bppUri,"bpp")
+  
   const cartItems = cartData?.items
   const tab1 = <p>first tab</p>
   const tab2 = <p>second tab</p>
@@ -64,9 +64,9 @@ const BusinessProfile = () => {
     </div>
   )
   const tabScreens = [ProductScreen, About]
-console.log(products)
+
   useEffect(async () => {
-   console.log(id)
+   
     setLoading(true)
     
     const products = await getProducts({queryParam:{filterValue:id},collectionName:"ondcProducts",query_type:queryTypes.PROVIDER_FILTER_QUERY});
@@ -81,7 +81,7 @@ console.log(products)
      setBppId(businessInfo?.bpp_id)
      setBppUri(businessInfo?.bpp_uri)
    setLoading(false)
-    // console.log(businessDetails)
+
   }, [])
   const screenNames = [' Products', 'About']
   const TabBar = (

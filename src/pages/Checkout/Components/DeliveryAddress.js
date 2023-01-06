@@ -17,7 +17,7 @@ import AddAddressModal from './AddAddressModal'
 export default function DeliveryAddress(props) {
   const { selectedDeliveryAddress, setSelectedDeliveryAddress, deliveryAddresses } =
     useContext(AddressContext)
-  console.log(selectedDeliveryAddress.id)
+  
   const [toggleAddressModal, setToggleAddressModal] = useState({
     actionType: '',
     toggle: false,

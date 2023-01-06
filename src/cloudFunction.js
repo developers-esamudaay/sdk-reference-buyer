@@ -39,7 +39,7 @@ exports.addProductsInondcProducts = functions.firestore.document('/ondcCatalog/{
           }
           if (!mySet1.has(product?.id)) {
             mySet1.add(product?.id)
-            console.log(product)
+           
             return await setDoc(doc(db, firestoreCollections.ONDC_PRODUCTS, product?.id), product)
           }
         }

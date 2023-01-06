@@ -1,6 +1,6 @@
 import { checkoutSteps } from '../../constants/checkoutSteps'
 export function getCurrentStep(step_id) {
-  console.log(step_id)
+  
   switch (step_id) {
     case checkoutSteps.SELECT_ADDRESS:
       return {

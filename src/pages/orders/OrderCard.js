@@ -13,7 +13,7 @@ import { APP_COLORS } from "../../constants/colors"
 
 
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => {
-  console.log(orderData?.statusOrder,"status")
+
   const [trackingError,setTrackingError]=useState("")
   const [trackLoading,setTrackLoading]=useState(false)
   const [cancelLoading,setCancelLoading]=useState(false)
@@ -23,14 +23,13 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
   const [selectedItemForReturn,setSelectedItemForReturn]=useState(   new Array(orderData?.items?.length).fill({}))
   const [supportData,setSupportData]=useState()
   const returnItems=selectedItemForReturn.reduce((acc,item)=>Object.keys(item).length>0?[...acc,item]:acc,[])
-  console.log(returnItems,"items")
-  console.log(selectedItemForReturn,"value")
+  
   const handleOnChange=(position)=>{
-    console.log(selectedItemForReturn,"value")
+   
     const updateItems=selectedItemForReturn.map((item,index)=>{
       return  index===position?(Object.keys(item).length===0?orderData?.items[index]:{}):item
     })
-    console.log(updateItems,"value")
+
     setSelectedItemForReturn(updateItems)
   }
   const onQuantityChange=(position,value)=>{
@@ -39,7 +38,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
     })
     setSelectedItemForReturn(updateItems)
   }
-  console.log(trackLoading)
+
   const ReturnModal=()=>(
     <>
     <div className={styles.overlay}>
@@ -154,7 +153,7 @@ const cancelOrder=async()=>{
   
 }
 const supportOrder=async()=>{
-  console.log("support clicked")
+
   setOrderSupportLoading(true)
 
   try{

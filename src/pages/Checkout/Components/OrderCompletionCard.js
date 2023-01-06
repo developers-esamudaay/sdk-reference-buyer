@@ -15,7 +15,7 @@ const OrderCompletionCard = ({ orderId, orderItems, orderStatus,reloadOrders ,tr
   const [cancelLoading,setCancelLoading]=useState(false)
   const [orderSupportLoading,setOrderSupportLoading]=useState(false)
   const [supportData,setSupportData]=useState()
-  console.log(reloadOrders)
+
   const SupportModal=()=>(
     <>
     <div className={styles.overlay}>
@@ -67,7 +67,7 @@ const OrderCompletionCard = ({ orderId, orderItems, orderStatus,reloadOrders ,tr
   }
   const supportOrder=async()=>{
     setOrderSupportLoading(true)
-    console.log(transactionId)
+    
     try{
       const payload={
        

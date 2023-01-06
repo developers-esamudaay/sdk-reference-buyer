@@ -44,7 +44,7 @@ export default function ProductList() {
   
   const [firstProduct,setFirstProduct]=useState("")
 const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal,addressLoading}=useContext(AddressContext)
-console.log(products,"productId")
+
 
   const cartItems = cartData?.items
   const location = useLocation()
@@ -59,10 +59,10 @@ console.log(products,"productId")
     }
     return true
   }
-  console.log(cartItems)
+
   // use this function to fetch products
   async function fetchProducts(query_type, queryParam) {
-    console.log(query_type, queryParam)
+
     setLoading(true)
 
     setProducts([])

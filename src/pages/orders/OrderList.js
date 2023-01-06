@@ -10,33 +10,32 @@ import Button from '../../sharedComponents/button/Button'
 import { APP_COLORS } from '../../constants/colors'
 
 const OrderList = () => {
-  console.log('in order')
+  
   const [orderList, setOrderList] = useState([])
   const [loading, setLoading] = useState(false)
   const location =useLocation()
   const history=useHistory()
   const [currentExpendedOrder, setCurrentExpendedOrder] = useState('')
-  console.log(currentExpendedOrder)
+  
   useEffect(async () => {
     const sessioId = sessionStorage.getItem('sessionId')
     setLoading(true)
 
     const orderList = await getOrderList(sessioId)
-    console.log(orderList)
+    
     setOrderList(orderList)
     setLoading(false)
   }, [])
 
   useEffect(async ()=>{
-    console.log(location)
+
     setCurrentExpendedOrder(location?.state?.orderId)
   },[location])
 
   const reloadOrders=async()=>{
     setLoading(true)
     const sessioId = sessionStorage.getItem('sessionId')
-    const orderList = await getOrderList(sessioId)
-    console.log(orderList)
+  
     setOrderList(orderList)
     setLoading(false)
   }

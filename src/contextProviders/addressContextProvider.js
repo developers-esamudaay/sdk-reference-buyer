@@ -38,18 +38,18 @@ export const AddressContextProvider = ({ children }) => {
   const [currentAddress,setCurrentAddress]=useState({})
   const [currentLocation,setCurrentLocation]=useState({})
   const [showSearchLocationModal,setShowSearchLocationModal]=useState(false)
-  console.log(deliveryAddresses)
+ 
   const addNewBillingAddresses = (newAddress) => {
     setBillingAddresses((prev) => [...prev, newAddress])
   }
   const addNewDeliveryAddresses = (newAddress) => {
-    console.log('add new delivery Address')
+    
     setDeliveryAddresses((prev) => {
       return [...prev, newAddress]
     })
   }
   useEffect(() => {
-    console.log('save in cookie')
+   
     localStorage.setItem('deliveraddresses', JSON.stringify(deliveryAddresses))
   }, [deliveryAddresses])
   useEffect(() => {

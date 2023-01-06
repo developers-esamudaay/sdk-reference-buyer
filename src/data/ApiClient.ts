@@ -28,7 +28,7 @@ class ApiClient {
           return await axoisInstance.get(url).then((response) => response)
 
         case RequestType.POST: {
-          console.log(params)
+        
           return await axoisInstance.post(url, params).then((response) => response)
         }
 

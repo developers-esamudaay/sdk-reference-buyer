@@ -17,11 +17,11 @@ const LocationSearchModal=()=>{
     }
     useEffect(async()=>{
        const response= await getLocationSuggetion(searchTerm.value);
-       console.log(response,"location")
+       
        setLocationSearchSuggetions(response.data)
 
     },[searchTerm.value])
-    console.log(locatioSearchSuggetions,"location")
+   
     return (
         <div className={styles.overlay}>
          <div className={styles.popup_card}>

@@ -21,15 +21,15 @@ import { queryTypes } from '../constants/queryTypes'
 
 const db = getFirestore(app)
 const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) => {
-  console.log(query_type)
+  
   const productRef = collection(db, collectionName)
   switch (query_type) {
     case queryTypes.NO_QUERY:
-      console.log(offset)
+   
       return query(productRef,limit(offset), orderBy('id'))
 
     case queryTypes.SEARCH_QUERY:
-      console.log(queryParam.type, queryParam.value, 'VALUE')
+   
       return query(
         productRef,
         limit(offset),
@@ -37,13 +37,13 @@ const genrateQuery = ({ queryParam, collectionName, query_type, offset = 24 }) =
         where('selectedIndexes', 'array-contains', queryParam.value.toLowerCase()),
       )
     case queryTypes.NEXT_PAGE_QUERY:
-      console.log(queryParam.lastProductId)
+    
       return query(productRef, limit(offset), orderBy('id'), startAfter(queryParam?.lastProductId))
     case queryTypes.PREV_PAGE_QUERY:
-      console.log(queryParam.firstProductId)
+      
       return query(productRef, limit(offset), orderBy('id'), endAt(queryParam?.firstProductId),limitToLast(offset))
     case queryTypes.PROVIDER_FILTER_QUERY:
-      console.log(queryParam)
+     
       return query(
         productRef,
        
@@ -60,7 +60,7 @@ export async function getProducts({ queryParam, collectionName, query_type, offs
   // //       .subscribe((hits) => console.log((hits)))
   const querySnapshot = await getDocs(q)
   const products = querySnapshot.docs.map((doc) => doc.data())
-  console.log(products, 'products')
+
   return products
 }
 
@@ -73,12 +73,12 @@ export async function addProducts(product) {
 
 //create new cart in firestor
 export async function createCart(cartDetail) {
-  console.log(cartDetail)
+  
   return await setDoc(doc(db, firestoreCollections.ONDC_CART, cartDetail.cart_id), cartDetail)
 }
 //get verification cart data
 export const getVerificationCartData = async (id) => {
-  console.log(id)
+  
   const docRef = doc(db, firestoreCollections.ONDC_CART, id)
   return await getDoc(docRef)
 }
@@ -87,7 +87,7 @@ export const getVerificationCartData = async (id) => {
 
 //create new order in firestore
 export async function createOrder(id,businessId) {
-  console.log(businessId)
+  
   return await setDoc(doc(db, firestoreCollections.ONDC_ORDER, id), {
     session_id: sessionStorage.getItem('sessionId'),
     id: id,
@@ -97,16 +97,15 @@ export async function createOrder(id,businessId) {
 
 //get orderDetails from firestore
 export const getOrderDetails = async (id) => {
-  console.log('orderId', id)
+  
   const docRef = doc(db, firestoreCollections.ONDC_ORDER, id)
   return await getDoc(docRef)
 }
 export async function getAllBusiness() {
   const q = query(collection(db, 'ondcCatalog'))
-  console.log('query', q)
+  
   const querySnapshot = await getDocs(q)
   const allBusiness = querySnapshot.docs.map((doc) => doc.data())
-  console.log(allBusiness, 'allBusiness')
   return allBusiness
 }
 
@@ -115,7 +114,7 @@ export const getOrderList = async (sessionId) => {
   const q = query(
     collection(db, firestoreCollections.ONDC_ORDER),
     orderBy("statusUpdatedOn","desc"),
-    where('id', '==', "cfe18f5e-bb85-7321-ce4c-a1b191b0f51c"),
+    where('session_id', '==',sessionId),
   )
   const querySnapshot = await getDocs(q)
   const orderList = querySnapshot.docs.map((doc) => doc.data())

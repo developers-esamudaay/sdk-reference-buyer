@@ -9,9 +9,9 @@ import cartIcon from "../../assets/images/cart_icon.png"
 import { CartContext } from "../../contextProviders/cartContextProvider"
 const ShowCurrentAddress=({currentAddress,addressLoading,setShowSearchLocationModal})=>{
   const {city,state,country,areaCode,door}=currentAddress
-  console.log(city,state,country,areaCode,door,"pre")
+
   const prettyAddress=(city??"")+", "+(state??"")+", "+(areaCode??"");
-  console.log(prettyAddress,"pretty")
+
 return (
   <>
   {
@@ -31,7 +31,7 @@ const Navbar=({search,
     inlineError,setInlineError,fromProductPage,setToggleCollapse,currentAddress,addressLoading,setShowSearchLocationModal})=>{
       const [showSearchBar,setShowSearchBar]=useState(false)
       const {setShowCartInfo,cartData}=useContext(CartContext);
-      console.log(cartData,"cart")
+     
      return   (
       <nav className={styles.navBar}>
       <div style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>

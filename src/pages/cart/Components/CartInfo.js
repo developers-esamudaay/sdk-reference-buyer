@@ -11,12 +11,12 @@ import ProductCard from '../../productListing/Components/ProductCard'
 import Add from '../../../assets/icons/Add'
 import Subtract from '../../../assets/icons/Subtract'
 const CartInfo = ({ onClose }) => {
-  console.log('in cart Items')
+
   const { cartData, setCartData, cartTotalPrice, onRemoveProduct,onAddQuantity,onReduceQuantity} = useContext(CartContext)
   const cartItems = cartData?.items
   const history = useHistory()
 
-  console.log(cartItems)
+
   return (
     <div className={CartItemsStyles.overlay}>
       <div className={CartItemsStyles.popup_card}>

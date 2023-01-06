@@ -6,11 +6,11 @@ import styles from '../../../src/styles/cart/cartView.module.scss'
 import { AddressContextProvider } from '../../contextProviders/addressContextProvider'
 import CartStatus from './Components/CartStatus'
 const Checkout = () => {
-  console.log('in checkout')
+  
   const [currentActiveStep, setCurrentActiveStep] = useState(
     getCurrentStep(checkoutSteps.SELECT_ADDRESS),
   )
-  console.log(currentActiveStep)
+
   return (
  
       <div className={styles.playground_height}>

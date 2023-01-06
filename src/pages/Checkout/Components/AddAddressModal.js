@@ -1,168 +1,169 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from "react";
 // import axios from 'axios'
 // import { postCall } from '../../../../api/axios'
-import styles from '../../../../src/styles/checkout/address/addAddressModal.module.scss'
+import styles from "../../../../src/styles/checkout/address/addAddressModal.module.scss";
 
-import Button from '../../../sharedComponents/button/Button'
-import { APP_COLORS } from '../../../constants/colors'
-import Input from '../../../sharedComponents/input/Input'
-import CrossIcon from '../../../assets/icons/CrossIcon'
-import { address_types } from '../../../constants/addressTypes'
-import { getLatLngFromAddress } from '../../../data/apiCall'
+import Button from "../../../sharedComponents/button/Button";
+import { APP_COLORS } from "../../../constants/colors";
+import Input from "../../../sharedComponents/input/Input";
+import CrossIcon from "../../../assets/icons/CrossIcon";
+import { address_types } from "../../../constants/addressTypes";
+import { getLatLngFromAddress } from "../../../data/apiCall";
 // import { toast_actions, toast_types } from '../../../shared/toast/utils/toast'
 // import { restoreToDefault } from './utils/restoreDefaultAddress'
 // import { ToastContext } from '../../../../context/toastContext'
-import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
-import validator from 'validator'
-import { AddressContext } from '../../../contextProviders/addressContextProvider'
+import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage";
+import validator from "validator";
+import { AddressContext } from "../../../contextProviders/addressContextProvider";
 // import useCancellablePromise from '../../../../api/cancelRequest'
 
 export default function AddAddressModal(props) {
-  const { address_type, selectedAddress, onClose, onAddAddress } = props
+  const { address_type, selectedAddress, onClose, onAddAddress } = props;
 
   // STATES
-    console.log(address_type)
-  const [address, setAddress] = useState(selectedAddress)
-  const { addNewDeliveryAddresses, addNewBillingAddresses,currentAddress } = useContext(AddressContext)
-  const [addAddressLoading, setAddAddressLoading] = useState(false)
+
+  const [address, setAddress] = useState(selectedAddress);
+  const { addNewDeliveryAddresses, addNewBillingAddresses, currentAddress } =
+    useContext(AddressContext);
+  const [addAddressLoading, setAddAddressLoading] = useState(false);
   const [error, setError] = useState({
-    name_error: '',
-    email_error: '',
-    phone_error: '',
-    areaCode_error: '',
-    city_name_error: '',
-    door_error: '',
-    state_name_error: '',
-    street_name_error: '',
-  })
+    name_error: "",
+    email_error: "",
+    phone_error: "",
+    areaCode_error: "",
+    city_name_error: "",
+    door_error: "",
+    state_name_error: "",
+    street_name_error: "",
+  });
 
   //   // CONTEXT
   //   const dispatch = useContext(ToastContext)
 
   // HOOKS
-  useEffect(()=>{
+  useEffect(() => {
     setAddress((address) => ({
       ...address,
-      door:currentAddress?.door,
-      city:currentAddress?.city,
-      state:currentAddress?.state,
-      areaCode:currentAddress?.areaCode
-    }))
-  },[])
+      door: currentAddress?.door,
+      city: currentAddress?.city,
+      state: currentAddress?.state,
+      areaCode: currentAddress?.areaCode,
+    }));
+  }, []);
 
   function checkName() {
     if (!address?.name) {
-      console.log('empty name')
+   
       setError((error) => ({
         ...error,
-        name_error: 'Please enter Name',
-      }))
-      return false
+        name_error: "Please enter Name",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkEmail() {
     if (!address?.email) {
       setError((error) => ({
         ...error,
-        email_error: 'Please enter Email',
-      }))
-      return false
+        email_error: "Please enter Email",
+      }));
+      return false;
     }
     if (!validator.isEmail(address?.email)) {
       setError((error) => ({
         ...error,
-        email_error: 'Please enter a valid Email',
-      }))
-      return false
+        email_error: "Please enter a valid Email",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkPhoneNumber() {
     if (!address?.phone) {
       setError((error) => ({
         ...error,
-        phone_error: 'Please enter a valid phone number',
-      }))
-      return false
+        phone_error: "Please enter a valid phone number",
+      }));
+      return false;
     }
-    if (!validator.isMobilePhone(address?.phone, 'en-IN')) {
+    if (!validator.isMobilePhone(address?.phone, "en-IN")) {
       setError((error) => ({
         ...error,
-        phone_error: 'Please enter a valid phone number',
-      }))
-      return false
+        phone_error: "Please enter a valid phone number",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkStreetName() {
     if (!address?.street) {
       setError((error) => ({
         ...error,
-        street_name_error: 'Street Name cannot be empty',
-      }))
-      return false
+        street_name_error: "Street Name cannot be empty",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkLandMark() {
     if (!address?.door) {
       setError((error) => ({
         ...error,
-        door_error: 'Landmark cannot be empty',
-      }))
-      return false
+        door_error: "Landmark cannot be empty",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkCity() {
     if (!address?.city) {
       setError((error) => ({
         ...error,
-        city_name_error: 'City Name cannot be empty',
-      }))
-      return false
+        city_name_error: "City Name cannot be empty",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkState() {
     if (!address?.state) {
       setError((error) => ({
         ...error,
-        state_name_error: 'State Name cannot be empty',
-      }))
-      return false
+        state_name_error: "State Name cannot be empty",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   function checkPinCode() {
     if (!address?.areaCode) {
       setError((error) => ({
         ...error,
-        areaCode_error: 'Area Code cannot be empty',
-      }))
-      return false
+        areaCode_error: "Area Code cannot be empty",
+      }));
+      return false;
     }
     if (address?.areaCode?.length < 6) {
       setError((error) => ({
         ...error,
-        areaCode_error: 'Please enter a valid Area Code',
-      }))
-      return false
+        areaCode_error: "Please enter a valid Area Code",
+      }));
+      return false;
     }
-    return true
+    return true;
   }
 
   // add billing address
   async function handleAddBillingAddress() {
-    console.log('adding address')
+
     const allChecksPassed = [
       checkName(),
       checkEmail(),
@@ -172,11 +173,11 @@ export default function AddAddressModal(props) {
       checkCity(),
       checkState(),
       checkPinCode(),
-    ].every(Boolean)
+    ].every(Boolean);
     if (!allChecksPassed) {
-      return
+      return;
     } else {
-      addNewBillingAddresses({ ...address, id: Math.random() })
+      addNewBillingAddresses({ ...address, id: Math.random() });
     }
   }
 
@@ -186,245 +187,285 @@ export default function AddAddressModal(props) {
       checkName(),
       checkEmail(),
       checkPhoneNumber(),
-    
+
       checkLandMark(),
       checkCity(),
       checkState(),
       checkPinCode(),
-    ].every(Boolean)
-    console.log(checkName(),
-    checkEmail(),
-    checkPhoneNumber(),
-
-    checkLandMark(),
-    checkCity(),
-    checkState(),
-    checkPinCode())
+    ].every(Boolean);
+  
     if (!allChecksPassed) {
-      console.log("test")
-      return
+  
+      return;
     } else {
-      console.log('add new address')
-      setAddAddressLoading(true)
-      const res = await getLatLngFromAddress(address)
-      console.log(res)
+      
+      setAddAddressLoading(true);
+      const res = await getLatLngFromAddress(address);
+      console.log(res, "res");
       const location =
-         {
-              lat: 12.9783692,
-              lon:77.6408356,
+        res?.data && Array.isArray(res?.data) && res?.data?.length > 0
+          ? {
+              lat: res?.data[0]?.lat,
+              lon: res?.data[0]?.lon,
             }
-           
+          : {
+              lat: 12.9783692,
+              lon: 77.6408356,
+            };
 
-      setAddAddressLoading(false)
+      setAddAddressLoading(false);
 
       addNewDeliveryAddresses({
         ...address,
         id: Math.random(),
         location: location,
-      })
-      onAddAddress()
+      });
+      onAddAddress();
     }
   }
 
   // use this function to fetch city and pincode
 
   return (
- <>
-        <div className={styles.card_body}>
-          <div className={styles.address_form_wrapper}>
-            <div className={'container-fluid'}>
-              <div className="row">
-                <div className="col-sm-12 col-md-6 col-lg-4">
-                  <Input
-                                       style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    type="text"
-                    placeholder="Enter Name"
-                    id="name"
-                    value={address?.name}
-                    has_error={error.name_error}
-                    onChange={(event) => {
-                      const name = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        name: name,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        name_error: '',
-                      }))
-                    }}
-                    onBlur={checkName}
-                    
-                  />
-                  <ErrorMessage>{error.name_error}</ErrorMessage>
-                </div>
-                <div className="col-md-6 col-sm-12 col-lg-4">
-                  <Input
-                    type="email"
-                    placeholder="Enter Email"
-                    id="email"
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    value={address?.email}
-                    has_error={error.email_error}
-                    onChange={(event) => {
-                      const name = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        email: name,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        email_error: '',
-                      }))
-                    }}
-                    onBlur={checkEmail}
-                    
-                  />
-                  <ErrorMessage>{error.email_error}</ErrorMessage>
-                </div>
-                <div className="col-md-6 col-sm-12 col-lg-4">
-                  <Input
-                    type="text"
-                    maxlength="10"
-                    placeholder="Enter Phone"
-                    id="phone"
-                  
-                    value={address?.phone}
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    has_error={error.phone_error}
-                    onChange={(event) => {
-                      const regexp = /^[0-9]+$/
-                      if (!regexp.test(event.target.value) && event.target.value !== '') return
-                      const name = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        phone: name,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        phone_error: '',
-                      }))
-                    }}
-                    onBlur={checkPhoneNumber}
-                    
-                  />
-                  <ErrorMessage>{error.phone_error}</ErrorMessage>
-                </div>
-               
-                <div className="col-md-6 col-sm-12">
-                  <Input
-                    type="text"
-                    placeholder="Enter Landmark"
-                    id="landmark"
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    has_error={error.door_error}
-                    value={address?.door}
-                    onChange={(event) => {
-                      const name = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        door: name,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        door_error: '',
-                      }))
-                    }}
-                    onBlur={checkLandMark}
-                    
-                  />
-                  <ErrorMessage>{error.door_error}</ErrorMessage>
-                </div>
-                <div className="col-md-6 col-sm-12">
-                  <Input
-                    type="text"
-                    pattern="\d*"
-                    maxlength="6"
-                    placeholder="Enter Pin code"
-                    id="pin_code"
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    value={address?.areaCode}
-                    has_error={error.areaCode_error}
-                    onChange={(event) => {
-                      const regexp = /^[0-9]+$/
-                      if (!regexp.test(event.target.value) && event.target.value !== '') return
-                      const areaCode = event.target.value
-                      // if the length is 6 than call the city and state fetch call
-                      //   if (areaCode.length === 6) {
-                      //     fetchCityAndStateOnAreacode(areaCode)
-                      //   }
-                      setAddress((address) => ({
-                        ...address,
-                        areaCode: areaCode,
-                      }))
-                      setError((error) => ({
-                        ...error,
-                        areaCode_error: '',
-                      }))
-                    }}
-                    onBlur={checkPinCode}
-                    
-                  />
-                  <ErrorMessage>{error.areaCode_error}</ErrorMessage>
-                </div>
-                <div className="col-md-6 col-sm-12">
-                  <Input
-                    type="text"
-                    placeholder="Enter City"
-                    id="city"
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    value={address?.city}
-                    has_error={error.city_name_error}
-                    
-                    onChange={(event) => {
-                      const city = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        city: city,
-                      }))
-                    }}
-                  />
-                  <ErrorMessage>{error.city_name_error}</ErrorMessage>
-                </div>
-                <div className="col-md-6 col-sm-12">
-                  <Input
-                    type="text"
-                    placeholder="Enter State"
-                    id="state"
-                    style={{borderTop:"0px solid",borderLeft:"0px solid",borderRight:"0px solid",outline:"none",borderRadius:"0px"}}
-                    has_error={error.state_name_error}
-                    value={address?.state}
-                    
-                    onChange={(event) => {
-                      const state = event.target.value
-                      setAddress((address) => ({
-                        ...address,
-                        state: state,
-                      }))
-                    }}
-                  />
-                  <ErrorMessage>{error.state_name_error}</ErrorMessage>
-                </div>
+    <>
+      <div className={styles.card_body}>
+        <div className={styles.address_form_wrapper}>
+          <div className={"container-fluid"}>
+            <div className="row">
+              <div className="col-sm-12 col-md-6 col-lg-4">
+                <Input
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  type="text"
+                  placeholder="Enter Name"
+                  id="name"
+                  value={address?.name}
+                  has_error={error.name_error}
+                  onChange={(event) => {
+                    const name = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      name: name,
+                    }));
+                    setError((error) => ({
+                      ...error,
+                      name_error: "",
+                    }));
+                  }}
+                  onBlur={checkName}
+                />
+                <ErrorMessage>{error.name_error}</ErrorMessage>
+              </div>
+              <div className="col-md-6 col-sm-12 col-lg-4">
+                <Input
+                  type="email"
+                  placeholder="Enter Email"
+                  id="email"
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  value={address?.email}
+                  has_error={error.email_error}
+                  onChange={(event) => {
+                    const name = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      email: name,
+                    }));
+                    setError((error) => ({
+                      ...error,
+                      email_error: "",
+                    }));
+                  }}
+                  onBlur={checkEmail}
+                />
+                <ErrorMessage>{error.email_error}</ErrorMessage>
+              </div>
+              <div className="col-md-6 col-sm-12 col-lg-4">
+                <Input
+                  type="text"
+                  maxlength="10"
+                  placeholder="Enter Phone"
+                  id="phone"
+                  value={address?.phone}
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  has_error={error.phone_error}
+                  onChange={(event) => {
+                    const regexp = /^[0-9]+$/;
+                    if (
+                      !regexp.test(event.target.value) &&
+                      event.target.value !== ""
+                    )
+                      return;
+                    const name = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      phone: name,
+                    }));
+                    setError((error) => ({
+                      ...error,
+                      phone_error: "",
+                    }));
+                  }}
+                  onBlur={checkPhoneNumber}
+                />
+                <ErrorMessage>{error.phone_error}</ErrorMessage>
+              </div>
+
+              <div className="col-md-6 col-sm-12">
+                <Input
+                  type="text"
+                  placeholder="Enter Landmark"
+                  id="landmark"
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  has_error={error.door_error}
+                  value={address?.door}
+                  onChange={(event) => {
+                    const name = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      door: name,
+                    }));
+                    setError((error) => ({
+                      ...error,
+                      door_error: "",
+                    }));
+                  }}
+                  onBlur={checkLandMark}
+                />
+                <ErrorMessage>{error.door_error}</ErrorMessage>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <Input
+                  type="text"
+                  pattern="\d*"
+                  maxlength="6"
+                  placeholder="Enter Pin code"
+                  id="pin_code"
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  value={address?.areaCode}
+                  has_error={error.areaCode_error}
+                  onChange={(event) => {
+                    const regexp = /^[0-9]+$/;
+                    if (
+                      !regexp.test(event.target.value) &&
+                      event.target.value !== ""
+                    )
+                      return;
+                    const areaCode = event.target.value;
+                    // if the length is 6 than call the city and state fetch call
+                    //   if (areaCode.length === 6) {
+                    //     fetchCityAndStateOnAreacode(areaCode)
+                    //   }
+                    setAddress((address) => ({
+                      ...address,
+                      areaCode: areaCode,
+                    }));
+                    setError((error) => ({
+                      ...error,
+                      areaCode_error: "",
+                    }));
+                  }}
+                  onBlur={checkPinCode}
+                />
+                <ErrorMessage>{error.areaCode_error}</ErrorMessage>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <Input
+                  type="text"
+                  placeholder="Enter City"
+                  id="city"
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  value={address?.city}
+                  has_error={error.city_name_error}
+                  onChange={(event) => {
+                    const city = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      city: city,
+                    }));
+                  }}
+                />
+                <ErrorMessage>{error.city_name_error}</ErrorMessage>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <Input
+                  type="text"
+                  placeholder="Enter State"
+                  id="state"
+                  style={{
+                    borderTop: "0px solid",
+                    borderLeft: "0px solid",
+                    borderRight: "0px solid",
+                    outline: "none",
+                    borderRadius: "0px",
+                  }}
+                  has_error={error.state_name_error}
+                  value={address?.state}
+                  onChange={(event) => {
+                    const state = event.target.value;
+                    setAddress((address) => ({
+                      ...address,
+                      state: state,
+                    }));
+                  }}
+                />
+                <ErrorMessage>{error.state_name_error}</ErrorMessage>
               </div>
             </div>
           </div>
         </div>
-        <div className={`${styles.card_footer} d-flex align-items-center justify-content-center`}>
-          <Button
-            isloading={addAddressLoading}
-            btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                hoverTextColor={APP_COLORS.WHITE}
-            button_text="Add Address"
-            onClick={() => {
-              address_type === address_types.delivery?handleAddDeliveryAddress():    handleAddBillingAddress()
-           
-          
-            }}
-          />
-        </div>
-        </>
-    
-  )
+      </div>
+      <div
+        className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
+      >
+        <Button
+          isloading={addAddressLoading}
+          btnBackColor={APP_COLORS.WHITE}
+          hoverBackColor={APP_COLORS.ACCENTCOLOR}
+          buttonTextColor={APP_COLORS.ACCENTCOLOR}
+          hoverTextColor={APP_COLORS.WHITE}
+          button_text="Add Address"
+          onClick={() => {
+            address_type === address_types.delivery
+              ? handleAddDeliveryAddress()
+              : handleAddBillingAddress();
+          }}
+        />
+      </div>
+    </>
+  );
 }

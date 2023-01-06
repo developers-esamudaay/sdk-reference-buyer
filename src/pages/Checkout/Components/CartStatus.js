@@ -46,11 +46,11 @@ const CartStatus = (props) => {
   
   
   const history = useHistory()
-  console.log(showTransactionModal)
+
   const initializrOrder = async () => {
     setInitializeOrderLoading(true)
     const id = uuid()
-    console.log('orderId', id)
+   
     setOrderId(id)
     try {
       await createOrder(id,cartData?.business_id)
@@ -140,18 +140,17 @@ const CartStatus = (props) => {
           email: selectedDeliveryAddress?.email,
         },
       }
-      console.log(selectedBillingAddress)
-      console.log(selectedDeliveryAddress)
+
       try {
         await createCart(payload)
         const res = await verfyCartUsingSdk(payload)
-        console.log(res)
+       
         if (res.status === 200 && res?.data?.message?.ack?.status === 'ACK') {
-          console.log('test')
+       
           await delay(3000)
           const response = await getVerificationCartData(payload?.cart_id)
           const cartVerifiedData = response.data()
-          console.log(cartVerifiedData)
+         
 
           setCartVerificationStatus(cartVerifiedData?.status)
           setCartVerificationError(cartVerifiedData?.error)

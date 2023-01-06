@@ -37,9 +37,9 @@ const extractTimeInfo = (time) => {
 }
 export default function ProductDetails() {
   const location = useLocation()
-  console.log(location)
+
   const { product } = location.state
-  console.log(product)
+
   const {
     id,
     descriptor,
@@ -59,7 +59,7 @@ export default function ProductDetails() {
   const cartItems = cartData?.items
   const [sameProviderProducts, setSameProviderProducts] = useState([])
   const [loading, setLoading] = useState(false)
-  console.log(sameProviderProducts)
+
   useEffect(() => {
     const isProductPresent = cartItems.find(({ product }) => product.id === id)
     if (isProductPresent) {

@@ -23,7 +23,7 @@ export default function AddressDetailsCard(props) {
     selectedBillingAddress,
     selectedDeliveryAddress,
   } = useContext(AddressContext)
-console.log(selectedBillingAddress,selectedDeliveryAddress)
+
   // function to check whether step is completed or not
   function isStepCompleted() {
     if (currentActiveStep.current_active_step_number > 1) {
