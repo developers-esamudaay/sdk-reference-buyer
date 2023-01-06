@@ -2,25 +2,26 @@
 // import { RequestType } from '../Constant.ts'
 // import { async } from '@firebase/util'
 import axios from 'axios'
+import {Urls} from "./urls"
 
 const axoisInstanceSdk = axios.create({
-  baseURL: 'https://api.test.esamudaay.com',
+  baseURL: Urls.sdkBaseUrl,
   timeout: 2000,
-  headers: { apid: process.env.API_ID ?? 'd1e7f644-552c-4a4e-a4e3-3233b876c060' },
+  headers: { apid: process.env.API_ID },
 })
 const axoisInstanceMap = axios.create({
-  baseURL: 'https://nominatim.openstreetmap.org',
+  baseURL: Urls.osmBaseUrl,
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': 'https://o2cj2q.csb.app',
   },
 })
 export const verfyCartUsingSdk = async (payload) => {
-  return await axoisInstanceSdk.post('/api/v1/ondc/sdk/buyer/carts', payload)
+  return await axoisInstanceSdk.post(Urls.verifyCartUrl, payload)
 }
 
 export const confirmOrderUsingSdk = async (payload) => {
-  return await axoisInstanceSdk.post('/api/v1/ondc/sdk/buyer/orders', payload)
+  return await axoisInstanceSdk.post(Urls.OrderUrl, payload)
 }
 export const getLatLngFromAddress = async (address) => {
   let url = `/search?
@@ -33,14 +34,14 @@ export const getLatLngFromAddress = async (address) => {
   return await axoisInstanceMap.post(url)
 }
 export const trackOrderFromSdk=async(orderId)=>{
-  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/track`,{
+  return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/track`,{
     "city_code": "std_080"
 })
 
 }
 export const cancelOrderFromSdk=async(orderId)=>{
   console.log(orderId)
-  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/cancel`,{
+  return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/cancel`,{
     "city_code": "std:080",
     "type": "CANCEL",
     "meta": {
@@ -50,15 +51,15 @@ export const cancelOrderFromSdk=async(orderId)=>{
 })
 }
 export const supportOrderFromSdk=async(orderId,payload)=>{
-  return axoisInstanceSdk.post("/api/v1/ondc/sdk/buyer/support",payload)
+  return axoisInstanceSdk.post(Urls.orderSupportUrl,payload)
 }
 export const returnOrderUsingSdk=(payload,orderId)=>{
-  return axoisInstanceSdk.post(`api/v1/ondc/sdk/buyer/orders/${orderId}/return`,payload)
+  return axoisInstanceSdk.post(`${Urls.OrderUrl}//${orderId}/return`,payload)
 }
 export const getAddressFromLatLng=async({lat,lon})=>{
-  return await axoisInstanceMap.get(`/reverse?lat=${lat}&lon=${lon}&format=json`)
+  return await axoisInstanceMap.get(`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`)
 }
 export const getLocationSuggetion=async(query)=>{
-  return await axoisInstanceMap.get(`/search?q=${query}&format=json&countrycode=IN&&limit=5`)
+  return await axoisInstanceMap.get(`${Urls.goeLocationSuggetion}?q=${query}&format=json&countrycode=IN&&limit=5`)
 }
 
