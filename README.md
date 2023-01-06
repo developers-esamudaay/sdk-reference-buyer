@@ -46,7 +46,9 @@ REACT_APP_API_ID=<YOUR APID>
 * To get Firebase config of your project please check <a href="https://support.google.com/firebase/answer/7015592?hl=en#web&zippy=%2Cin-this-article"> firebse docs</a>
 * Go src-> data-> firebase_init and replace firebaseConfig with your own firebase config
 * Create Firestore collection with exact same name ondcCatalog, ondcOrder, ondcOrder,ondcCart,ondcProducts
-* setup firebase cloud function 
+* <a href="https://firebase.google.com/docs/functions/get-started"> setup firebase cloud function </a>
+* deloy cloud function with script available in firbaseCloudFunction file 
+
 
 * Start the server with `yarn start`
 * Visit your app at [http://localhost:3000](http://localhost:3000).
