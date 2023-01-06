@@ -7,7 +7,7 @@ import { APP_COLORS } from '../../../constants/colors'
 
 import epmpty_cart from "../../../assets/images/empty_cart.png"
 import Button from '../../../sharedComponents/button/Button'
-import ProductCard from '../../ProductListing/Components/ProductCard'
+import ProductCard from '../../productListing/Components/ProductCard'
 import Add from '../../../assets/icons/Add'
 import Subtract from '../../../assets/icons/Subtract'
 const CartInfo = ({ onClose }) => {

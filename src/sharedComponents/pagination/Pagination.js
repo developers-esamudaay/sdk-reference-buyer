@@ -18,7 +18,7 @@ export default function Pagination({ onNext, onPrevious }) {
       <div className="px-1">
         <li className={styles.page_anchor} onClick={onNext}>
           <div className={styles.arrow_right}>
-            <DropdownSvg width="20" height="16" color={APP_COLORS.ACCENTCOLOR} />
+            <DropdownSvg width="25" height="20" color={APP_COLORS.ACCENTCOLOR} />
           </div>
         </li>
       </div>
