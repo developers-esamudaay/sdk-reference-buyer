@@ -13,12 +13,14 @@ export default function AppRoutes() {
   useEffect(async() => {
     let sessionId = sessionStorage.getItem('sessionId')
     if (!sessionId) sessionStorage.setItem('sessionId', uuid())
+    //if current location is not available set current location
     if(Object.keys(currentLocation).length === 0 && currentLocation.constructor === Object){
       navigator.geolocation.getCurrentPosition(async function (position) {
   
         setCurrentLocation({lat: position?.coords?.latitude ?? 0.00,lon:position?.coords?.longitude ??0.00})
     }
   )}}, [])
+  //get current address throgh current location
   useEffect(async()=>{
     setAddressLoading(true);
     const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});

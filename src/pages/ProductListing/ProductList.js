@@ -100,43 +100,7 @@ console.log(products,"productId")
     }
   }, [])
 
-  // useEffect(async () => {
-  //   const allBusiness = await getAllBusiness()
-  //   const mySet1 = new Set()
-  //   for (let business of allBusiness) {
-  //     for (let item of business?.business_data?.items ?? []) {
-  //       const keys = item?.item_name.split(' ')
-  //       let indexes = []
-  //       for (let key of keys) {
-  //         for (let key of keys) {
-  //           let str = ''
-  //           let ls = key.toLowerCase()
-  //           for (let i = 0; i < ls.length; i++) {
-  //             str = str + ls[i]
-  //             indexes.push(str)
-  //           }
-  //         }
-  //       }
-  //       const product = {
-  //         ...item,
-  //         id: item.id + '_' + business?.business_id,
-  //         bpp_id: business?.bpp_id,
-  //         bpp_uri: business?.bpp_uri,
-  //         locations: business?.business_data?.locations,
-  //         business_id: business?.business_id,
-  //         business_name: business?.business_data?.name,
-  //         business_symbol: business?.business_data?.symbol,
-  //         city_code: business?.descriptor?.city_code,
-  //         selectedIndexes: indexes,
-  //       }
-  //       if (!mySet1.has(product?.id)) {
-  //         mySet1.add(product?.id)
-  //         console.log(product)
-  //         await addProducts(product)
-  //       }
-  //     }
-  //   }
-  // }, [])
+ 
   //fetch products with search query
   useEffect(async () => {
     if (!search.value) {
@@ -162,15 +126,6 @@ console.log(products,"productId")
       setIsAlreadySearched(true)
     }
   }, [search.value])
-  // fetch product with location fliter
-  // useEffect(async () => {
-  //   let queryParam = {
-  //     type: 'city_code',
-  //     value: selectedLocation.city_code,
-  //   }
-
-  //   await fetchProducts(queryTypes.FILTER_QUERY, queryParam)
-  // }, [selectedLocation])
 
 
   const EmptyProductView = (
@@ -180,10 +135,7 @@ console.log(products,"productId")
         width="150"
         height="150"
         className={styles.product_img}
-        // onError={(event) => {
-        //   event.target.onerror = null
-        //   event.target.src = no_image_found
-        // }}
+     
       />
     </div>
   )
@@ -204,15 +156,7 @@ console.log(products,"productId")
         <Loading />
       ) : (
         <div
-        style={{
-          backgroundColor: 'white',
-          padding: '5px 5px 5px 5px',
-          width: '90%',
-          marginTop: '100px',
-          marginLeft: '5%',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+        className={styles.product_list_container}
       >
         <div className="container" style={{ marginBottom: '10px' }}>
           <div className={`row pe-2`}>
@@ -225,6 +169,9 @@ console.log(products,"productId")
             })}
           </div>
           {/* products cards */}
+
+
+
           {products.length === 24 && (
             <div className={styles.pagination}>
               <Pagination
@@ -244,8 +191,11 @@ console.log(products,"productId")
       )}
     {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
 
+          {/* show cart modal  */}
  
       {showSearchLocationModal&&<LocationSearchModal/>}
+
+          {/* show cart modal  */}
       
     </Fragment>
   )

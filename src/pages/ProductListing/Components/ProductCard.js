@@ -30,7 +30,7 @@ export default function ProductCard(props) {
 
   
   const [quantityCount, setQuantityCount] = useState(0)
-  //count of item of this product avaailable in cart
+
   const [toggleAddToCart, setToggleAddToCart] = useState()
   
   const defaultLatLng=0.00
@@ -45,16 +45,16 @@ const defaultRadius=6666*1000000;
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;;
- //
+  const deliveryRadius= 6666*1000000;
+ //Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;;
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
 
   const onErrorAddToCart = (error) => {
     alert(error)
   }
-  //true if paroduct is available in cart
+ 
   useEffect(() => {
-    
+    // check product is available is cart or not and set quantity value if product is in cart
     const isProductPresent = cartItems?.find(({ product }) => product.id === id)
     if (isProductPresent) {
       setToggleAddToCart(true)
@@ -65,29 +65,11 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
     }
   }, [cartItems, id])
 
-  // check product is available is cart or not and set quantity value if product is in cart
+  
   return (
     <div className={`${styles.product_card_background}`}>
-      {
-        // !inDeliveryDistance&&(   <div className={styles.card__overlay} style={{opacity:inDeliveryDistance?0:0.9}}>
-        //   <div style={{marginTop:"50%",opacity:1}}>
-        //   <img
-        //         src={no_delivery}
-      
-        //         alt={product_name}
-        //         width="80"
-        //         height="80"
-        //        style={{marginLeft:"40%"}}
-        //         onError={(event) => {
-        //           event.target.onerror = null
-        //           event.target.src = no_image_found
-        //         }}
-        //       />
-        //   <p className={styles.no_delivery_text}> Delivery for this product is not available at your location</p>
-            
-        //   </div>
-        // </div>)
-      }
+  
+  
     
       <div className={styles.product_img_container}>
         <img
@@ -136,12 +118,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
         </div>
         <div>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: '3px',
-            }}
+            className={styles.price}
           >
             <div className="pe-2">
               <IndianRupee width="10" height="14" />
@@ -159,7 +136,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
               }}
             >
               {
-                inDeliveryDistance?( <> {toggleAddToCart && quantityCount > 0 ? (
+                inDeliveryDistance?(  <> {toggleAddToCart && quantityCount > 0 ? (
                   <div className={styles.quantity_count_wrapper}>
                     <div
                       className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
