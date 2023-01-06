@@ -57,7 +57,9 @@ export const returnOrderUsingSdk=(payload,orderId)=>{
   return axoisInstanceSdk.post(`${Urls.OrderUrl}//${orderId}/return`,payload)
 }
 export const getAddressFromLatLng=async({lat,lon})=>{
-  return await axoisInstanceMap.get(`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`)
+  const url=`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`
+  console.log(url,"loc")
+  return await axoisInstanceMap.get(url)
 }
 export const getLocationSuggetion=async(query)=>{
   return await axoisInstanceMap.get(`${Urls.goeLocationSuggetion}?q=${query}&format=json&countrycode=IN&&limit=5`)

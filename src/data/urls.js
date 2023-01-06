@@ -1,6 +1,6 @@
 export const Urls= {
     sdkBaseUrl:'https://api.test.esamudaay.com',
-    osmBaseUrl:"htps://nominatim.openstreetmap.orgt",
+    osmBaseUrl:"https://nominatim.openstreetmap.org",
     
    verifyCartUrl: "/api/v1/ondc/sdk/buyer/carts",
      OrderUrl: "/api/v1/ondc/sdk/buyer/orders",

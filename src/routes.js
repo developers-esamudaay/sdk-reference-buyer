@@ -22,8 +22,10 @@ export default function AppRoutes() {
   )}}, [])
   //get current address throgh current location
   useEffect(async()=>{
+    console.log(currentLocation,"loc");
     setAddressLoading(true);
     const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
+
     console.log(currentAddress,"add")
     setCurrentAddress((prev)=>{return{...prev,city:currentAddress.data?.address?.city||currentAddress.data?.address?.state_district,state:currentAddress.data?.address?.state??"",country:currentAddress.data?.address?.country,areaCode:currentAddress.data?.address?.postcode,door:currentAddress.data?.address?.road||currentAddress.data?.address?.neighbourhood}})
     setAddressLoading(false)
