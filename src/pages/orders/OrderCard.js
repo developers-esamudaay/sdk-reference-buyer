@@ -57,7 +57,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
         <p className={styles.return_item_title}>Quantity</p>
         </div>
      {
-      orderData?.items?.map((item,index)=>{
+      orderData?.items?.filter((item)=>item?.statusItem&&item?.statusItem==="LIQUIDATED").map((item,index)=>{
         return (
           <div className={styles.return_modal_items} key={index}>
           <div className={styles.left_section}>
@@ -306,10 +306,10 @@ const returnOrder=async()=>{
         </div>
         <div className={styles.card_footer}>
       {/* <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/> */}
-      <Button onClick={()=>supportOrder()} btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                hoverTextColor={APP_COLORS.WHITE} button_text={"Support"} isloading={orderSupportLoading?1:0} />
+      <Button onClick={()=>supportOrder()} btnBackColor={APP_COLORS.ACCENTCOLOR}
+                hoverBackColor={APP_COLORS.WHITE}
+                buttonTextColor={APP_COLORS.WHITE}
+                hoverTextColor={APP_COLORS.ACCENTCOLOR} button_text={"Support"} isloading={orderSupportLoading?1:0} />
       {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()} btnBackColor={APP_COLORS.WHITE}
                 hoverBackColor={APP_COLORS.ACCENTCOLOR}
                 buttonTextColor={APP_COLORS.ACCENTCOLOR}
