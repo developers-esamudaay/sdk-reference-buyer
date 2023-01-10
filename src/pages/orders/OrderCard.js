@@ -220,7 +220,7 @@ const returnOrder=async()=>{
           <p className={styles.card_header_title}>{orderData?.id ? orderData?.id : 'NA'}</p>
           <p className={styles.date_label} style={{ fontSize: '12px' }}>
             Ordered on
-            <span style={{ fontWeight: '500', padding: '0 5px' }}>{'sdsadasd'}</span>
+            <span style={{ fontWeight: '500', padding: '0 5px' }}>{orderData?.createdDate}</span>
           </p>
         </div>
        
