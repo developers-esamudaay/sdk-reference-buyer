@@ -1,7 +1,6 @@
-<h1 align="center">Ref Bap Web Application</h1>
+<h1 align="center">Reference Buyer Web App</h1>
 
-
-Ref Bap is an ecommerce app like amazon/flipkart developed using  <a href="https://docs.google.com/document/d/17bY8DS981WyqDhh790SVAMhbJylVl_LH4r-5uXZ1yOk/edit
+Reference Buyer Web App is an ecommerce app like amazon/flipkart developed using  <a href="https://docs.google.com/document/d/17bY8DS981WyqDhh790SVAMhbJylVl_LH4r-5uXZ1yOk/edit
 ">ondc buyer sdk </a>. This app has basic modules like cart, producList, Orders,businessProfile. If you want to make your own ondc buyer app you can directly clone and customize it according to your usecase
 
 ## Technology Stack
@@ -49,6 +48,6 @@ REACT_APP_API_ID=<YOUR APID>
 * <a href="https://firebase.google.com/docs/functions/get-started"> setup firebase cloud function </a>
 * deloy cloud function with script available in firbaseCloudFunction file 
 
-
+* path for script src->cloudFunction.js
 * Start the server with `yarn start`
 * Visit your app at [http://localhost:3000](http://localhost:3000).
