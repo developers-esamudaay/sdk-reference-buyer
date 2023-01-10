@@ -3,6 +3,7 @@ export const APP_COLORS = {
     BACKGROUNDCOLOR: "#f0f0f0",
     PRIMARYCOLOR: "#606161",
     SECONDARYCOLOR: "#606161",
+    OrangeColor:"#fb641b",
     ERROR: "#FF5959",
     SUCCESS: "#2EB086",
     WHITE: "#ffffff",

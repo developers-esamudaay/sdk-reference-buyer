@@ -1,36 +1,36 @@
 import { useState, useEffect, useContext } from 'react'
-import { getCurrentStep } from './utils'
-import { checkoutSteps } from '../../constants/checkoutSteps'
-import AddressDetailsCard from './Components/AddresDetailsCard'
-import styles from '../../../src/styles/cart/cartView.module.scss'
+import AddressCardStep from './Components/AddressCardStep'
+
 import { AddressContextProvider } from '../../contextProviders/addressContextProvider'
-import CartStatus from './Components/CartStatus'
+import OrderSummary from './Components/OrderSummary'
 const Checkout = () => {
   
   const [currentActiveStep, setCurrentActiveStep] = useState(
-    getCurrentStep(checkoutSteps.SELECT_ADDRESS),
+   1
   )
 
   return (
  
-      <div className={styles.playground_height}>
+   
         <div className="container">
           <div className="row py-3">
             <div className="col-12">
-              <p className={styles.cart_label}>Checkout</p>
+              <p style={checkoutStyles.checkout_label}>Checkout</p>
             </div>
           </div>
           <div className="row py-2">
             <div className="col-lg-12">
               <div className="container-fluid p-0">
                 <div className="row">
-                  <div className="col-12 pb-3">
-                    <AddressDetailsCard
+                  <div className="col-lg-12 col-sm-12 pb-3">
+                    <AddressCardStep
                       currentActiveStep={currentActiveStep}
+                      step={1}
                       setCurrentActiveStep={(value) => setCurrentActiveStep(value)}
                     />
-                    <CartStatus
+                    <OrderSummary
                       currentActiveStep={currentActiveStep}
+                      step={2}
                       setCurrentActiveStep={(value) => setCurrentActiveStep(value)}
                     />
                   </div>
@@ -39,8 +39,20 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-      </div>
+  
 
   )
+}
+const checkoutStyles={
+  checkout_label:{
+    
+
+      fontSize: "20px",
+      fontWeight: "500",
+      textAlign: "left",
+      color: "#606161",
+   
+    
+  }
 }
 export default Checkout

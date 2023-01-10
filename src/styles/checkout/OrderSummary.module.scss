@@ -1,0 +1,61 @@
+@import "../variables.scss";
+.order_summary_card {
+    width: 100%;
+    background-color: $white;
+    box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
+    border-radius: 10px;
+    height:auto;
+    margin-top: 30px;
+  }
+  .order_summary_card_header {
+
+    padding: 10px 15px;
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    ;
+    background-color:rgb(67, 81, 186);;
+    
+  
+  
+    .order_summary_card_header_title {
+      font-family: $firaSans;
+      font-size: $font-24;
+      font-weight: $medium;
+      text-align: left;
+      color: white;
+      margin: 0;
+  
+    }
+  }
+  .step_no_text
+  {background-color:white;border-radius:10px;padding:4px; color:blue;font-size:$font-18;margin-right: 5px;}
+  .item_price_details {
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+    margin: 0;
+   
+  }
+  .cost_charges_breakup{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    padding: 4px;
+
+}
+.card_footer {
+    padding: 20px;
+    
+   
+     .card_body_text {
+       font-size: $font-14;
+       text-align: left;
+       color: $secondaryColor;
+       margin: 0;
+     }
+   }

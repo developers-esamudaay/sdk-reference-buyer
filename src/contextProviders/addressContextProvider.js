@@ -42,6 +42,12 @@ export const AddressContextProvider = ({ children }) => {
   const addNewBillingAddresses = (newAddress) => {
     setBillingAddresses((prev) => [...prev, newAddress])
   }
+  const editDeliveryAddress=(addressId,updatedAddress)=>{
+    console.log(updatedAddress)
+    const updatedDeliveryAddress= deliveryAddresses.map((addr)=>addr?.id===addressId?{...updatedAddress,id:addressId}:addr)
+    
+    setDeliveryAddresses(updatedDeliveryAddress)
+  }
   const addNewDeliveryAddresses = (newAddress) => {
     
     setDeliveryAddresses((prev) => {
@@ -77,7 +83,8 @@ export const AddressContextProvider = ({ children }) => {
         showSearchLocationModal:showSearchLocationModal,
         setShowSearchLocationModal:setShowSearchLocationModal,
         addressLoading:addressLoading,
-        setAddressLoading:setAddressLoading
+        setAddressLoading:setAddressLoading,
+        editDeliveryAddress:editDeliveryAddress
 
       }}
     >

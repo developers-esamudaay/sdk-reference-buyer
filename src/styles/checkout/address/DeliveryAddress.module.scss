@@ -1,0 +1,40 @@
+@import "../../variables.scss";
+.address_type_label {
+    font-size: $font-18;
+    font-weight: $medium;
+    color: $primaryColor;
+    margin: 0;
+  }
+  .address_wrapper {
+    max-height: auto;
+    overflow: auto;
+  }
+  
+.address_name_and_phone {
+    font-size: $font-16;
+    font-weight: $medium;
+    text-align: left;
+    color: $primaryColor;
+    margin: 0;
+  }
+  
+  .address_line_1 {
+    font-size: $font-14;
+    text-align: left;
+    color: $primaryColor;
+    margin: 0;
+  }
+  
+  .address_line_2 {
+    font-size: $font-14;
+    text-align: left;
+    color: $secondaryColor;
+    margin: 0;
+  }
+  .delivery_button{
+    display: flex;
+    padding:5px 5px;
+    justify-content: center;
+  
+  }
+ 

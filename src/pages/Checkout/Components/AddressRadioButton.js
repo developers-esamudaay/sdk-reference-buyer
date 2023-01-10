@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../../styles/cart/addressRadioButton.module.scss'
+import styles from '../../../styles/checkout/address/AddressRadioButton.module.scss'
 export default function AddressRadioButton(props) {
   const { checked, oneditaddress, iseditable = false } = props
   return (
@@ -12,13 +12,7 @@ export default function AddressRadioButton(props) {
         </div>
         <div className={styles.name_basis}>{props.children}</div>
       </button>
-      {iseditable && (
-        <div className="p-2 my-1">
-          <button className={styles.edit_button} onClick={() => oneditaddress()}>
-            edit
-          </button>
-        </div>
-      )}
+   
     </div>
   )
 }

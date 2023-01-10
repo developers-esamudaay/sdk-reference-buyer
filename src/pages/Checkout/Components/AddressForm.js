@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-// import axios from 'axios'
-// import { postCall } from '../../../../api/axios'
+
 import styles from "../../../../src/styles/checkout/address/addAddressModal.module.scss";
 
 import Button from "../../../sharedComponents/button/Button";
@@ -9,21 +8,20 @@ import Input from "../../../sharedComponents/input/Input";
 import CrossIcon from "../../../assets/icons/CrossIcon";
 import { address_types } from "../../../constants/addressTypes";
 import { getLatLngFromAddress } from "../../../data/apiCall";
-// import { toast_actions, toast_types } from '../../../shared/toast/utils/toast'
-// import { restoreToDefault } from './utils/restoreDefaultAddress'
-// import { ToastContext } from '../../../../context/toastContext'
+
 import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage";
 import validator from "validator";
 import { AddressContext } from "../../../contextProviders/addressContextProvider";
-// import useCancellablePromise from '../../../../api/cancelRequest'
 
-export default function AddAddressModal(props) {
-  const { address_type, selectedAddress, onClose, onAddAddress } = props;
+
+export default function AddressForm(props) {
+  console.log(props)
+  const { address_type, selectedAddress, onClose, onAddAddress,onSelectAddress,isEditingAddress,onSubmissionCompleted } = props;
 
   // STATES
 
   const [address, setAddress] = useState(selectedAddress);
-  const { addNewDeliveryAddresses, addNewBillingAddresses, currentAddress } =
+  const { addNewDeliveryAddresses, addNewBillingAddresses,editDeliveryAddress, currentAddress,setSelectedDeliveryAddress } =
     useContext(AddressContext);
   const [addAddressLoading, setAddAddressLoading] = useState(false);
   const [error, setError] = useState({
@@ -37,18 +35,21 @@ export default function AddAddressModal(props) {
     street_name_error: "",
   });
 
-  //   // CONTEXT
-  //   const dispatch = useContext(ToastContext)
 
-  // HOOKS
+
+
   useEffect(() => {
-    setAddress((address) => ({
-      ...address,
-      door: currentAddress?.door,
-      city: currentAddress?.city,
-      state: currentAddress?.state,
-      areaCode: currentAddress?.areaCode,
-    }));
+    if(!isEditingAddress){
+      console.log("in useEffect")
+      setAddress((address) => ({
+        ...address,
+        door: currentAddress?.door,
+        city: currentAddress?.city,
+        state: currentAddress?.state,
+        areaCode: currentAddress?.areaCode,
+      }));
+    }
+  
   }, []);
 
   function checkName() {
@@ -161,25 +162,7 @@ export default function AddAddressModal(props) {
     return true;
   }
 
-  // add billing address
-  async function handleAddBillingAddress() {
 
-    const allChecksPassed = [
-      checkName(),
-      checkEmail(),
-      checkPhoneNumber(),
-      checkStreetName(),
-      checkLandMark(),
-      checkCity(),
-      checkState(),
-      checkPinCode(),
-    ].every(Boolean);
-    if (!allChecksPassed) {
-      return;
-    } else {
-      addNewBillingAddresses({ ...address, id: Math.random() });
-    }
-  }
 
   // add delivery address
   async function handleAddDeliveryAddress() {
@@ -198,7 +181,7 @@ export default function AddAddressModal(props) {
   
       return;
     } else {
-      
+      console.log("edit address")
       setAddAddressLoading(true);
       const res = await getLatLngFromAddress(address);
       console.log(res, "res");
@@ -214,25 +197,25 @@ export default function AddAddressModal(props) {
             };
 
       setAddAddressLoading(false);
+      const addressWithLatLng={...address,location:location}
+     isEditingAddress?editDeliveryAddress(props.addressId,addressWithLatLng):addNewDeliveryAddresses({ ...addressWithLatLng, id: Math.random() });
 
-      addNewDeliveryAddresses({
-        ...address,
-        id: Math.random(),
-        location: location,
-      });
-      onAddAddress();
+      
+      onSelectAddress(addressWithLatLng)
+      onSubmissionCompleted()
+     
     }
   }
 
   // use this function to fetch city and pincode
 
   return (
-    <>
+    <div style={{width:"70%",marginLeft:"15%"}}>
       <div className={styles.card_body}>
         <div className={styles.address_form_wrapper}>
-          <div className={"container-fluid"}>
+          <div className={"container"}>
             <div className="row">
-              <div className="col-sm-12 col-md-6 col-lg-4">
+              <div className="col-sm-12 col-md-6 col-lg-6">
                 <Input
                   style={{
                     borderTop: "0px solid",
@@ -261,7 +244,7 @@ export default function AddAddressModal(props) {
                 />
                 <ErrorMessage>{error.name_error}</ErrorMessage>
               </div>
-              <div className="col-md-6 col-sm-12 col-lg-4">
+              <div className="col-md-6 col-sm-12 col-lg-6">
                 <Input
                   type="email"
                   placeholder="Enter Email"
@@ -290,7 +273,7 @@ export default function AddAddressModal(props) {
                 />
                 <ErrorMessage>{error.email_error}</ErrorMessage>
               </div>
-              <div className="col-md-6 col-sm-12 col-lg-4">
+              <div className="col-md-6 col-sm-12 col-lg-">
                 <Input
                   type="text"
                   maxlength="10"
@@ -370,7 +353,7 @@ export default function AddAddressModal(props) {
                     outline: "none",
                     borderRadius: "0px",
                   }}
-                  value={address?.areaCode}
+                  value={address?.aßreaCode}
                   has_error={error.areaCode_error}
                   onChange={(event) => {
                     const regexp = /^[0-9]+$/;
@@ -380,10 +363,7 @@ export default function AddAddressModal(props) {
                     )
                       return;
                     const areaCode = event.target.value;
-                    // if the length is 6 than call the city and state fetch call
-                    //   if (areaCode.length === 6) {
-                    //     fetchCityAndStateOnAreacode(areaCode)
-                    //   }
+                 
                     setAddress((address) => ({
                       ...address,
                       areaCode: areaCode,
@@ -449,23 +429,27 @@ export default function AddAddressModal(props) {
           </div>
         </div>
       </div>
+    
       <div
-        className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
+        className={`${styles.card_footer} `}
       >
         <Button
           isloading={addAddressLoading}
-          btnBackColor={APP_COLORS.WHITE}
-          hoverBackColor={APP_COLORS.ACCENTCOLOR}
-          buttonTextColor={APP_COLORS.ACCENTCOLOR}
+          btnBackColor={APP_COLORS.OrangeColor}
+         
+          buttonTextColor={APP_COLORS.WHITE}
           hoverTextColor={APP_COLORS.WHITE}
-          button_text="Add Address"
+          button_text="Save And Delivered"
           onClick={() => {
-            address_type === address_types.delivery
-              ? handleAddDeliveryAddress()
-              : handleAddBillingAddress();
+          
+              handleAddDeliveryAddress()
+       
           }}
         />
+         <div style={{cursor:"pointer"}} onClick={()=>onClose()}> 
+          <p className={styles.cance_text}> Cancel</p>
+         </div>
       </div>
-    </>
+    </div>
   );
 }

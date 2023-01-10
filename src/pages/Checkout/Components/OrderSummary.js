@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
 
 import { checkoutSteps } from '../../../constants/checkoutSteps'
-import styles from '../../../../src/styles/cart/cartView.module.scss'
+import styles from '../../../../src/styles/checkout/OrderSummary.module.scss'
 import { getCurrentStep } from '../utils'
 import { APP_COLORS } from '../../../constants/colors'
 import {
@@ -25,7 +25,7 @@ import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
 
 import { useHistory } from 'react-router-dom'
 
-const CartStatus = (props) => {
+const OrderSummary = (props) => {
   const [loading, setLoading] = useState(false)
   const [cartVerificationStatus, setCartVerificationStatus] = useState('')
   const [cartVerificationError, setCartVerificationError] = useState('')
@@ -34,8 +34,8 @@ const CartStatus = (props) => {
   const [showTransactionModal, setShowTransactionModal] = useState(false)
   const { cartData, setCartData } = useContext(CartContext)
   const { selectedBillingAddress, selectedDeliveryAddress } = useContext(AddressContext)
-  const isStepCompleted = props.currentActiveStep.current_active_step_number > 2
-  const isCurrentStep = props.currentActiveStep.current_active_step_number === 2
+  const isStepCompleted = props.currentActiveStep>props.step
+  const isCurrentStep = props.currentActiveStep===props.step
   const [totalOrderPrice, setTotalOrderPrice] = useState(0)
   const [initializeOrderLoading, setInitializeOrderLoading] = useState(false)
   const [orderId, setOrderId] = useState('')
@@ -109,17 +109,17 @@ const CartStatus = (props) => {
         }),
         fulfillment_type: 'DA_DELIVERY',
         billing_info: {
-          name: selectedBillingAddress?.name,
-          email: selectedBillingAddress?.email,
-          phone: selectedBillingAddress?.phone,
+          name: selectedDeliveryAddress?.name,
+          email: selectedDeliveryAddress?.email,
+          phone: selectedDeliveryAddress?.phone,
           address: {
             name: 'HOME',
-            door: selectedBillingAddress?.door,
+            door: selectedDeliveryAddress?.door,
 
-            city: selectedBillingAddress?.city,
-            state: selectedBillingAddress?.state,
+            city: selectedDeliveryAddress?.city,
+            state: selectedDeliveryAddress?.state,
             country: 'India',
-            area_code: selectedBillingAddress?.areaCode,
+            area_code: selectedDeliveryAddress?.areaCode,
           },
         },
         delivery_info: {
@@ -173,32 +173,14 @@ const CartStatus = (props) => {
     }
   }, [transactionStatus])
   return (
-    <div className={styles.price_summary_card}>
-      <div
-        className={`${isStepCompleted ? styles.step_completed_card_header : styles.card_header} `}
-        style={
-          isCurrentStep
-            ? {
-                borderBottom: `1px solid ${APP_COLORS.BACKGROUNDCOLOR}`,
-                borderBottomRightRadius: 0,
-                borderBottomLeftRadius: 0,
-              }
-            : {
-                borderBottomRightRadius: '10px',
-                borderBottomLeftRadius: '10px',
-              }
-        }
-      >
-        <div>
-          <p className={styles.card_header_title}>Order Summary</p>
+    <div className={styles.order_summary_card}>
+   
+        <div className={styles.order_summary_card_header}>
+          <p className={styles.order_summary_card_header_title}><span className={styles.step_no_text}>2</span>  Order Summary</p>
         </div>
-        {isStepCompleted && (
-          <div className="px-3">
-            <Checkmark width="25" height="16" style={{ marginBottom: '5px' }} />
-          </div>
-        )}
+       
         {isCurrentStep && (
-          <div style={{ width: '100% ' }}>
+          <div style={{ width: '100% ' ,padding:"20px 20px" }}>
             {loading ? (
               <Loading backgroundColor={APP_COLORS.ACCENTCOLOR} />
             ) : cartVerificationStatus ? (
@@ -345,8 +327,8 @@ const CartStatus = (props) => {
        
           </div>
         )}
-      </div>
+      
     </div>
   )
 }
-export default CartStatus
+export default OrderSummary

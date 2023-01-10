@@ -7,3 +7,4 @@ export const delay = (time) => {
     }
   })
 }
+export const isEmptyObject=(obj)=>Object.keys(obj).length===0

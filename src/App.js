@@ -6,7 +6,7 @@ import { CartContextProvider } from './contextProviders/cartContextProvider'
 import { AddressContextProvider } from './contextProviders/addressContextProvider'
 function App() {
  
- 
+   console.log(process.env)
   return (
     <div className={styles.background}>
        <CartContextProvider>

@@ -1,0 +1,69 @@
+@import "../../variables.scss";
+.address_card {
+    width: 100%;
+    background-color: $white;
+    box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
+    border-radius: 10px;
+    height:auto;
+    margin-top: 30px;
+  }
+  .address_card_header{
+    display: flex;
+    justify-content: start;
+    background-color:rgb(67, 81, 186);;
+  }
+  .address_card_header_title{
+    font-family: $firaSans;
+    font-size: $font-24;
+    font-weight: $medium;
+    text-align: left;
+    color: white;
+    margin: 0;
+    padding: 10px 10px;
+  }
+  .step_no_text
+    {background-color:white;border-radius:10px;padding:4px; color:blue;font-size:$font-18;margin-right: 5px;}
+  
+  .card_body {
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba($secondaryColor, 0.15);
+    height: auto;
+    .card_body_text {
+      font-size: $font-14;
+      text-align: left;
+      color: $secondaryColor;
+      margin: 0;
+    }
+  }
+  
+  .card_footer {
+   padding: 20px;
+   
+  
+    .card_body_text {
+      font-size: $font-14;
+      text-align: left;
+      color: $secondaryColor;
+      margin: 0;
+    }
+  }
+  .add_address_wrapper {
+    width: 160px;
+    padding: 10px 15px;
+    background-color: transparent;
+    border-radius: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }  
+  .add_address_text {
+    font-size: $font-14;
+    font-weight: $medium;
+    color: $accentColor;
+    margin: 0;
+  }
+  .add_svg_color {
+    fill: $accentColor;
+    // margin-bottom: 5px;
+  }
