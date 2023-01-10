@@ -258,10 +258,11 @@ const OrderSummary = (props) => {
                   >
                     <Button
                       isloading={initializeOrderLoading ? 1 : 0}
-                      btnBackColor={APP_COLORS.WHITE}
-                      hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                      buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                      btnBackColor={APP_COLORS.OrangeColor}
+                      hoverBackColor={APP_COLORS.DARK_ORANGE_COLOR}
+                      buttonTextColor={APP_COLORS.WHITE}
                       hoverTextColor={APP_COLORS.WHITE}
+                      btnBorder={`1px solid ${APP_COLORS.DARK_ORANGE_COLOR}`}
                       button_text="Place Order"
                       onClick={() => setShowTransactionModal(true)}
                     />

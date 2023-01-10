@@ -90,6 +90,23 @@ hr
 
 
 }
+
+  .cance_text{
+    
+    font-family: $firaSans;
+    font-size: $font-18;
+    font-weight: $medium;
+    text-align: left;
+    color: rgb(44, 44, 107);
+    margin: 0;
+  }
+  .cance_text:hover{
+    
+   
+    color: rgb(45, 45, 206);
+   
+  }
+
 .total_price{
   font-size: $font-20;
   font-weight: $semibold;

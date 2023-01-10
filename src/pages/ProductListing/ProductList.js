@@ -13,7 +13,7 @@ import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCall
 import { getAddressFromLatLng } from '../../data/apiCall'
 import { search_types, searchTypeMap } from '../../constants/searchTypes'
 import { queryTypes } from '../../constants/queryTypes'
-import Button from '../../sharedComponents/button/Button'
+
 
 import Pagination from '../../sharedComponents/pagination/Pagination'
 

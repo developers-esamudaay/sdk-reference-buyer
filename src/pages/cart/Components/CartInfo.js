@@ -86,9 +86,7 @@ const CartInfo = ({ onClose }) => {
                       
 
                     </tr>
-                    // <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 p-2">
-                    //   <ProductCard product={item.product} />
-                    // </div>
+                   
                   )
                 })}
         </table>
@@ -108,22 +106,17 @@ const CartInfo = ({ onClose }) => {
           {
                cartItems.length>0&&  <div className={CartItemsStyles.bottomButtons}>
                
-                <Button
-                btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.SECONDARYCOLOR}
-                buttonTextColor={APP_COLORS.SECONDARYCOLOR}
-                hoverTextColor={APP_COLORS.WHITE}
                 
-                 button_text="Clear Cart"
-                 onClick={() => setCartData({items:[]})}
-               />
+                 <div style={{cursor:"pointer"}}        onClick={() => setCartData({items:[]})}> 
+          <p className={CartItemsStyles.cance_text}> Clear Cart</p>
+         </div>
                
               
    
                <Button
-                btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                buttonTextColor={APP_COLORS.ACCENTCOLOR}
+                btnBackColor={APP_COLORS.SUCCESS}
+                hoverBackColor={APP_COLORS.DARK_SUCCES}
+                buttonTextColor={APP_COLORS.WHITE}
                 hoverTextColor={APP_COLORS.WHITE}
   
                  button_text="Checkout"

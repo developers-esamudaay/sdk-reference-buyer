@@ -103,9 +103,10 @@ export default function DeliveryAddress(props) {
                       <Button
                       disabled={ isEmptyObject(selectedDeliveryAddress)}
                       btnBackColor={APP_COLORS.OrangeColor}
-           
+                      hoverBackColor={APP_COLORS.DARK_ORANGE_COLOR}
                       buttonTextColor={APP_COLORS.WHITE}
                       hoverTextColor={APP_COLORS.WHITE}
+                      btnBorder={`1px solid ${APP_COLORS.DARK_ORANGE_COLOR}`}
                       button_text="Delivery Here"
             
                       onClick={() =>  props.onSelectAddress(delivery_address)}

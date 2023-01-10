@@ -12,10 +12,11 @@ export default function Button(props) {
   if (!props.disabled) {
     buttonProps = {
       ...buttonProps,
-      onMouseOver: () => setHover((prev)=>!prev),
+      onMouseOver: () =>{ console.log("test");setHover((prev)=>!prev)},
       onMouseOut: () => setHover((prev)=>!prev),
     }
   }
+  console.log(hover)
   const loading = (
     <div className="d-flex align-items-center justify-content-center">
       <Loading backgroundColor={buttonTextColor} />
@@ -24,11 +25,12 @@ export default function Button(props) {
   return (
     <button className={styles.btn} style={{
       backgroundColor:hover?hoverBackColor:btnBackColor,
-      border:hover?0:btnBorder,
-      transition: 'all 0.3s',
+      border:btnBorder??""
+      
+      
 
 
-     }}  {...props}>
+     }} {...buttonProps} {...props}>
       {props.isloading === 1 ? (
         loading
       ) : (

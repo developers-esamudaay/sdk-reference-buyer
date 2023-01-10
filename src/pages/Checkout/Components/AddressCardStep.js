@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import styles from '../../../../src/styles/checkout/address/AddressCard.module.scss'
-import Button from '../../../sharedComponents/button/Button'
+
 import { APP_COLORS } from '../../../constants/colors'
 
 

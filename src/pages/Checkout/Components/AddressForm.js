@@ -436,10 +436,11 @@ export default function AddressForm(props) {
         <Button
           isloading={addAddressLoading}
           btnBackColor={APP_COLORS.OrangeColor}
-         
+          hoverBackColor={APP_COLORS.DARK_ORANGE_COLOR}
           buttonTextColor={APP_COLORS.WHITE}
           hoverTextColor={APP_COLORS.WHITE}
-          button_text="Save And Delivered"
+          btnBorder={`1px solid ${APP_COLORS.DARK_ORANGE_COLOR}`}
+          button_text="Save And Delivered Here"
           onClick={() => {
           
               handleAddDeliveryAddress()
