@@ -7,7 +7,7 @@ import {Urls} from "./urls"
 const axoisInstanceSdk = axios.create({
   baseURL: Urls.sdkBaseUrl,
   timeout: 2000,
-  headers: { apid: process.env.REACT_APP_API_ID },
+  headers: { apid: process.env.REACT_APP_API_ID??"d1e7f644-552c-4a4e-a4e3-3233b876c060" },
 })
 const axoisInstanceMap = axios.create({
   baseURL: Urls.osmBaseUrl,
