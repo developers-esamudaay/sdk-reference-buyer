@@ -24,6 +24,9 @@ export default function AppRoutes() {
   useEffect(async()=>{
   
     setAddressLoading(true);
+
+
+    
     const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
 
     
