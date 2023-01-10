@@ -63,23 +63,29 @@ const Navbar=({search,
       placeholder={"type product name"}
       padding={"5px"}
     />
+    
     }
-        <div className={styles.nav_item_search} onClick={()=>setShowSearchBar(true)}>
-          {
-            !showSearchBar&& <div style={{display:"flex",alignItems:"center"}}>
-            <img src={searchImage} height={"25px"}/>
+
+    {
+      fromProductPage&&   <div className={styles.nav_item_search} onClick={()=>setShowSearchBar(true)}>
+      {
+        !showSearchBar&& <div style={{display:"flex",alignItems:"center"}}>
+        <img src={searchImage} height={"25px"}/>
+    
+     <p
         
-         <p
-            
-             className={styles.nav_item_search_text}
-             
-           >
-             Search
-           </p>
-           </div>
-          }
-        
+         className={styles.nav_item_search_text}
+         
+       >
+         Search
+       </p>
        </div>
+      }
+    
+   </div>
+    }
+
+     
       <div className={styles.nav_item}>
        <Link
            to={{
@@ -92,7 +98,8 @@ const Navbar=({search,
            Products
          </Link>
        </div>
-      <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
+    {
+      fromProductPage&&  <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
       
       <div class={styles.cart_wrapper}>
        <img src={cartIcon} width={"20px"}/>
@@ -111,6 +118,7 @@ const Navbar=({search,
          </Link>
       
        </div>
+    }
        <div className={styles.nav_item}>
        <Link
            to={{

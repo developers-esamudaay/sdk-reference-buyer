@@ -12,7 +12,7 @@ import Add from '../../../assets/icons/Add'
 import Subtract from '../../../assets/icons/Subtract'
 const CartInfo = ({ onClose }) => {
 
-  const { cartData, setCartData, cartTotalPrice, onRemoveProduct,onAddQuantity,onReduceQuantity} = useContext(CartContext)
+  const { cartData, setCartData, cartTotalPrice, onRemoveProduct,onAddQuantity,onReduceQuantity,setShowCartInfo} = useContext(CartContext)
   const cartItems = cartData?.items
   const history = useHistory()
 
@@ -127,7 +127,7 @@ const CartInfo = ({ onClose }) => {
                 hoverTextColor={APP_COLORS.WHITE}
   
                  button_text="Checkout"
-                 onClick={() => history.push('/checkout')}
+                 onClick={() =>{ setShowCartInfo(false); history.push('/checkout')}}
                />
              </div>
           }
