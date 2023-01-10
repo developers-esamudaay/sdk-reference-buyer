@@ -2,6 +2,15 @@
 
 ## High-level design
 **Ref Bap** uses [react](https://reactjs.org/tutorial/tutorial.html) local state and context api  for global state management and data flow.
+
+
+** here is the diagram for data flow
+![alt text](https://lucid.app/publicSegments/view/276372b5-7898-4ca9-b0c0-be4f5b121061/image.png)
+
+
+
+
+
 ## Folder Structure
 ```
 src
