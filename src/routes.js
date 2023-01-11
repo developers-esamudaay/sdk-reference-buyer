@@ -1,7 +1,7 @@
 import React,{useContext,useEffect} from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import ProductList from './pages/productListing/ProductList'
+import ProductList from './pages/productListing/ProductList.js'
 import { AddressContext } from './contextProviders/addressContextProvider'
 import ProductDetails from './pages/productListing/Components/ProductDetails'
 import Checkout from './pages/checkout/Checkout'
