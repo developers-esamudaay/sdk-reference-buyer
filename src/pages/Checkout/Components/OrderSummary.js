@@ -22,7 +22,7 @@ import TransactionStatusModal from './TransactionStatusModal'
 import { transactionStatusValues } from '../../../constants/transactionStatus'
 import { delay } from '../../../commonUtils'
 import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
-
+import { showErrorMsg,msgPosition } from '../../../contextProviders/toastMessegeProvider'
 import { useHistory } from 'react-router-dom'
 
 const OrderSummary = (props) => {
@@ -43,7 +43,7 @@ const OrderSummary = (props) => {
   const [orderItems, setOrderItems] = useState([])
   const [orderStatus, setOrderStatus] = useState('')
   const [transactionId,setTransactionId]=useState("")
-  
+
   
   const history = useHistory()
 
@@ -80,22 +80,10 @@ const OrderSummary = (props) => {
 
    
     } catch (e) {
-      console.log(e)
+      showErrorMsg({position:msgPosition.BOTTOM_RIGHT,msg:e})
     }
   }
-  const reloadOrders=async()=>{
-    try{
-      const response = await getOrderDetails(orderId)
-      const orderDetails = response.data()
-      setOrderItems(orderDetails?.items)
-      setOrderStatus(orderDetails?.statusOrder)
-      
-    }
-    catch(e){
-      console.log(e)
-    }
-    
-  }
+  
 
   useEffect(async () => {
     if (isCurrentStep) {
@@ -164,6 +152,8 @@ const OrderSummary = (props) => {
         setLoading(false)
       } catch (err) {
         console.log(err)
+       showErrorMsg({position:msgPosition.BOTTOM_RIGHT,msg:err.message})
+       setLoading(false) 
       }
     }
   }, [isCurrentStep])
