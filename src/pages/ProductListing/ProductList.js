@@ -39,7 +39,9 @@ export default function ProductList() {
   const [selectedLocation, setSelectedLocation] = useState(supportedCities[0])
   const [isAlreadySearched, setIsAlreadySearched] = useState(false)
   const [toggleCollapse, setToggleCollapse] = useState(false)
-
+  const[currentPage,setCurrentPage]=useState(1)
+  const[prevPage,setPrevPage]=useState(1)
+  const [nextPage,setNextPage]=useState(2)
   const { cartData,showCartInfo,setShowCartInfo } = useContext(CartContext)
   
   const [firstProduct,setFirstProduct]=useState("")
@@ -100,7 +102,15 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
     }
   }, [])
 
- 
+  useEffect(()=>{
+    console.log(prevPage,currentPage,nextPage)
+     if(currentPage>nextPage||currentPage<prevPage){
+
+      currentPage===1?setPrevPage(1):setPrevPage(currentPage-1)
+      setNextPage(currentPage+1)
+     }
+  
+  },[currentPage])
   //fetch products with search query
   useEffect(async () => {
     if (!search.value) {
@@ -158,7 +168,7 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
         <div
         className={styles.product_list_container}
       >
-        <div className="container" style={{ marginBottom: '10px' }}>
+        <div className="container" style={{borderBottom:"1px solid gray"}} >
           <div className={`row pe-2`}>
             {products.map((product) => {
               return (
@@ -172,23 +182,38 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
 
 
 
-          {products.length === 24 && (
+       
+
+          {/* pagination for prev and next page */}
+        </div>
+        {products.length === 24 && (
             <div className={styles.pagination}>
               <Pagination
-                onNext={() =>
-                  fetchProducts(queryTypes.NEXT_PAGE_QUERY, { lastProductId: lastProductId })
+              prevPage={prevPage}
+              nextPage={nextPage}
+               currentPage={currentPage}
+                offset={24}
+                onNext={async() =>{
+                 setCurrentPage((prev)=>prev+1)
+                 await fetchProducts(queryTypes.NEXT_PAGE_QUERY, { lastProductId: lastProductId })
                 }
-                onPrevious={() =>
-                  fetchProducts(queryTypes.PREV_PAGE_QUERY, { firstProductId: firstProductId })
+                 
+                }
+                onPrevious={async() =>
+                  {
+                    setCurrentPage((prev)=>prev-1)
+                    await fetchProducts(queryTypes.PREV_PAGE_QUERY, { firstProductId: firstProductId })
+                  }
+                  
                 }
               />
             </div>
           )}
-
-          {/* pagination for prev and next page */}
         </div>
-        </div>
+        
       )}
+         
+        
     {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
 
           {/* show cart modal  */}

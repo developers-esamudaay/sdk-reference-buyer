@@ -108,18 +108,20 @@ a {
 
 
 
+
 .add_to_cart_button {
-  width: 120px;
-  height: 35px;
+  width: 180px;
+  height: 40px;
   background-color: $white;
   border: 1px solid $accentColor;
-  border-radius: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: $font-14;
   font-weight: $medium;
-  color: $accentColor;
+  background-color: $accentColor;
+  color: $white;
 }
 
 .add_to_cart_button:hover {
@@ -129,12 +131,13 @@ a {
 }
 
 .quantity_count_wrapper {
-  width: 120px;
-  height: 35px;
+  width: 180px;
+  height: 40px;
   background-color: $accentColor;
-  border-radius: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .quantity_count_wrapper > div {
