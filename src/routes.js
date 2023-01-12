@@ -1,13 +1,13 @@
 import React,{useContext,useEffect} from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import ProductList from './pages/productListing/ProductList.js'
-import { AddressContext } from './contextProviders/addressContextProvider'
-import ProductDetails from './pages/productListing/Components/ProductDetails'
-import Checkout from './pages/checkout/Checkout'
+import ProductList from '../src/pages/productListing/ProductList'
+import { AddressContext } from '../src/contextProviders/addressContextProvider'
+import ProductDetails from '../src/pages/productListing/Components/ProductDetails'
+import Checkout from '../src/pages/checkout/Checkout'
 import uuid from 'react-uuid'
-import OrderList from './pages/orders/OrderList'
-import BusinessProfile from './pages/businessPage/BusinessProfile'
+import OrderList from '../src/pages/orders/OrderList'
+import BusinessProfile from '../src/pages/businessPage/BusinessProfile'
 import { getAddressFromLatLng } from '../src/data/apiCall'
 export default function AppRoutes() {
   const {currentAddress,currentLocation,setCurrentLocation,setCurrentAddress,setAddressLoading}=useContext(AddressContext)
