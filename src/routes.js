@@ -1,10 +1,10 @@
 import React,{useContext,useEffect} from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import ProductList from '../src/pages/productListing/ProductList'
+import ProductList from './pages/ProductListing/ProductList'
 import { AddressContext } from '../src/contextProviders/addressContextProvider'
-import ProductDetails from '../src/pages/productListing/Components/ProductDetails'
-import Checkout from '../src/pages/checkout/Checkout'
+import ProductDetails from './pages/ProductListing/Components/ProductDetails'
+import Checkout from './pages/Checkout/Checkout'
 import uuid from 'react-uuid'
 import OrderList from '../src/pages/orders/OrderList'
 import BusinessProfile from '../src/pages/businessPage/BusinessProfile'
