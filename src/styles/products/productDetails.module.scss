@@ -26,13 +26,14 @@ a {
 .width {
  display: flex;
  flex-direction: row;
- justify-content: left;
+ justify-content: space-around;
  align-items: center;
 }
 
 .product_list_without_summary_wrapper {
-  margin-top: 30px;
-  overflow: auto;
+  margin-top: 20px;
+  background-color: white;
+
  
 }
 
@@ -42,10 +43,10 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 30%;
-  border-radius: 8px;
-  height: 350px;
-  width:300px;
+
+  height: 400px;
+  width:400px;
+  
   
 
 }
@@ -69,23 +70,19 @@ a {
 }
 
 .product_name {
-  font-size: $font-24;
+  font-size: 30px;
   font-weight: $medium;
-  color: $primaryColor;
+  color: #14142B;
   margin: 0;
 }
 
 .ordered_from {
-  width: 100%;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+
   word-break: break-all;
-  font-size: $font-12;
-  color: #aaa;
-  margin: 0;
+  font-size: $font-14;
+  color: #6c752d;
+
 
   .bold {
     font-weight: $medium;
@@ -100,10 +97,10 @@ a {
 }
 
 .product_price {
-  font-size: $font-20;
+  font-size: 26px;
   font-weight: $medium;
-  color: $primaryColor;
-  margin: 0;
+  color: #212529;
+
 }
 
 
@@ -199,9 +196,63 @@ overflow-x: scroll;
   text-align: center;
   margin: 0;
 }
+.prodcut_details_key{
+  font-size: 15px;
+  color:#265f98
+}
+.prodcut_details_value{
+  font-size: 16px;
+  color:#6f757b;
+  margin-left: 10px;
+}
+.left_container{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ margin-top: 50px;
+}
+.right_container{
+  display: flex;
+  flex-direction: column;
 
+  justify-content: center;
+  margin-top: 80px;
+
+ }
+.full_container{
+  width:80%;margin-left:10%
+}
+.no_delivery{
+  display:flex;justify-content:center;background-color:#ee9a94;align-items:center;padding-top:3px;border-radius:8px;width:180px;height:40px
+}
+.no_delivery_text{
+  
+    font-size: $font-16;
+    font-weight: $semibold;
+    color:$white ;
+   
+   
+
+
+  
+}
 @media screen and (max-width: 767px) {
-  .width {
-    width: 100%;
+ .product_img_container{
+  height: 300px;
+  width:300px;
+ }
+
+.left_container{
+
+  margin-top: 0px;
+ }
+ .right_container{
+   display: flex;
+   flex-direction: column;
+ 
+   justify-content: center;
+   margin-top: 0px;
+   margin-right:0px;
   }
 }

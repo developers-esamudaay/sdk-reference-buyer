@@ -4,6 +4,7 @@ import SearchBar from "../searchBanner/SearchBar"
 import { getLocationSuggetion } from "../../data/apiCall"
 import { AddressContext } from "../../contextProviders/addressContextProvider"
 import CrossIcon from "../../assets/icons/CrossIcon"
+import { debouncedFunction } from "../../commonUtils"
 const LocationSearchModal=()=>{
     const [searchTerm,setSearchTerm]=useState({value:""})
     const [locatioSearchSuggetions,setLocationSearchSuggetions]=useState([])
@@ -15,12 +16,16 @@ const LocationSearchModal=()=>{
           setCurrentLocation({lat:location?.lat??0.00,lon:location?.lon??0.00})
           setSuggetionsLoading(false)
     }
-    useEffect(async()=>{
-       const response= await getLocationSuggetion(searchTerm.value);
+    console.log(locatioSearchSuggetions)
+    const fetchLocationSuggestion=async(value)=>{
+        console.log(value)
+        const response= await getLocationSuggetion(value);
+        console.log(response)
        
        setLocationSearchSuggetions(response.data)
-
-    },[searchTerm.value])
+    }
+  
+   
    
     return (
         <div className={styles.overlay}>
@@ -30,7 +35,7 @@ const LocationSearchModal=()=>{
              </div>
             <div className={styles.content}>
             
-            <SearchBar search={searchTerm} setSearch={setSearchTerm} placeholder={"search your location"} padding={"10px"}/>
+            <SearchBar handleChange={debouncedFunction(fetchLocationSuggestion,1000)} placeholder={"search your location"} padding={"10px"}/>
             <div style={{marginTop:"30px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
             {
             

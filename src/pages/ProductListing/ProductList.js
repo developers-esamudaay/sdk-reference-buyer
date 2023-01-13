@@ -13,7 +13,7 @@ import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCall
 import { getAddressFromLatLng } from '../../data/apiCall'
 import { search_types, searchTypeMap } from '../../constants/searchTypes'
 import { queryTypes } from '../../constants/queryTypes'
-
+import { debouncedFunction } from '../../commonUtils'
 
 import Pagination from '../../sharedComponents/pagination/Pagination'
 
@@ -112,11 +112,11 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
   
   },[currentPage])
   //fetch products with search query
-  useEffect(async () => {
-    if (!search.value) {
+  const fetchQueryProducts=async(value)=>{
+    if (!value) {
       return
     }
-    if (search.value && search.value.length < 3) {
+    if (value && value.length < 3) {
       if (isAlreadySearched) {
         await fetchProducts(queryTypes.NO_QUERY, {})
         setIsAlreadySearched(false)
@@ -128,14 +128,15 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
     } else {
       let queryParam = {
         type: searchTypeMap[search.type],
-        value: search.value,
+        value: value
       }
       setInlineError('')
       //debouncing fetch function is remaining forthis search call
       await fetchProducts(queryTypes.SEARCH_QUERY, queryParam)
       setIsAlreadySearched(true)
     }
-  }, [search.value])
+  }
+
 
 
   const EmptyProductView = (
@@ -153,9 +154,8 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
   return (
     <Fragment>
       {/* <Navbar /> */}
-   <Navbar search={search}
-   setSearch={setSearch}
-   checkSearch={checkSearch}
+   <Navbar 
+   handleChange={debouncedFunction(fetchQueryProducts,2000)}
   currentAddress={currentAddress}
   addressLoading={addressLoading}
   setShowSearchLocationModal={setShowSearchLocationModal}

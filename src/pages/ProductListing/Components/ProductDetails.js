@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import no_image_found from '../../../../src/assets/images/no_image_found.png'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
-// import OrderSummary from '../../cart/order-summary/orderSummary'
 import { useContext } from 'react'
 import { CartContext } from '../../../contextProviders/cartContextProvider'
 import Subtract from '../../../assets/icons/Subtract'
@@ -16,7 +15,9 @@ import { queryTypes } from '../../../constants/queryTypes'
 import ProductCard from './ProductCard'
 import { firestoreCollections } from '../../../constants/firestoreCollections'
 import Navbar from "../../../sharedComponents/navBar/Navbar"
-
+import CartInfo from '../../cart/Components/CartInfo'
+import { AddressContext } from '../../../contextProviders/addressContextProvider'
+import haversine from 'haversine-distance'
 // extract time info from time String
 const extractTimeInfo = (time) => {
   let numberValue = ''
@@ -40,6 +41,7 @@ export default function ProductDetails() {
 
   const { product } = location.state
 
+
   const {
     id,
     descriptor,
@@ -49,18 +51,35 @@ export default function ProductDetails() {
     item_name: product_name,
     short_desc: product_description,
     return_window,
-    time_to_ship,
+    time_to_ship,locations
   } = product
 
   const [quantityCount, setQuantityCount] = useState(0)
   const [toggleAddToCart, setToggleAddToCart] = useState()
-  const { cartData, onReduceQuantity, onAddQuantity, onAddProduct } = useContext(CartContext)
-
+  const { cartData, onReduceQuantity, onAddQuantity, onAddProduct,showCartInfo,setShowCartInfo } = useContext(CartContext)
+  const {currentLocation} =useContext(AddressContext)
   const cartItems = cartData?.items
   const [sameProviderProducts, setSameProviderProducts] = useState([])
   const [loading, setLoading] = useState(false)
+  const defaultLatLng=0.00
+const defaultRadius=6666*1000000;
+
+  const userLocation={
+    latitude:currentLocation?.lat,
+    longitude:currentLocation?.lon
+  }
+  const providerLocation={
+    latitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lat:defaultLatLng,
+    longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
+  }
+  const userProviderDistance=haversine(userLocation,providerLocation)
+  const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
+ 
+const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
+
 
   useEffect(() => {
+    //check if product is already in cart 
     const isProductPresent = cartItems.find(({ product }) => product.id === id)
     if (isProductPresent) {
       setToggleAddToCart(true)
@@ -70,26 +89,11 @@ export default function ProductDetails() {
       setQuantityCount(0)
     }
   }, [cartItems, id])
-  const fetchProviderProducts = async () => {
-    setLoading(true)
-    setSameProviderProducts([])
-    const products = await getProducts({
-      collectionName: firestoreCollections.ONDC_PRODUCTS,
-      query_type: queryTypes.PROVIDER_FILTER_QUERY,
-      queryParam: { filterValue: provider_name },
-      offset: 4,
-    })
-
-    setSameProviderProducts(products)
-    setLoading(false)
-  }
-  useEffect(async () => {
-    await fetchProviderProducts()
-  }, [provider_name])
+ 
 
   return (
     <Fragment>
-      <Navbar/>
+      <Navbar fromProductDetailsPage/>
 
         <div
           className={`py-20 ${
@@ -97,16 +101,30 @@ export default function ProductDetails() {
               styles.product_list_without_summary_wrapper
           }`}
         >
-          <div className="container">
-            <div className="row py-3 px-2">
-            
-            </div>
+          <div className={`container ${styles.full_container}`} >
+           
             <div
               className="row"
-              style={{ backgroundColor: 'white', width: '90%', marginLeft: '5%' }}
+
             >
-              <div className="col-md-12 col-lg-4 p-3 ">
+               {/* navigation routes */}
+                 <div className="d-inline-flex ">
+                <Link to={{ pathname: '/products' }}>
+                  <p className={styles.back_text}>Products</p>
+                </Link>
+                {">>"}
+                <Link to={{ pathname: `/products/${id}`,state: {
+                product,
+                price,
+              }, }}>
+                  <p className={styles.back_text}>{product_name}</p>
+                </Link>
+              </div>
+
+              
+              <div className="col-md-12 col-lg-5 p-3 ">
                 {/* PRODUCT IMAGE  */}
+                <div className={styles.left_container}>
                 <Carousel axis={'horizontal'}>
                   {images.map((image) => {
                     return (
@@ -124,23 +142,13 @@ export default function ProductDetails() {
                     )
                   })}
                 </Carousel>
+                </div>
               </div>
-              <div className="col-md-12 col-lg-8 p-3">
+              <div className="col-md-12 col-lg-6 p-3">
                 {/* NAME AND ORDERING FROM  */}
-                <div>
-                <div className="d-inline-flex">
-                <Link to={{ pathname: '/products' }}>
-                  <p className={styles.back_text}>Products</p>
-                </Link>
-                {">>"}
-                <Link to={{ pathname: `/products/${id}`,state: {
-                product,
-                price,
-              }, }}>
-                  <p className={styles.back_text}>{product_name}</p>
-                </Link>
-              </div>
-                  <p className={`${styles.product_name} ${styles.width}`}>{product_name}</p>
+                <div className={styles.right_container} >
+             
+                  <p className={`${styles.product_name} `}>{product_name}</p>
                   <p className={styles.ordered_from}>
                     Ordering from <span className={styles.bold}>{provider_name}</span>
                   </p>
@@ -148,56 +156,65 @@ export default function ProductDetails() {
                   <div className="pb-2">
                     <p className={styles.product_price}>₹ {Number(price / 100).toFixed(2)}</p>
                   </div>
+                  {/* if item is in delivery range then show add to cart button */}
                   <div className="py-3">
-                    {toggleAddToCart && quantityCount > 0 ? (
-                      <div className={styles.quantity_count_wrapper}>
-                        <div
-                          className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
-                          onClick={() => {
-                            setQuantityCount(quantityCount - 1)
-                            onReduceQuantity(id)
-                            if (quantityCount - 1 === 0) {
-                              setToggleAddToCart(false)
-                              return
-                            }
-                          }}
-                        >
-                          <Subtract width="13" classes={styles.subtract_svg_color} />
-                        </div>
-                        <div className="d-flex align-items-center justify-content-center">
-                          <p className={styles.quantity_count}>{quantityCount}</p>
-                        </div>
-                        <div
-                          className={`${styles.add_svg_wrapper} d-flex align-items-center justify-content-center`}
-                          onClick={() => {
-                            setQuantityCount((quantityCount) => quantityCount + 1)
-                            onAddQuantity(id)
-                          }}
-                        >
-                          <Add width="13" height="13" classes={styles.add_svg_color} />
-                        </div>
-                      </div>
-                    ) : (
-                      <button
-                        className={styles.add_to_cart_button}
-                        onClick={() => {
-                          setToggleAddToCart(true)
-                          setQuantityCount((quantityCount) => quantityCount + 1)
-                          onAddProduct({
-                            id,
-                            quantity: { count: quantityCount + 1 },
-                            location_id: product?.location_id,
-                            product,
-                          })
-                        }}
-                      >
-                        Add To Cart
-                      </button>
-                    )}
+                  {
+                inDeliveryDistance?(  <> {toggleAddToCart && quantityCount > 0 ? (
+                  <div className={styles.quantity_count_wrapper}>
+                    <div
+                      className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
+                      onClick={() => {
+                        setQuantityCount(quantityCount - 1)
+                        onReduceQuantity(id)
+                        if (quantityCount - 1 === 0) {
+                          setToggleAddToCart(false)
+                          return
+                        }
+                      }}
+                    >
+                      <Subtract width="13" classes={styles.subtract_svg_color} />
+                    </div>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <p className={styles.quantity_count}>{quantityCount}</p>
+                    </div>
+                    <div
+                      className={`${styles.add_svg_wrapper} d-flex align-items-center justify-content-center`}
+                      onClick={() => {
+                        setQuantityCount((quantityCount) => quantityCount + 1)
+                        onAddQuantity(id)
+                      }}
+                    >
+                      <Add width="13" height="13" classes={styles.add_svg_color} />
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    className={styles.add_to_cart_button}
+                    onClick={() => {
+                      setToggleAddToCart(true)
+                      setQuantityCount((quantityCount) => quantityCount + 1)
+                      onAddProduct({
+                        id,
+                        quantity: { count: quantityCount + 1 },
+                        location_id: product?.location_id,
+                        product,
+                   
+                      })
+                    }}
+                  >
+                    Add To Cart
+                  </button>
+                )}</>):(
+                  <div className={styles.no_delivery}>
+                  <p className={styles.no_delivery_text}>Delivery out of range</p>
+                  </div>
+                )
+              }
                   </div>
                   {/* ADD TO CART BUTTON  */}
-                  <hr style={{ border: '1px solid #aaa' }} />
-                  {/* DIVIDER  */}
+                {/* DIVIDER  */}
+                  <hr style={productStyle.lineStyle} />
+                 
                   <ExpendedView header={'Product Details'} shouldExpendedInitially={true}>
                     <div className={styles.width}>
                       <div style={{}}>
@@ -228,6 +245,7 @@ export default function ProductDetails() {
                           </div>
                         ) : null}
                       </div>
+                         {/* Return Window  */}
                       <div style={{}}>
                         {typeof product?.return_window !== 'undefined' ? (
                           <div className="d-flex align-items-center py-1">
@@ -237,6 +255,7 @@ export default function ProductDetails() {
                             </p>
                           </div>
                         ) : null}
+                          {/* Shipping Time */}
                         {typeof product?.return_window !== 'undefined' ? (
                           <div className="d-flex align-items-center py-1">
                             <p className={styles.prodcut_details_key}>Time to Ship:</p>
@@ -245,10 +264,19 @@ export default function ProductDetails() {
                             </p>
                           </div>
                         ) : null}
+                           {/* Category */}
+                               {typeof product?.category !== 'undefined' ? (
+                          <div className="d-flex align-items-center py-1">
+                            <p className={styles.prodcut_details_key}>Category:</p>
+                            <p className={styles.prodcut_details_value}>
+                              {product?.category}
+                            </p>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </ExpendedView>
-                  <hr style={{ border: '1px solid #aaa' }} />
+                  <hr style={productStyle.lineStyle} />
                   <ExpendedView header={'Know Your Product'} shouldExpendedInitially={true}>
                     {typeof product?.short_desc !== 'undefined' ? (
                       <div className="d-flex align-items-center justify-content-center py-1">
@@ -257,7 +285,7 @@ export default function ProductDetails() {
                       </div>
                     ) : null}
                   </ExpendedView>
-                  <hr style={{ border: '1px solid #aaa' }} />
+                  <hr style={productStyle.lineStyle} />
                   <ExpendedView header={'Seller Detalis'} shouldExpendedInitially={true}>
                     {typeof product?.business_name !== 'undefined' ? (
                       <div className="d-flex align-items-center justify-content-center py-1">
@@ -287,8 +315,14 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-        {/* {cartItems.length > 0 && <OrderSummary />} */}
+        {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
+
     
     </Fragment>
   )
+}
+const productStyle={
+  lineStyle:
+    { border: '1px solid #aaa' }
+  
 }
