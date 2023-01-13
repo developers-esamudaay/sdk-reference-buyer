@@ -49,6 +49,13 @@
 input:focus{
     outline: none;
   }
-  
+  @media screen and (max-width: 767px) {
+    .product_list_container{
+     
+              margin-top: 10px;
+              margin-left: 5;
+           
+    }
+  }
  
  

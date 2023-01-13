@@ -11,9 +11,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage'
 // import { ToastContext } from '../../../../context/toastContext'
 
 export default function SearchBar({
-  search,
-  setSearch,
-  checkSearch,
+  handleChange,
   inlineError,
   setInlineError,
   placeholder,
@@ -30,10 +28,7 @@ export default function SearchBar({
 
           onChange={(event) => {
             const searchValue = event.target.value
-            setSearch((search) => ({
-              
-              value: searchValue,
-            }))
+           handleChange(searchValue)
 
             setInlineError&& setInlineError((inlineError) => ({
               ...inlineError,

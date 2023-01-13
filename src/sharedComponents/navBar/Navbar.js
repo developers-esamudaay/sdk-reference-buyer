@@ -25,10 +25,10 @@ return (
 )
    
 }
-const Navbar=({search,
-    setSearch,
-    checkSearch,
-    inlineError,setInlineError,fromProductPage,setToggleCollapse,currentAddress,addressLoading,setShowSearchLocationModal})=>{
+const Navbar=({
+  handleChange,
+    inlineError,setInlineError,fromProductPage,setToggleCollapse,currentAddress,addressLoading,setShowSearchLocationModal,fromProductDetailsPage})=>{
+      console.log(fromProductDetailsPage)
       const [showSearchBar,setShowSearchBar]=useState(false)
       const {setShowCartInfo,cartData}=useContext(CartContext);
      
@@ -55,9 +55,7 @@ const Navbar=({search,
     
     {
       showSearchBar&&<SearchBar
-      search={search}
-      setSearch={setSearch}
-      checkSearch={checkSearch}
+      handleChange={handleChange}
       inlineError={inlineError}
       setInlineError={setInlineError}
       placeholder={"type product name"}
@@ -99,7 +97,7 @@ const Navbar=({search,
          </Link>
        </div>
     {
-      fromProductPage&&  <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
+      (fromProductPage||fromProductDetailsPage)&&  <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
       
       <div class={styles.cart_wrapper}>
        <img src={cartIcon} width={"20px"}/>
