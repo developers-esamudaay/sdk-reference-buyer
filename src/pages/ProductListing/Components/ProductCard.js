@@ -74,7 +74,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
       <div className={styles.product_img_container}>
         <img
           src={images?.length > 0 ? images[0] : no_image_found}
-          style={{ filter:!inDeliveryDistance? "grayscale(100%)":"" }}
+          style={{  }}
           alt={product_name}
           width="200"
           height="200"
@@ -179,10 +179,10 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                       })
                     }}
                   >
-                    Add
+                    Add To Cart
                   </button>
                 )}</>):(
-                  <div style={{display:"flex",justifyContent:"center"}}>
+                  <div className={styles.no_delivery}>
                   <p className={styles.no_delivery_text}>Delivery out of range</p>
                   </div>
                 )

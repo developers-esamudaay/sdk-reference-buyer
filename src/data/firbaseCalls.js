@@ -91,7 +91,8 @@ export async function createOrder(id,businessId) {
   return await setDoc(doc(db, firestoreCollections.ONDC_ORDER, id), {
     session_id: sessionStorage.getItem('sessionId'),
     id: id,
-    business_id:businessId
+    business_id:businessId,
+    createdDate:new Date()
   })
 }
 

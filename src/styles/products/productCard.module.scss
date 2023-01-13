@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .product_card_background {
-  padding: 5px;
+  padding: 3px;
   width: 100%;
 
   display: flex;
@@ -9,9 +9,14 @@
   justify-content: center;
   flex-direction: column;
   background-color: $white;
-  position:relative
+  position:relative;
+  cursor: pointer;
+ 
 }
+.product_card_background:hover {
+  transform: scale(1.05);
 
+}
 .product_img_container {
   height: 200px;
   width: 200px;
@@ -81,11 +86,11 @@ margin-top: 20px;
 }
 
 .add_to_cart_button {
-  width: 120px;
-  height: 35px;
+  width: 180px;
+  height: 40px;
   background-color: $white;
   border: 1px solid $accentColor;
-  border-radius: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,10 +107,10 @@ margin-top: 20px;
 }
 
 .quantity_count_wrapper {
-  width: 120px;
-  height: 35px;
+  width: 180px;
+  height: 40px;
   background-color: $accentColor;
-  border-radius: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,11 +187,14 @@ margin-top: 20px;
   background-color: #cfcccf;
   z-index: 1;
 }
+.no_delivery{
+  display:flex;justify-content:center;background-color:#ee9a94;align-items:center;padding-top:3px;border-radius:8px;width:180px;height:40px
+}
 .no_delivery_text{
   
-    font-size: $font-14;
-    font-weight: $medium;
-    color:$error ;
+    font-size: $font-16;
+    font-weight: $semibold;
+    color:$white ;
    
    
 
@@ -199,13 +207,5 @@ margin-top: 20px;
     flex-direction: row;
     justify-content: center;
     margin-top: 3px;
-  
-}
-.add_to_cart_button{
-  
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
   
 }

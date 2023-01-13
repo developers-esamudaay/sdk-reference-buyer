@@ -83,3 +83,33 @@ li {
   align-items: center;
   justify-content: center;
 }
+.page_number{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color:$accentColor ;
+  display: flex;
+  justify-content: center;
+
+  padding-top: 3px;
+}
+.page_number_inactive{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color:$white ;
+  display: flex;
+  justify-content: center;
+
+  padding-top: 3px;
+}
+.page_number_text{
+  color:$white;
+  font-size: $font-14;
+  font-weight: $semibold;
+}
+.page_number_text_inactive{
+  color:black;
+  font-size: $font-14;
+  font-weight: $semibold;
+}

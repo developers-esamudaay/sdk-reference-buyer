@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect, useMemo } from 'react'
+import { createContext, useState, useEffect, useMemo,useContext } from 'react'
 import { getSubTotal } from '../commonUtils'
+import { showSuccessMsg,showWarningMsg,msgPosition} from './toastMessegeProvider'
 export const CartContext = createContext({
   cartData: { items: [] },
   setCartData: () => {},
@@ -18,7 +19,7 @@ export function CartContextProvider({ children }) {
 
   const [cartData, setCartData] = useState(parsedCartData)
   const [showCartInfo,setShowCartInfo]=useState(false)
-  
+
   useEffect(() => {
     localStorage.setItem('cartData', JSON.stringify(cartData))
   }, [cartData])
@@ -81,7 +82,7 @@ export function CartContextProvider({ children }) {
 
   function onAddProductsToCart({ product, id, location_id, quantity, onErrorAddToCart }) {
     if (cartData.items && cartData.items.length === 0) {
-     
+     showSuccessMsg({position:msgPosition.TOP_RIGHT,msg:`${product.item_name} is succesfully added to cart`})
       setCartData((prevCart) => {
         return {
           ...prevCart,
@@ -103,6 +104,7 @@ export function CartContextProvider({ children }) {
       })
     } else {
       if (product?.bpp_id === cartData.bpp_id) {
+        showSuccessMsg({position:msgPosition.TOP_RIGHT,msg:`${product.item_name} is succesfully added to cart`})
         const updatedProducts = [
           ...cartData.items,
           {
@@ -116,7 +118,8 @@ export function CartContextProvider({ children }) {
           return { ...prevCart, items: updatedProducts }
         })
       } else {
-        onErrorAddToCart && onErrorAddToCart('you can not add product from diffrent provider')
+
+        showWarningMsg({position:msgPosition.BOTTOM_RIGHT,msg:"you can not add product from diffrent provider"})
         setCartData({ items: [] })
         setCartData((prevCart) => {
           return {

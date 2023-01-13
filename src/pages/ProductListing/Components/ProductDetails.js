@@ -191,7 +191,7 @@ export default function ProductDetails() {
                           })
                         }}
                       >
-                        Add
+                        Add To Cart
                       </button>
                     )}
                   </div>

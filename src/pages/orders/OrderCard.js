@@ -7,12 +7,13 @@ import Button from '../../sharedComponents/button/Button'
 import { cancelOrderFromSdk, supportOrderFromSdk, trackOrderFromSdk,returnOrderUsingSdk } from '../../data/apiCall'
 import ErrorMessage from "../../sharedComponents/errorMessage/ErrorMessage"
 import { delay } from "../../commonUtils"
-import { getSupportData } from "../../data/firbaseCalls"
+import { getSupportData,getOrderDetails } from "../../data/firbaseCalls"
 import CrossIcon from '../../../src/assets/icons/CrossIcon'
 import { APP_COLORS } from "../../constants/colors"
-
+import OrderStatusProgress from "./OrderStatusProgress"
 
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => {
+
 
   const [trackingError,setTrackingError]=useState("")
   const [trackLoading,setTrackLoading]=useState(false)
@@ -23,7 +24,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
   const [selectedItemForReturn,setSelectedItemForReturn]=useState(   new Array(orderData?.items?.length).fill({}))
   const [supportData,setSupportData]=useState()
   const returnItems=selectedItemForReturn.reduce((acc,item)=>Object.keys(item).length>0?[...acc,item]:acc,[])
-  
+  console.log(orderData)
   const handleOnChange=(position)=>{
    
     const updateItems=selectedItemForReturn.map((item,index)=>{
@@ -37,6 +38,13 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
       return  index===position?({...item,quantity:value}):item
     })
     setSelectedItemForReturn(updateItems)
+  }
+  const formatDate=(date)=>{
+   
+    const formattedDate=new Date(date.seconds * 1000 + date.nanoseconds/1000000)
+   
+  
+    return formattedDate
   }
 
   const ReturnModal=()=>(
@@ -57,7 +65,7 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
         <p className={styles.return_item_title}>Quantity</p>
         </div>
      {
-      orderData?.items?.map((item,index)=>{
+      orderData?.items?.filter((item)=>!item?.statusItem).map((item,index)=>{
         return (
           <div className={styles.return_modal_items} key={index}>
           <div className={styles.left_section}>
@@ -137,6 +145,19 @@ const trackOrder=async()=>{
   }
   setTrackLoading(false)  
 }
+// const reloadOrder=async()=>{
+//   try{
+//     const response = await getOrderDetails(orderData?.id)
+//     const orderDetails = response.data()
+//     setOrderItems(orderDetails?.items)
+//     setOrderStatus(orderDetails?.statusOrder)
+    
+//   }
+//   catch(e){
+//     console.log(e)
+//   }
+  
+// }
 const cancelOrder=async()=>{
   setCancelLoading(true)
   try{
@@ -220,7 +241,7 @@ const returnOrder=async()=>{
           <p className={styles.card_header_title}>{orderData?.id ? orderData?.id : 'NA'}</p>
           <p className={styles.date_label} style={{ fontSize: '12px' }}>
             Ordered on
-            <span style={{ fontWeight: '500', padding: '0 5px' }}>{'sdsadasd'}</span>
+            <span >{`: ${formatDate(orderData?.createdDate)}`}</span>
           </p>
         </div>
        
@@ -239,40 +260,15 @@ const returnOrder=async()=>{
           </div>
         </div>
       </div>
-      {/* <div style={{display:"flex",justifyContent:"space-between",width:"480px",marginLeft:"20%",padding:"20px"}}>
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div className={styles.dot}>
-        
-        </div>
-        <p>Created</p>
-        </div>
-        <span className={styles.line}></span>
-       
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div className={styles.dot}>
-        
-        </div>
-        <p>Created</p>
-        </div>
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div className={styles.dot}>
-        
-        </div>
-        <p>Created</p>
-        </div>
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div className={styles.dot}>
-        
-        </div>
-        <p>Created</p>
-        </div>
-
-      </div> */}
+   
       {isOrderExpended && (
         <>
         
         <div className={styles.card_body}>
-          <div style={{display:"flex",justifyContent:"center",marginTop:"10px"}}>
+    
+         <div style={{padding:"20px"}}>
+           <OrderStatusProgress orderStatus={orderData?.statusOrder}/>
+          <div style={{display:"flex",justifyContent:"center",marginTop:"60px"}}>
             <p className={styles.items_heading}>Order Items</p>
           </div>
           {orderData?.items &&
@@ -294,6 +290,7 @@ const returnOrder=async()=>{
                 </div>
               )
             })}
+            </div>
        
     
           
@@ -306,14 +303,14 @@ const returnOrder=async()=>{
         </div>
         <div className={styles.card_footer}>
       {/* <Button onClick={()=>trackOrder()}Pbutton_type={buttonTypes.secondary_hover} button_text={"Track"} isloading={trackLoading?1:0}/> */}
-      <Button onClick={()=>supportOrder()} btnBackColor={APP_COLORS.WHITE}
+      <Button onClick={()=>supportOrder()} btnBackColor={APP_COLORS.ACCENTCOLOR}
+                hoverBackColor={APP_COLORS.WHITE}
+                buttonTextColor={APP_COLORS.WHITE}
+                hoverTextColor={APP_COLORS.ACCENTCOLOR} button_text={"Support"} isloading={orderSupportLoading?1:0} />
+      {orderData?.statusOrder!=="CANCELLED"&&<Button onClick={()=>cancelOrder()} btnBackColor={APP_COLORS.WHITE}
                 hoverBackColor={APP_COLORS.ACCENTCOLOR}
                 buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                hoverTextColor={APP_COLORS.WHITE} button_text={"Support"} isloading={orderSupportLoading?1:0} />
-      {orderData?.statusOrder==="CREATED"&&<Button onClick={()=>cancelOrder()} btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                hoverTextColor={APP_COLORS.WHITE} button_text={"Cancel"} isloading={cancelLoading}/>}
+                hoverTextColor={APP_COLORS.WHITE} button_text={"Cancel"} isloading={cancelLoading?1:0}/>}
       {/* <Button button_type={buttonTypes.secondary_hover} button_text={"Support"} onClick={()=>supportOrder()} isloading={orderSupportLoading?1:0}/> */}
         </div>
         {trackingError&& <div style={{

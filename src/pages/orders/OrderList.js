@@ -9,6 +9,7 @@ import no_order_image from "../../assets/images/no_order_image.png"
 import Button from '../../sharedComponents/button/Button'
 import { APP_COLORS } from '../../constants/colors'
 
+import { delay } from '../../commonUtils'
 const OrderList = () => {
   
   const [orderList, setOrderList] = useState([])
@@ -26,6 +27,7 @@ const OrderList = () => {
     setOrderList(orderList)
     setLoading(false)
   }, [])
+  console.log(orderList)
 
   useEffect(async ()=>{
 
@@ -33,9 +35,11 @@ const OrderList = () => {
   },[location])
 
   const reloadOrders=async()=>{
+    console.log("in order list")
     setLoading(true)
     const sessioId = sessionStorage.getItem('sessionId')
-  
+
+    const orderList = await getOrderList(sessioId)
     setOrderList(orderList)
     setLoading(false)
   }
