@@ -21,14 +21,16 @@ export default function Pagination({ onNext, onPrevious,offset,currentPage,prevP
         </p>
       </div>
 
-      
-      <div className="px-1">
+      {
+        currentPage!==1&&      <div className="px-1">
         <li className={styles.page_anchor} onClick={onPrevious}>
           <div className={styles.arrow_left}>
             <DropdownSvg width="25" height="20" color={APP_COLORS.ACCENTCOLOR} />
           </div>
         </li>
       </div>
+      }
+
       {
         rangeArray(prevPage,nextPage).map((page)=>{
           return ( <div className="px-1">

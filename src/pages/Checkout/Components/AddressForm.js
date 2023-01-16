@@ -192,8 +192,8 @@ export default function AddressForm(props) {
               lon: res?.data[0]?.lon,
             }
           : {
-              lat: 12.9783692,
-              lon: 77.6408356,
+              lat: 13.343300703689293,
+              lon: 74.79207370430231,
             };
 
       setAddAddressLoading(false);

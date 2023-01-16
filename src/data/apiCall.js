@@ -53,13 +53,13 @@ export const trackOrderFromSdk=async(orderId)=>{
 })
 
 }
-export const cancelOrderFromSdk=async(orderId)=>{
+export const cancelOrderFromSdk=async({id,reason_code})=>{
  
-  return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/cancel`,{
+  return axoisInstanceSdk.post(`${Urls.OrderUrl}/${id}/cancel`,{
     "city_code": "std:080",
     "type": "CANCEL",
     "meta": {
-        "cancel_reason_code": "001",
+        "cancel_reason_code": reason_code,
         
     }
 })

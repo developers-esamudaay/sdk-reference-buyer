@@ -6,7 +6,7 @@ import ProductCard from './Components/ProductCard'
 import { CartContext } from '../../contextProviders/cartContextProvider'
 
 import DropdownSvg from '../../assets/icons/Dropdown'
-
+import no_product_found from "../../assets/images/no_product_found.jpeg"
 import CartInfo from '../cart/Components/CartInfo'
 import { supportedCities } from '../../constants/ondcSupportedCities'
 import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCalls'
@@ -113,7 +113,8 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
   },[currentPage])
   //fetch products with search query
   const fetchQueryProducts=async(value)=>{
-    if (!value) {
+    console.log(value)
+    if (!value&&! isAlreadySearched) {
       return
     }
     if (value && value.length < 3) {
@@ -170,6 +171,7 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
       >
         <div className="container" style={{borderBottom:"1px solid gray"}} >
           <div className={`row pe-2`}>
+            
             {products.map((product) => {
               return (
                 <div key={product?.id} className="col-xl-3 col-lg-6 col-md-6 col-sm-6 p-2">
@@ -177,6 +179,14 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
                 </div>
               )
             })}
+            {
+              products.length===0&&(
+
+              <div className={styles.empty_product_view}>
+                <img src={no_product_found} width={"300px"} height={"300px"}/>
+              </div>)
+            }
+
           </div>
           {/* products cards */}
 
@@ -186,6 +196,7 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
 
           {/* pagination for prev and next page */}
         </div>
+
         {products.length === 24 && (
             <div className={styles.pagination}>
               <Pagination

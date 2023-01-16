@@ -10,6 +10,7 @@ import { delay } from "../../commonUtils"
 import { getSupportData,getOrderDetails } from "../../data/firbaseCalls"
 import CrossIcon from '../../../src/assets/icons/CrossIcon'
 import { APP_COLORS } from "../../constants/colors"
+import { cancelReasons } from "../../constants/cancelReasons"
 import OrderStatusProgress from "./OrderStatusProgress"
 
 const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => {
@@ -23,6 +24,8 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
   const [showReturnModal,setShowReturnModal]=useState(false)
   const [selectedItemForReturn,setSelectedItemForReturn]=useState(   new Array(orderData?.items?.length).fill({}))
   const [supportData,setSupportData]=useState()
+  const[showCancelReasonModal,setShowCancelReasonModal]=useState(false)
+  const [selectedCancelReasonCode,setSelectedCancelReasonCode]=useState("")
   const returnItems=selectedItemForReturn.reduce((acc,item)=>Object.keys(item).length>0?[...acc,item]:acc,[])
   console.log(orderData)
   const handleOnChange=(position)=>{
@@ -46,7 +49,62 @@ const OrderCard = ({ orderData, isOrderExpended, expendOrder,reloadOrders }) => 
   
     return formattedDate
   }
-
+  const CancelReasonModal=()=>(
+    <div className={styles.overlay}>
+       <div className={styles.support_modal}>
+       <div style={{display:"flex",justifyContent:"flex-end"}}>
+       <CrossIcon
+                width="20"
+                height="20"
+                color={APP_COLORS.SECONDARYCOLOR}
+                style={{ cursor: 'pointer' }}
+                 onClick={()=>setShowCancelReasonModal(false)}
+              />
+       </div>
+       <div style={{display:"flex",justifyContent:"flex-start",paddingTop:"10px"}}>
+         <p>Select a Cancel Reason</p>
+       </div>
+       <div style={{display:"flex",justifyContent:"flex-start",flexDirection:"column",marginTop:"20px"}} onChange={(e)=>{
+        console.log(e.target.value)
+        setSelectedCancelReasonCode(e.target.value)
+       }}>
+       {
+        cancelReasons.map((reason)=>{
+          return (
+            <div key={reason?.code} style={{display:"flex"}}>
+              <div style={{width:"20%"}}>
+              <input type="radio" value={reason?.code} name="reasons" />
+              </div>
+              <div style={{width:"90%"}}>
+              <p> {reason?.reason}</p>
+              </div>
+              </div>
+          )
+        })
+       }
+       {
+          selectedCancelReasonCode&&(
+            <div style={{display:"flex",justifyContent:"center",paddingBottom:"20px"}}>
+            <Button
+            btnBackColor={APP_COLORS.ACCENTCOLOR}
+            hoverBackColor={APP_COLORS.ACCENTCOLOR}
+            buttonTextColor={APP_COLORS.WHITE}
+            hoverTextColor={APP_COLORS.WHITE}
+            btnBorder={`1px soild ${APP_COLORS.ACCENTCOLOR}`}
+            button_text="Cancel Order"
+            onClick={() => {
+              setShowCancelReasonModal(false)
+              cancelOrder()
+            }}
+          />
+            </div>
+          )
+       }
+       </div>
+       </div>
+       </div>
+   )
+ 
   const ReturnModal=()=>(
     <>
     <div className={styles.overlay}>
@@ -161,7 +219,7 @@ const trackOrder=async()=>{
 const cancelOrder=async()=>{
   setCancelLoading(true)
   try{
-    const cancelRes= await cancelOrderFromSdk(orderData?.id)
+    const cancelRes= await cancelOrderFromSdk({id:orderData?.id,reason_code:selectedCancelReasonCode})
     if(cancelRes.status === 200 && cancelRes?.data?.message?.ack?.status === 'ACK'){
             await delay(2000)
             await reloadOrders()
@@ -233,6 +291,7 @@ const returnOrder=async()=>{
     <div
    className={styles.card_wrapper}
     >
+
       <div
         className={styles.card_header}
         onClick={() => expendOrder(isOrderExpended ? '' : orderData?.id)}
@@ -307,7 +366,7 @@ const returnOrder=async()=>{
                 hoverBackColor={APP_COLORS.WHITE}
                 buttonTextColor={APP_COLORS.WHITE}
                 hoverTextColor={APP_COLORS.ACCENTCOLOR} button_text={"Support"} isloading={orderSupportLoading?1:0} />
-      {orderData?.statusOrder!=="CANCELLED"&&<Button onClick={()=>cancelOrder()} btnBackColor={APP_COLORS.WHITE}
+      {orderData?.statusOrder!=="CANCELLED"&&<Button onClick={()=>setShowCancelReasonModal(true)} btnBackColor={APP_COLORS.WHITE}
                 hoverBackColor={APP_COLORS.ACCENTCOLOR}
                 buttonTextColor={APP_COLORS.ACCENTCOLOR}
                 hoverTextColor={APP_COLORS.WHITE} button_text={"Cancel"} isloading={cancelLoading?1:0}/>}
@@ -333,6 +392,9 @@ const returnOrder=async()=>{
       }
      {
       showReturnModal&&<ReturnModal/>
+     }
+     {
+      showCancelReasonModal&&<CancelReasonModal/>
      }
     
     </div>

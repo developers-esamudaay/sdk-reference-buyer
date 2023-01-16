@@ -60,11 +60,11 @@ const OrderList = () => {
           {
             orderList.length===0&&(
               <>
-              <div style={{display:"flex",justifyContent:"center"}} >
+              <div style={{display:"flex",justifyContent:"center",marginTop:"120px"}} >
             <img
               src={no_order_image}
     
-             
+              
               width="400"
               height="400"
               // className={styles.product_img}
