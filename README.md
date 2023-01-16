@@ -11,11 +11,23 @@ Reference Buyer Web App is an ecommerce app like amazon/flipkart developed using
 * ReactJS: Javascript library for building User Interfaces
 * styled-components: CSS-in-JS library
 * firestore
-*firbase-cloud-function
+* firbase-cloud-function
+
+## Architecture
+
+ ###High Level Design
+
+**Ref Bap** uses [react](https://reactjs.org/tutorial/tutorial.html) local state and context api  for global state management and data flow.
+
+
+** here is the diagram for data flow
+![alt text](https://lucid.app/publicSegments/view/276372b5-7898-4ca9-b0c0-be4f5b121061/image.png)
+ 
 
 ## Requirements
 * node 
 * yarn 
+
 
 
 ## Local Installation
