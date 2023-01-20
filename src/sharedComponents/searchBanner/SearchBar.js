@@ -6,7 +6,7 @@ import { search_types } from '../../constants/searchTypes'
 
 import bannerStyles from './SearchBar.module.scss'
 import ErrorMessage from '../errorMessage/ErrorMessage'
-
+import SearchIcon from '@mui/icons-material/Search'
 // import { toast_actions, toast_types } from '../../../shared/toast/utils/toast'
 // import { ToastContext } from '../../../../context/toastContext'
 
@@ -16,13 +16,17 @@ export default function SearchBar({
   setInlineError,
   placeholder,
   padding,
+  borderRadius,
+  height,
+
+
 }) {
   return (
-    <div class={bannerStyles.wrap}>
-      <form>
+
+      <form className={bannerStyles.search_wrapper} style={{borderRadius:borderRadius,height:height}}>
         <input
           type="text"
-          autoFocus
+       
           className={bannerStyles.input_style}
           placeholder={placeholder}
 
@@ -36,12 +40,8 @@ export default function SearchBar({
             }))
           }}
         />
+        <SearchIcon/>
         </form>
-        <div style={{backgroundColor:"gray",borderRadius:"2px"}} >
-        <img src={searchIcon} width={"35px"}/>
-        </div>
-     
-      {inlineError&&inlineError?.search_error && <ErrorMessage>{inlineError.search_error}</ErrorMessage>}
-    </div>
+      
   )
 }

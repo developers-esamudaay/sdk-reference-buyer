@@ -8,9 +8,17 @@
 .header{
     font-size: 18px;
     font-weight: 400;
-    color:"#293671"
+    color:#1c75bc
 
 }
 .header:hover{
     color: rgb(49, 49, 146);
 }
+.content{
+    height:0;
+  overflow: hidden;
+  transition: height ease 0.2s;
+}
+.content_open {
+    height: auto;
+  }

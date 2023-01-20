@@ -10,7 +10,8 @@ import no_delivery from "../../../../src/assets/images/no_delivery.png"
 import Alert from 'react-alert'
 import haversine from 'haversine-distance'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
-
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { style } from '@mui/system'
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
 
@@ -72,6 +73,9 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
   
     
       <div className={styles.product_img_container}>
+        {
+        !inDeliveryDistance&&<div className={styles.ribbon}><span>Not Deliverable</span></div>
+        }
         <img
           src={images?.length > 0 ? images[0] : no_image_found}
           style={{  }}
@@ -110,7 +114,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                 pathname: `/business/${provider_id}`,
               }}
             >
-              Ordering from <span className={styles.bold}>{provider_name}</span>
+             Seller - <span className={styles.bold}>{provider_name}</span>
             </Link>
           )}
 
@@ -121,7 +125,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
             className={styles.price}
           >
             <div className="pe-2">
-              <IndianRupee width="10" height="14" />
+            <CurrencyRupeeIcon style={{color:"green"}}/>
             </div>
             <p className={styles.product_price}>{Number(price / 100).toFixed(2)}</p>
           </div>
@@ -182,9 +186,10 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                     Add To Cart
                   </button>
                 )}</>):(
-                  <div className={styles.no_delivery}>
-                  <p className={styles.no_delivery_text}>Delivery out of range</p>
-                  </div>
+                  <></>
+                  // <div className={styles.no_delivery}>
+                  // <p className={styles.no_delivery_text}>Delivery out of range</p>
+                  // </div>
                 )
               }
               

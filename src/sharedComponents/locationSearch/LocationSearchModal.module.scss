@@ -7,22 +7,22 @@
         top: 0;
         left: 0;
         right: 0;
-        background-color: rgba($primaryColor, 0.15);
+        background-color: rgba(#282C3F, 0.5);
         display: flex;
         align-items: center;
         justify-content: left;
         animation: fade 1s ease forwards;
-        z-index: 1;
+        z-index: 1002;
       }
 
       .popup_card {
-      width:35%;
+      width:30%;
         background-color: $white;
        
        height: 100%;
     
         opacity: 1;
-        animation: slide 0.5s ease forwards;
+        // animation: slide 0.5s ease forwards;
       }
       .content{
         display: flex;
@@ -30,11 +30,26 @@
      align-items: center;
        justify-content: center;
        margin-top: 10%;
+      
+
        
        
       }
+     .first_text{
+       font-size:16px;
+       font-weight: 500;
+       color:#3D4152
+     }
+     .first_text:hover{
+       color:#f86c08
+     }
+     .second_text{
+      font-size:13px;
+      font-weight: 300;
+      color:#3D4152
+    }
       @media screen and (max-width: 780px) {
         .popup_card{
-          width:70%;
+          width:80%;
         }
       }

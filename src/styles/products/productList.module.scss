@@ -14,10 +14,10 @@
 }
 .product_list_container{
   background-color: white;
-          padding: 5px 5px 5px 5p;
+         
           width: 100%;
-          margin-top: 55px;
-          margin-left: 5;
+          margin-top: 75px;
+     
           display: flex;
           flex-direction: column;
          
@@ -51,11 +51,11 @@
 input:focus{
     outline: none;
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 707px) {
     .product_list_container{
      
-              margin-top: 10px;
-              margin-left: 5;
+              margin-top: 170px;
+            
            
     }
   }

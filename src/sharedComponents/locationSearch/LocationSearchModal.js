@@ -5,6 +5,7 @@ import { getLocationSuggetion } from "../../data/apiCall"
 import { AddressContext } from "../../contextProviders/addressContextProvider"
 import CrossIcon from "../../assets/icons/CrossIcon"
 import { debouncedFunction } from "../../commonUtils"
+import PlaceIcon from '@mui/icons-material/Place';
 const LocationSearchModal=()=>{
     const [searchTerm,setSearchTerm]=useState({value:""})
     const [locatioSearchSuggetions,setLocationSearchSuggetions]=useState([])
@@ -21,8 +22,15 @@ const LocationSearchModal=()=>{
         console.log(value)
         const response= await getLocationSuggetion(value);
         console.log(response)
+        const searchSuggetions=response.data.map((item)=>{
+            const splitedText=item?.display_name.split(",")
+            return {
+                firstText:Array.isArray(splitedText)&&splitedText.length>0&&splitedText[0],
+                secondText:Array.isArray(splitedText)&&splitedText.length>0&&splitedText.slice(1).join(","),
+            }
+        })
        
-       setLocationSearchSuggetions(response.data)
+       setLocationSearchSuggetions(searchSuggetions)
     }
   
    
@@ -34,15 +42,21 @@ const LocationSearchModal=()=>{
                 <CrossIcon width={"30px"} height={"30px"} color={"black"} />
              </div>
             <div className={styles.content}>
+                <div style={{width:"90%"}}>
             
-            <SearchBar handleChange={debouncedFunction(fetchLocationSuggestion,1000)} placeholder={"search your location"} padding={"10px"}/>
+            <SearchBar handleChange={debouncedFunction(fetchLocationSuggestion,1000)} placeholder={"search your location"} padding={"10px"} borderRadius="0px" height="60px"/>
+            </div>
             <div style={{marginTop:"30px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
             {
             
                 locatioSearchSuggetions?.map((searchItem)=>{
                     return (
-                        <div key={searchItem?.place_id} style={{width:"65%",marginTop:"15px"}} onClick={()=>onSelecteLocation(searchItem)}>
-                        <p>{searchItem.display_name}</p>
+                        <div key={searchItem?.place_id} style={{width:"90%",marginTop:"15px",display:"flex",justifyContent:"space-between" }} onClick={()=>onSelecteLocation(searchItem)}>
+                            <PlaceIcon style={{color:"#f86c08"}}/>
+                            <div  style={{width:"270px",marginLeft:"15px",borderBottom:"1px solid gray"}}>
+                        <p className={styles.first_text}>{searchItem.firstText}</p>
+                        <p className={styles.second_text}>{searchItem.secondText}</p>
+                        </div>
                         </div>
                     )
                 })

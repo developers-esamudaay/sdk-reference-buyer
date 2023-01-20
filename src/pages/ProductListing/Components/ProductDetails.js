@@ -18,6 +18,10 @@ import Navbar from "../../../sharedComponents/navBar/Navbar"
 import CartInfo from '../../cart/Components/CartInfo'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import haversine from 'haversine-distance'
+import ProductIcon from '../../../assets/icons/ProductIcon'
+import InfoIcon from '@mui/icons-material/Info';
+import PersonIcon from '@mui/icons-material/Person';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 // extract time info from time String
 const extractTimeInfo = (time) => {
   let numberValue = ''
@@ -75,9 +79,9 @@ const defaultRadius=6666*1000000;
   const userProviderDistance=haversine(userLocation,providerLocation)
   const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
  
-const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
+const inDeliveryDistance=true
 
-
+// userProviderDistance<(parseInt(deliveryRadius)*1000)
   useEffect(() => {
     //check if product is already in cart 
     const isProductPresent = cartItems.find(({ product }) => product.id === id)
@@ -96,39 +100,38 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
       <Navbar fromProductDetailsPage/>
 
         <div
-          className={`py-20 ${
-          
-              styles.product_list_without_summary_wrapper
-          }`}
+          className={ styles.product_list_without_summary_wrapper}
         >
-          <div className={`container ${styles.full_container}`} >
+            <div className={styles.top_navigation}>
+                <Link to={{ pathname: '/products' }} className={styles.back_text}>
+                  <p >Products</p>
+                </Link>
+              <KeyboardArrowRightIcon style={{color:"#3D4152"}}/>
+                <Link to={{ pathname: `/products/${id}`,state: {
+                product,
+                price,
+              }, }} className={styles.back_text}>
+                  <p className={styles.back_text}>{product_name}</p>
+                </Link>
+              </div>
+          <div className={styles.full_container}>
            
             <div
               className="row"
 
             >
                {/* navigation routes */}
-                 <div className="d-inline-flex ">
-                <Link to={{ pathname: '/products' }}>
-                  <p className={styles.back_text}>Products</p>
-                </Link>
-                {">>"}
-                <Link to={{ pathname: `/products/${id}`,state: {
-                product,
-                price,
-              }, }}>
-                  <p className={styles.back_text}>{product_name}</p>
-                </Link>
-              </div>
+               
 
               
-              <div className="col-md-12 col-lg-5 p-3 ">
+              <div className="col-md-12 col-lg-6 p-3 ">
                 {/* PRODUCT IMAGE  */}
                 <div className={styles.left_container}>
                 <Carousel axis={'horizontal'}>
+                <div className={styles.product_img_container}>
                   {images.map((image) => {
                     return (
-                      <div className={styles.product_img_container}>
+                      
                         <img
                           src={image}
                           alt={product_name}
@@ -138,26 +141,22 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                             event.target.src = no_image_found
                           }}
                         />
-                      </div>
+                
                     )
                   })}
+                        </div>
                 </Carousel>
                 </div>
               </div>
-              <div className="col-md-12 col-lg-6 p-3">
+              <div className="col-md-12 col-lg-5 p-3">
                 {/* NAME AND ORDERING FROM  */}
                 <div className={styles.right_container} >
              
                   <p className={`${styles.product_name} `}>{product_name}</p>
                   <p className={styles.ordered_from}>
-                    Ordering from <span className={styles.bold}>{provider_name}</span>
+                    Seller-<span className={styles.bold}>{provider_name}</span>
                   </p>
-
-                  <div className="pb-2">
-                    <p className={styles.product_price}>₹ {Number(price / 100).toFixed(2)}</p>
-                  </div>
-                  {/* if item is in delivery range then show add to cart button */}
-                  <div className="py-3">
+                  <div >
                   {
                 inDeliveryDistance?(  <> {toggleAddToCart && quantityCount > 0 ? (
                   <div className={styles.quantity_count_wrapper}>
@@ -172,7 +171,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                         }
                       }}
                     >
-                      <Subtract width="13" classes={styles.subtract_svg_color} />
+                      <Subtract width="20" height="20" classes={styles.subtract_svg_color} />
                     </div>
                     <div className="d-flex align-items-center justify-content-center">
                       <p className={styles.quantity_count}>{quantityCount}</p>
@@ -184,7 +183,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                         onAddQuantity(id)
                       }}
                     >
-                      <Add width="13" height="13" classes={styles.add_svg_color} />
+                      <Add width="20" height="20" classes={styles.add_svg_color} />
                     </div>
                   </div>
                 ) : (
@@ -206,98 +205,150 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                   </button>
                 )}</>):(
                   <div className={styles.no_delivery}>
-                  <p className={styles.no_delivery_text}>Delivery out of range</p>
+                  <p className={styles.no_delivery_text}>Not Deliverable</p>
                   </div>
                 )
               }
                   </div>
+                  <div >
+                    <p className={styles.product_price}>₹ {Number(price / 100).toFixed(2)}</p>
+                  </div>
+                  {/* if item is in delivery range then show add to cart button */}
+                 
                   {/* ADD TO CART BUTTON  */}
                 {/* DIVIDER  */}
-                  <hr style={productStyle.lineStyle} />
+                <div className={styles.product_info_heading}>
+                <p className={styles.product_info_text}> Product Information</p>
+                </div>
+               
                  
-                  <ExpendedView header={'Product Details'} shouldExpendedInitially={true}>
+                  <ExpendedView header={'Product Details'} shouldExpendedInitially={true} Icon={PersonIcon}>
                     <div className={styles.width}>
-                      <div style={{}}>
+                 
                         {typeof product?.returnable !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1">
-                            <p className={styles.prodcut_details_key}>Returnable:</p>
-                            <p className={styles.prodcut_details_value}>
+                          <div className={styles.product_details}>
+                            <div className={styles.product_details_key}>
+                            <p className={styles.prodcut_details_key_text}>Returnable:</p>
+                           </div>
+                           <div className={styles.product_details_value}>
+                            <p className={styles.prodcut_details_value_text}>
                               {product?.returnable == true ? 'Yes' : 'No'}
                             </p>
+                            </div>
                           </div>
                         ) : null}
                         {/* CANCELABLE  */}
                         {typeof product?.cancellable !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1">
-                            <p className={styles.prodcut_details_key}>Cancelable:</p>
-                            <p className={styles.prodcut_details_value}>
-                              {product?.cancellable == true ? 'Yes' : 'No'}
+                            <div className={styles.product_details}>
+                            <div className={styles.product_details_key}>
+                            <p className={styles.prodcut_details_key_text}>Cancelable:</p>
+                           </div>
+                           <div className={styles.product_details_value}>
+                            <p className={styles.prodcut_details_value_text}>
+                            {product?.cancellable == true ? 'Yes' : 'No'}
                             </p>
+                            </div>
                           </div>
+                         
                         ) : null}
                         {/* COD  */}
                         {typeof product?.cod_available !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1 ">
-                            <p className={styles.prodcut_details_key}>Cash On Delivery:</p>
-                            <p className={styles.prodcut_details_value}>
-                              {product?.cod_available == true ? 'Yes' : 'No'}
-                            </p>
-                          </div>
+                             <div className={styles.product_details}>
+                             <div className={styles.product_details_key}>
+                             <p className={styles.prodcut_details_key_text}>Cash On Delivery:</p>
+                            </div>
+                            <div className={styles.product_details_value}>
+                             <p className={styles.prodcut_details_value_text}>
+                             {product?.cod_available == true ? 'Yes' : 'No'}
+                             </p>
+                             </div>
+                           </div>
+                         
                         ) : null}
-                      </div>
+                   
                          {/* Return Window  */}
-                      <div style={{}}>
+                     
                         {typeof product?.return_window !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1">
-                            <p className={styles.prodcut_details_key}>Return Window:</p>
-                            <p className={styles.prodcut_details_value}>
-                              {extractTimeInfo(return_window)}
+                            <div className={styles.product_details}>
+                            <div className={styles.product_details_key}>
+                            <p className={styles.prodcut_details_key_text}>Return Window:</p>
+                           </div>
+                           <div className={styles.product_details_value}>
+                            <p className={styles.prodcut_details_value_text}>
+                            {extractTimeInfo(return_window)}
                             </p>
+                            </div>
                           </div>
+                         
                         ) : null}
                           {/* Shipping Time */}
                         {typeof product?.return_window !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1">
-                            <p className={styles.prodcut_details_key}>Time to Ship:</p>
-                            <p className={styles.prodcut_details_value}>
-                              {extractTimeInfo(time_to_ship)}
-                            </p>
+                          <div className={styles.product_details}>
+                          <div className={styles.product_details_key}>
+                          <p className={styles.prodcut_details_key_text}>Time to Ship:</p>
+                         </div>
+                         <div className={styles.product_details_value}>
+                          <p className={styles.prodcut_details_value_text}>
+                          {extractTimeInfo(time_to_ship)}
+                          </p>
                           </div>
+                        </div>
+                         
                         ) : null}
                            {/* Category */}
                                {typeof product?.category !== 'undefined' ? (
-                          <div className="d-flex align-items-center py-1">
-                            <p className={styles.prodcut_details_key}>Category:</p>
-                            <p className={styles.prodcut_details_value}>
-                              {product?.category}
-                            </p>
-                          </div>
+                                 <div className={styles.product_details}>
+                                 <div className={styles.product_details_key}>
+                                 <p className={styles.prodcut_details_key_text}>Category:</p>
+                                </div>
+                                <div className={styles.product_details_value}>
+                                 <p className={styles.prodcut_details_value_text}>
+                                 {product?.category}
+                                 </p>
+                                 </div>
+                               </div>
+                         
                         ) : null}
-                      </div>
+                      
                     </div>
                   </ExpendedView>
                   <hr style={productStyle.lineStyle} />
-                  <ExpendedView header={'Know Your Product'} shouldExpendedInitially={true}>
+                  <ExpendedView header={'Know Your Product'} shouldExpendedInitially={true} Icon={InfoIcon}>
                     {typeof product?.short_desc !== 'undefined' ? (
+                      
                       <div className="d-flex align-items-center justify-content-center py-1">
-                        <p className={styles.prodcut_details_key}>Product Description:</p>
-                        <p className={styles.prodcut_details_value}>{product?.short_desc}</p>
+                        <p className={styles.prodcut_details_key_text}>Product Description:</p>
+                        <p className={styles.prodcut_details_value_text}>{product?.short_desc}</p>
                       </div>
                     ) : null}
                   </ExpendedView>
                   <hr style={productStyle.lineStyle} />
-                  <ExpendedView header={'Seller Detalis'} shouldExpendedInitially={true}>
+                  <ExpendedView header={'Seller Detalis'} shouldExpendedInitially={true} Icon={PersonIcon}>
                     {typeof product?.business_name !== 'undefined' ? (
-                      <div className="d-flex align-items-center justify-content-center py-1">
-                        <p className={styles.prodcut_details_key}>Seller Name:</p>
-                        <p className={styles.prodcut_details_value}>{product?.business_name}</p>
+                      <div className={styles.product_details}>
+                      <div className={styles.product_details_key}>
+                      <p className={styles.prodcut_details_key_text}>Seller Name:</p>
+                     </div>
+                     <div className={styles.product_details_value}>
+                      <p className={styles.prodcut_details_value_text}>
+                      {product?.business_name}
+                      </p>
                       </div>
+                    </div>
+                     
                     ) : null}
                     {typeof product?.bpp_id !== 'undefined' ? (
-                      <div className="d-flex align-items-center justify-content-center py-1">
-                        <p className={styles.prodcut_details_key}>BPP_ID:</p>
-                        <p className={styles.prodcut_details_value}>{product?.bpp_id}</p>
+                       <div className={styles.product_details}>
+                       <div className={styles.product_details_key}>
+                       <p className={styles.prodcut_details_key_text}>Seller Details:</p>
                       </div>
+                      <div className={styles.product_details_value}>
+                       <p className={styles.prodcut_details_value_text}>
+                       {product?.bpp_id}
+                       </p>
+                       </div>
+                     </div>
+                     
                     ) : null}
                     <div className="d-flex align-items-center justify-content-center py-1">
                       <Link
@@ -306,7 +357,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                           }}
                         title={product_name}
                       >
-                        {`view more products from ${product?.business_name}`}
+                        {`visit seller page ${product?.business_name}`}
                       </Link>
                     </div>
                   </ExpendedView>

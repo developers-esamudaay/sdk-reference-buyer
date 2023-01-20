@@ -174,7 +174,7 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
             
             {products.map((product) => {
               return (
-                <div key={product?.id} className="col-xl-3 col-lg-6 col-md-6 col-sm-6 p-2">
+                <div key={product?.id} className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 p-2">
                   <ProductCard product={product} />
                 </div>
               )
