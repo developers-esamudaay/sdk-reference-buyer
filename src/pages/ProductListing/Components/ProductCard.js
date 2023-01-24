@@ -127,7 +127,7 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
             className={styles.price}
           >
             <div className="pe-2">
-            <CurrencyRupeeIcon style={{color:"green"}}/>
+            <CurrencyRupeeIcon style={{color:"green",width:"20px",height:"20px"}}/>
             </div>
             <p className={styles.product_price}>{Number(price / 100).toFixed(2)}</p>
           </div>
@@ -138,7 +138,8 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                marginTop: '12px',
+                marginTop: '20px',
+                paddingBottom:"10px"
               }}
             >
               {

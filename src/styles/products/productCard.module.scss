@@ -20,7 +20,7 @@
  
 }
 .product_card_background:hover {
- box-shadow: 1px 1px 2px 0px;
+ box-shadow: 1px 1px 2px 1px rgba(rgb(212, 206, 206),  0.85);
 
 }
 .product_img_container {
@@ -99,7 +99,7 @@
 text-align: justify;
  
   word-break: break-all;
-  font-size: $font-16;
+  font-size: 1.6rem;
   font-weight: 400;
   color: #3D4152;
   margin: 0;
@@ -116,7 +116,7 @@ text-align: justify;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
-  font-size: $font-12;
+  font-size: $font-14;
   color: #3D4152;
   margin-top: 5px;
   display: flex;
@@ -148,6 +148,7 @@ text-align: justify;
   font-weight: $semibold;
   background-color: #2e3c7e;
   color: $white;
+
   
 }
 .short_text {
@@ -257,7 +258,8 @@ text-align: justify;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 3px;
+    align-items: flex-end;
+    margin-top: 20px;
   
 }
 
