@@ -7,7 +7,7 @@ import { CartContext } from '../../contextProviders/cartContextProvider'
 
 import DropdownSvg from '../../assets/icons/Dropdown'
 import no_product_found from "../../assets/images/no_product_found.jpeg"
-import CartInfo from '../cart/Components/CartInfo'
+// import CartInfo from '../cart/Components/CartInfo'
 import { supportedCities } from '../../constants/ondcSupportedCities'
 import { getProducts, addProducts, getAllBusiness } from '../../data/firbaseCalls'
 import { getAddressFromLatLng } from '../../data/apiCall'
@@ -225,7 +225,7 @@ const {currentAddress,setCurrentAddress,currentLocation,setCurrentLocation,showS
       )}
          
         
-    {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
+    {/* {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>} */}
 
           {/* show cart modal  */}
  

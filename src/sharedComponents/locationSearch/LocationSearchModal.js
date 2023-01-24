@@ -11,10 +11,10 @@ const LocationSearchModal=()=>{
     const [locatioSearchSuggetions,setLocationSearchSuggetions]=useState([])
     const [suggetionsLoading,setSuggetionsLoading]=useState(false)
     const {currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal}=useContext(AddressContext)
-    const onSelecteLocation=(location)=>{
+    const onSelecteLocation=(address)=>{
         setSuggetionsLoading(true)
         setShowSearchLocationModal(false)
-          setCurrentLocation({lat:location?.lat??0.00,lon:location?.lon??0.00})
+          setCurrentLocation({lat:address?.location?.lat??0.00,lon:address?.location?.lon??0.00})
           setSuggetionsLoading(false)
     }
     console.log(locatioSearchSuggetions)
@@ -27,6 +27,10 @@ const LocationSearchModal=()=>{
             return {
                 firstText:Array.isArray(splitedText)&&splitedText.length>0&&splitedText[0],
                 secondText:Array.isArray(splitedText)&&splitedText.length>0&&splitedText.slice(1).join(","),
+                location:{
+                    lat:item?.lat,
+                    lon:item?.lon
+                }
             }
         })
        

@@ -15,7 +15,7 @@ import { queryTypes } from '../../../constants/queryTypes'
 import ProductCard from './ProductCard'
 import { firestoreCollections } from '../../../constants/firestoreCollections'
 import Navbar from "../../../sharedComponents/navBar/Navbar"
-import CartInfo from '../../cart/Components/CartInfo'
+// import CartInfo from '../../cart/Components/CartInfo'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import haversine from 'haversine-distance'
 import ProductIcon from '../../../assets/icons/ProductIcon'
@@ -79,9 +79,7 @@ const defaultRadius=6666*1000000;
   const userProviderDistance=haversine(userLocation,providerLocation)
   const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
  
-const inDeliveryDistance=true
-
-// userProviderDistance<(parseInt(deliveryRadius)*1000)
+const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
   useEffect(() => {
     //check if product is already in cart 
     const isProductPresent = cartItems.find(({ product }) => product.id === id)
@@ -366,7 +364,7 @@ const inDeliveryDistance=true
             </div>
           </div>
         </div>
-        {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>}
+        {/* {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>} */}
 
     
     </Fragment>

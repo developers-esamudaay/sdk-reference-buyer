@@ -9,6 +9,7 @@ import uuid from 'react-uuid'
 import OrderList from '../src/pages/orders/OrderList'
 import BusinessProfile from '../src/pages/businessPage/BusinessProfile'
 import { getAddressFromLatLng } from '../src/data/apiCall'
+import CartPage from './pages/cart/Components/CartPage'
 export default function AppRoutes() {
   const {currentAddress,currentLocation,setCurrentLocation,setCurrentAddress,setAddressLoading}=useContext(AddressContext)
   useEffect(async() => {
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           <Route exact path={'/orders'} component={OrderList} />
           <Route exact path={'/business/:id'} component={BusinessProfile} />
           <Route path={'/checkout'} component={Checkout} />
+          <Route path={"/cart"} component={CartPage}/>
         
 
       </Switch>

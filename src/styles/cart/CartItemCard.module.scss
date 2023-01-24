@@ -1,0 +1,134 @@
+@import "../variables.scss";
+.cart_item_container{
+    display: flex;
+    align-items: flex-start;
+  justify-content: space-between;
+background-color: rgb(255, 255, 255);
+    padding:3.4rem 2.4rem 2.4rem 2.4rem;
+    box-shadow:1px 1px 3px 0px rgb(221, 210, 210)
+
+}
+
+.image_container{
+    max-width:16.6rem;
+    max-height:15.2rem;
+    min-width:3rem;
+    min-height:3rem
+   
+
+
+
+}
+.image_style{
+    width:100%;
+    height:100%;
+}
+.item_details_container{
+ 
+    padding:0rem 2.4rem 1.2rem 2.4rem;
+
+    
+
+}
+.item_name_text{
+    font-size: 1.6rem;
+    font-weight: $medium;
+    color:#3D4152
+}
+.seller_text{
+    font-size: 1.4rem;
+    font-weight: $regular;
+    color:#71768a 
+}
+.price_container{
+    display: flex;
+    align-items: baseline;
+    margin-top: 20px;
+}
+.price_text{
+    font-size: 1.8rem;
+    font-weight: $semibold;
+    color:green 
+}
+.delivery_info_text{
+    font-size: 1.4rem;
+    font-weight: $regular;
+    color:#3D4152
+}
+.quantity_count_wrapper {
+   
+   margin-top: 20px;
+    width:70px;
+    height: 25px;
+    background-color:white;
+    border-radius: 2px;
+    border:1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .quantity_count_wrapper > div {
+    width: 40px;
+    height: 35px;
+  }
+  
+  .subtract_svg_color,
+  .add_svg_color {
+    fill: black;
+  }
+  
+  .subtract_svg_wrapper {
+    fill: black;
+    cursor: pointer;
+  }
+  
+  .subtract_svg_wrapper:hover {
+    background-color: rgba($white, $alpha: 0.75);
+    transition: all 0.3s;
+    .subtract_svg_color {
+      fill:  #2e3c7e;
+    }
+  }
+  
+  .add_svg_wrapper {
+  
+    cursor: pointer;
+  }
+  
+  .add_svg_wrapper:hover {
+    background-color: rgba($white, $alpha: 0.75);
+    transition: all 0.3s;
+    .add_svg_color {
+      fill: #2e3c7e;
+    }
+  }
+  .quantity_count {
+    font-size: $font-14;
+    font-weight: $medium;
+    color: black;
+    text-align: center;
+    margin: 0;
+  }
+  .cart_actions{
+
+
+    display: flex;
+
+    
+    justify-content: baseline;
+  }
+  .remove_text{
+    font-size: $font-18;
+    font-weight: $semibold;
+    color:#3D4152;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .remove_text:hover{
+    color:#f86c08
+  }
+.delivery_details_container{
+ padding-right: 1rem;
+}

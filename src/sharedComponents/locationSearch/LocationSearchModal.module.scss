@@ -16,7 +16,7 @@
       }
 
       .popup_card {
-      width:30%;
+      width:clamp(200px, 50%, 400px);
         background-color: $white;
        
        height: 100%;

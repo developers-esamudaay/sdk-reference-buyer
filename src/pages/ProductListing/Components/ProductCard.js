@@ -183,7 +183,8 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
                       })
                     }}
                   >
-                    Add To Cart
+                    <span className={styles.long_text}> Add To Cart</span>
+                    <span className={styles.short_text}> Add </span>
                   </button>
                 )}</>):(
                   <></>

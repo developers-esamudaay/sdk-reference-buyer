@@ -25,7 +25,7 @@ return (
     addressLoading?<Loading/>:(  <div style={{display:"flex",cursor:"pointer",paddingTop:"10px"}} onClick={()=>setShowSearchLocationModal(true)}>
 
       <p className={styles.addres_text}>{prettyAddress}</p>
-      <EditLocationAltRoundedIcon style={{color:"#f86c08"}}/>
+      <EditLocationAltRoundedIcon style={{color:"#f86c08",width:"2.2rem",height:"2.2rem"}} />
       </div>)
   }
    
@@ -101,10 +101,10 @@ const Navbar=({
          </Link>
        </div>
     {
-      (fromProductPage||fromProductDetailsPage)&&  <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
+       <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
       
       <div class={styles.cart_wrapper}>
-      <ShoppingCartIcon style={{color:"green"}} />
+      <ShoppingCartIcon style={{color:"green",width:"2.2rem",height:"2.2rem"}} />
        {
         cartData.items.length>0&& <span>{cartData.items.length} </span>
        }
@@ -113,7 +113,10 @@ const Navbar=({
 
       <Link
           
-        
+          to={{
+            pathname: `/cart`,
+          
+          }}
           className={styles.nav_item_text}
          >
            Cart
@@ -156,7 +159,8 @@ const Navbar=({
       setInlineError={setInlineError}
       placeholder={"What are you looking for?"}
       padding={"5px"}
-      borderRadius="8px"
+      borderRadius="4px"
+      height="40px"
   
     />
     

@@ -40,7 +40,7 @@ export default function SearchBar({
             }))
           }}
         />
-        <SearchIcon/>
+        <SearchIcon style={{width:"30px",height:"18px", color:"#f86c08"}}/>
         </form>
       
   )
