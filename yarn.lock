@@ -2857,6 +2857,87 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@syncfusion/ej2-base@~20.4.42", "@syncfusion/ej2-base@~20.4.44":
+  version "20.4.44"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-base/-/ej2-base-20.4.44.tgz#cf74c555ca7a86542a86a4623b1cdce26427a569"
+  integrity sha512-HY6SSurnkCSjOsPKdh1/Uj+BfEC8g60z0fkQB2EeiTJkvk6hlKUoOROuYfIB8svIhQy2y3p9P6ivJAsDbej9mg==
+  dependencies:
+    "@syncfusion/ej2-icons" "~20.4.42"
+
+"@syncfusion/ej2-buttons@~20.4.44":
+  version "20.4.44"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-buttons/-/ej2-buttons-20.4.44.tgz#d12fd1d87ddcfdc8a8d28c0806cb4cf66f88f713"
+  integrity sha512-a6X8cp8e7N0fWH42qbSuW9lf51uTBEDHgUW+Tx2ggMImSnT64GHNzt3fp0BxyyFura5ZFm4sjpNQUv5ox5mEpg==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.44"
+
+"@syncfusion/ej2-compression@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-compression/-/ej2-compression-20.4.42.tgz#a1eb4328626f7709f51f5653e4df292669292f69"
+  integrity sha512-x0W1QntLzYuk+uoSh+Z9uHmCiAQaD+gyIvQ9gGjSEBJzagUkfvYQE0OzO09k9+pUAltkSwHqwaYnp64fNRxdxQ==
+  dependencies:
+    "@syncfusion/ej2-file-utils" "~20.4.42"
+
+"@syncfusion/ej2-data@~20.4.44":
+  version "20.4.44"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-data/-/ej2-data-20.4.44.tgz#346713009201ed610a4dd5b2ae6c01455f149b52"
+  integrity sha512-lJtvwxfqsuwB29Px+RyLC5XBN2CaAvAM6+uwILUaVtEGzC++7swhfuECIYoeCToHVCaMVi4YRgNdEyRO+FwgEA==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.44"
+
+"@syncfusion/ej2-file-utils@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-file-utils/-/ej2-file-utils-20.4.42.tgz#d19c26ea046c7529dbdc604f0eea70852b4b8154"
+  integrity sha512-VDuPSIQdZdVsCfw/f+TdR9x7hVPRx8kc9o/FwskiNHzAeYJU+Zg+yWUwW1pss0AZi34JVSFVqOWiUQ8P651UIw==
+
+"@syncfusion/ej2-icons@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-20.4.42.tgz#7f34a5ad40a632e0855f756b577c07e7a4dcfc06"
+  integrity sha512-HayCuxMExNg9Pp1E3qi6u4jQP6QbvLZjahokubV8IhlbC1tsaRPZQ6Mr9Tt+6eXzglCoFP4L86temkfAAw5ooA==
+
+"@syncfusion/ej2-maps@20.4.44":
+  version "20.4.44"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-maps/-/ej2-maps-20.4.44.tgz#fa035d485faa183f78623f270e3bffc913457935"
+  integrity sha512-zAW3tvpAtQVabJ3w5APmjL+CT4l3QJ+EQohf4KBW+A7t7rYgZy6pTtb+WIfENJ5YEpBbd3PVJMTey1jqWcRtEw==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.44"
+    "@syncfusion/ej2-buttons" "~20.4.44"
+    "@syncfusion/ej2-compression" "~20.4.42"
+    "@syncfusion/ej2-data" "~20.4.44"
+    "@syncfusion/ej2-file-utils" "~20.4.42"
+    "@syncfusion/ej2-pdf-export" "~20.4.42"
+    "@syncfusion/ej2-svg-base" "~20.4.42"
+
+"@syncfusion/ej2-pdf-export@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-pdf-export/-/ej2-pdf-export-20.4.42.tgz#0d7c99613306c41e9371e5b11c124706ba82928d"
+  integrity sha512-Lb365XGf+x7HGC9IptACR/QK4SjegJiXpM8EEfbFm4vpyc1p1Ucx3q4dl54s2I6+xtw9NKn+SuKUCkIpMyw75g==
+  dependencies:
+    "@syncfusion/ej2-compression" "~20.4.42"
+
+"@syncfusion/ej2-react-base@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-base/-/ej2-react-base-20.4.42.tgz#2120ea4768316858389ab54449428c1657647d6d"
+  integrity sha512-lX4t0tUm7sLLXnsVsaqQF+aIPITPQY/gJtZ8M7WXk1iNuzDcoWahp/qgdXPyRz8EOHRwKEw9bjCOBwa9grli9A==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.42"
+
+"@syncfusion/ej2-react-maps@^20.4.44":
+  version "20.4.44"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-maps/-/ej2-react-maps-20.4.44.tgz#dd894c19a481800eb4c899ccd96e422499c20e87"
+  integrity sha512-RTc7zG14TR5g0mg5keVAVs0xeH7+JOqYddBQhk/qzNmpGC7zbCCUNUHORzf18GyBWuPaD8gujzzD/eJFRyjuKQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.44"
+    "@syncfusion/ej2-maps" "20.4.44"
+    "@syncfusion/ej2-react-base" "~20.4.42"
+
+"@syncfusion/ej2-svg-base@~20.4.42":
+  version "20.4.42"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-svg-base/-/ej2-svg-base-20.4.42.tgz#0c8a97b025d8fc5414d886eeb6afe712ff66f639"
+  integrity sha512-pUuN+BNv3W/5SsmBGv91eoTxat5EcXcMwDGoLnBPNyJnDf0Ea7bZzC102R0tOMpHw0bpmp9fVHR2ItVjP14vsg==
+  dependencies:
+    "@syncfusion/ej2-base" "~20.4.42"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"

@@ -6,7 +6,12 @@ import ProductCard from '../ProductListing/Components/ProductCard'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { queryTypes } from '../../constants/queryTypes'
 import { CartContext } from '../../contextProviders/cartContextProvider'
-
+import { AddressContext } from '../../contextProviders/addressContextProvider'
+import haversine from 'haversine-distance'
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import Navbar from '../../sharedComponents/navBar/Navbar'
+import { MapsComponent, LayersDirective, NavigationLineDirective, LayerDirective, Zoom, MarkersDirective, NavigationLine, NavigationLinesDirective, MarkerDirective, Marker, Inject } from '@syncfusion/ej2-react-maps';
 const BusinessProfile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [products, setProducts] = useState([])
@@ -19,16 +24,74 @@ const BusinessProfile = () => {
   const[desc,setDesc]=useState("")
   const { id } = useParams()
   const { cartData } = useContext(CartContext)
-  
+  const {currentLocation} =useContext(AddressContext)
+  const defaultLatLng=0.00
+  const defaultRadius=6666*1000000;
+  const userLocation={
+    latitude:currentLocation?.lat,
+    longitude:currentLocation?.lon
+  }
+  const providerLocation={
+    latitude:businessLocation?.lat??defaultLatLng,
+    longitude:businessLocation?.lon??defaultLatLng
+  }
+  const sellerAddress=businessLocation?.address
+
+  const sellerPrettyAddress=sellerAddress?.street??""+", "+sellerAddress?.city??""+", "+sellerAddress?.state??"";
+  console.log(sellerPrettyAddress)
+const deliveryRadius=businessLocation?.delivery_radius??defaultRadius;
+const distanceFromSelller=haversine(userLocation,providerLocation)
+const inDeliveryDistance=distanceFromSelller<(parseInt(deliveryRadius)*1000)
   const cartItems = cartData?.items
-  const tab1 = <p>first tab</p>
-  const tab2 = <p>second tab</p>
+
   const About=(
-<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginTop:"40px"}}>
+<div className={styles.about_container}>
+  <div className="container">
+    <div className="row">
+      <div className="col-lg-6 col-xl-6 col-md-6 col-sm-12">
+        <p className={styles.about_heading_text}> Map</p>
+        <MapsComponent zoomSettings={{ zoomFactor: 4 }} centerPosition={userLocation}>
+            <Inject services={[Marker, NavigationLine, Zoom]}/>
+                <LayersDirective>
+                    <LayerDirective urlTemplate='https://tile.openstreetmap.org/level/tileX/tileY.png'>
+                        <MarkersDirective>
+                            <MarkerDirective visible={true} height={25} width={15} dataSource={[
+        {
+          ...providerLocation,
+            name: "India"
+        }
+    ]}>
+                            </MarkerDirective>
+                        </MarkersDirective>
+                     
+                    </LayerDirective>
+                </LayersDirective>
+            </MapsComponent>
+
+      </div>
+
+   <div className="col-lg-6 col-xl-6 col-md-6 col-sm-12" >
+    <div className={styles.address_contact_container}>
+
+   <p className={styles.about_heading_text}> Address</p>
+   <div className={styles.address_content}>
+    <p className={styles.business_name}>{businessName}</p>
+    <div className={styles.address}>
+    <LocationOnIcon style={{width:"30px",height:"30px",color:"green"}} />
+    <p  className={styles.address_text}>{sellerPrettyAddress}</p>
+    </div>
+   
+   <div className={styles.business_details}>
+   </div>
+   <p className={styles.about_heading_text}>Business Info</p>
+   </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
  
-   <p>bpp_id:<span>{bppId}</span></p>
-   <p>bpp_uri:<span>{bppUri}</span></p>
-   <p>description:<span>{desc}</span></p>
+
 </div>
   )
 
@@ -54,7 +117,7 @@ const BusinessProfile = () => {
         <div className={`row pe-2`}>
           {products.map((product) => {
             return (
-              <div key={product?.id} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 p-2">
+              <div key={product?.id} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 p-2">
                 <ProductCard product={product} fromScreen={'business'} />
               </div>
             )
@@ -74,9 +137,10 @@ const BusinessProfile = () => {
     setProducts(products)
     const businessDetails=await getBusinessDetailsById(id)
     const businessInfo=Array.isArray(businessDetails)&&businessDetails.length>0?businessDetails[0]:{}
+    console.log(businessInfo)
      setBusinessImages(businessInfo?.business_data?.images ?? [])
      setBusinessName(businessInfo?.business_data?.name ?? '')
-     setBusinessLocation(businessInfo?.business_data?.locations)
+     setBusinessLocation(Array.isArray(businessInfo?.business_data?.locations)&&businessInfo?.business_data?.locations?.length>0?businessInfo?.business_data?.locations[0]:{})
      setDesc(businessInfo?.business_data?.long_desc)
      setBppId(businessInfo?.bpp_id)
      setBppUri(businessInfo?.bpp_uri)
@@ -93,11 +157,13 @@ const BusinessProfile = () => {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              backgroundColor: index === selectedTabIndex ? 'black' : '',
+              backgroundColor: index === selectedTabIndex ? '#dd468a' : '',
               height: '100%',
+              borderRadius: "8px"
+           
             }}
           >
-            <p className={styles.tabbar_text} style={{}} onClick={() => setSelectedTabIndex(index)}>
+            <p className={styles.tabbar_text} style={{   color:index === selectedTabIndex?"white":"black"}}  onClick={() => setSelectedTabIndex(index)}>
               {screen}
             </p>
           </div>
@@ -107,6 +173,7 @@ const BusinessProfile = () => {
   )
   return (
     <>
+    <Navbar/>
       <div className={styles.seller_page_header_wrapper}>
         <div className={styles.image_container}>
           <img
@@ -120,7 +187,20 @@ const BusinessProfile = () => {
               event.target.src = no_image_found
             }}
           />
-        </div>
+        </div >
+        <div className={styles.business_info}>
+     
+          <p className={styles.business_name}>{businessName}</p>
+          <div className={styles.delivery_distance}>
+            <LocationOnIcon style={{width:"30px",height:"30px",color:"green"}} />
+            <p className={styles.delivery_distance_text}>{`${(distanceFromSelller/1000).toFixed()} Km`}</p>
+            <div className={styles.delivery_availablity}>
+            <LocalShippingIcon style={{width:"30px",height:"30px",color:inDeliveryDistance?"green":"#DC3545"}} />
+            <p className={styles.delivery_distance_text} style={{color:inDeliveryDistance?"green":"#DC3545"}}  >{inDeliveryDistance? "Deliverable":"Not Deliverable"}</p>
+            </div>
+          </div>
+          </div>
+      
       </div>
       <div className={styles.seller_page_subheader_wrapper}>{TabBar}</div>
       <div>

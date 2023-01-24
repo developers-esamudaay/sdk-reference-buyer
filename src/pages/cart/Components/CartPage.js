@@ -51,7 +51,7 @@ const CartPage=()=>{
                        <p className={styles.total_item_text}>{cartTotalPrice}</p>
                          </div>
                           <div className={styles.checkout_button_container}>
-                         <button className={styles.checkout_button}>
+                         <button className={styles.checkout_button} onClick={()=>history.push("/checkout")}>
                           Checkout 
                          </button>
                          </div>

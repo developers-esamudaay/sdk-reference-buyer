@@ -48,7 +48,7 @@ const CartItemCard=({item})=>{
           <div className={styles.price_container}>
 
        <CurrencyRupeeIcon style={{color:"green",width:"16px",height:"16px"}}/>
-       <p className={styles.price_text}>{item?.product?.price/100}</p>
+       <p className={styles.price_text}>{(item?.product?.price/100)*item?.quantity?.count}</p>
        </div>
        <div className={styles.cart_actions}>
        <div className={styles.quantity_count_wrapper}>
@@ -79,7 +79,7 @@ const CartItemCard=({item})=>{
         </div>
         </div>
         <div className={styles.delivery_details_container}>
-           <p className={styles.delivery_info_text}>{`shipped by ${extractTimeInfo(item?.product?.time_to_ship)}`}</p>
+           <p className={styles.delivery_info_text}>{`shipped in ${extractTimeInfo(item?.product?.time_to_ship)}`}</p>
            <p className={styles.delivery_info_text}>{item?.product?.returnable?"Returnable":"Not Returnable"}</p>
         </div>
       </div>)
