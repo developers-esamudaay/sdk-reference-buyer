@@ -12,10 +12,11 @@ import haversine from 'haversine-distance'
 import { AddressContext } from '../../../contextProviders/addressContextProvider'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { style } from '@mui/system'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 export default function ProductCard(props) {
   const { product, show_quantity_button = true } = props
 
-
+  const history=useHistory()
   const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } = useContext(CartContext)
   const {currentLocation,setCurrentLocation}=useContext(AddressContext)
   const cartItems = cartData?.items
@@ -70,7 +71,13 @@ const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
 
   
   return (
-    <div className={`${styles.product_card_background}`}>
+    <div className={`${styles.product_card_background}`} onClick={()=>history.push({
+      pathname: `/products/${id}`,
+      state: {
+        product,
+        price,
+      },
+    })}>
   
   
     

@@ -51,7 +51,7 @@ const Navbar=({
           text:"Orders"
         },
         {
-          handleClick:{setShowCartInfo},
+          path:"/cart",
           text:"Cart",
           Icon:ShoppingCartIcon
         },
