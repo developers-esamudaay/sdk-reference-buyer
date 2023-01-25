@@ -13,15 +13,15 @@
 .navBar{
    
    
-     width:90%;
-     margin-left:5%;
+   
     
       display: flex;
-      padding:10px 10px;
- 
-    gap:70px;
+      padding:1.6rem 1rem 1.6rem 4rem;
+      width:100%;
+  
+    gap:7rem;
     flex-wrap: wrap;
-      align-items: baseline;
+      align-items: flex-start;
 
  
     
@@ -37,12 +37,18 @@
   
   }
   .nav_search_bar{
-    flex-grow:2;order:1
+    flex-grow:2;order:1;
+    
+    
+    
   }
   .nav_right_items{
+  
     display: flex;
-    justify-content:space-evenly;
+    justify-content:space-around;
+  
   align-items: baseline;
+
  flex-grow: 1;
  
 
@@ -54,7 +60,7 @@
 .nav_item  {
      display: flex;
 
-    padding: 12px 10px;
+   
     text-decoration: none;
     align-items: baseline;
   
@@ -78,7 +84,7 @@
     text-decoration: none;
     color: black;
     cursor: pointer;
-    padding-top: 10px;
+  
 
    
   }
@@ -106,6 +112,9 @@
 
     
   }
+  .active{
+    color: #f86c08;
+  }
   .addres_text{
     text-decoration: none;
     font-size: $font-16;
@@ -117,19 +126,20 @@
 
 .cart_wrapper{
 
-
-
+ border-radius: 48px;
+ padding: 0.5rem 1rem 0.5rem 1rem;
+ 
   span{
     font-size: 14px;
     font-weight: 600;
-    position: relative;
-    top:-10px;
    
-   border-radius: 50%;
 
-    background:#f86c08;
+   
+
+
+
     text-align: center;
-    color: #FFFFFF;
+   
     padding: 2px 2px 2px 2px;
 }
 
@@ -147,7 +157,7 @@
   .navBar{
     gap:20px;
     width:100%;
-    margin-left:0%;
+   padding-left:1rem
    
   }
  

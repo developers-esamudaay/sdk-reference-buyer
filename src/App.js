@@ -1,7 +1,7 @@
 import styles from './styles/globalStyles.module.scss'
 import AppRoutes from './routes'
 import { useEffect } from 'react'
-
+import "./App.css"
 import { CartContextProvider } from './contextProviders/cartContextProvider'
 import { AddressContextProvider } from './contextProviders/addressContextProvider'
 import ToastMessegeProvider from './contextProviders/toastMessegeProvider'

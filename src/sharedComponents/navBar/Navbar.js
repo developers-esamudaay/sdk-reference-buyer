@@ -1,16 +1,16 @@
 import {useState,useContext} from "react"
 import SearchBar from "../searchBanner/SearchBar"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import styles from "./Navbar.module.scss"
 import Loading from "../loading/Loading"
 
 import searchImage from "../../assets/images/search_icon.png"
-import cartIcon from "../../assets/images/cart_icon.png"
+
 import { CartContext } from "../../contextProviders/cartContextProvider"
 
 import PinDropIcon from '@mui/icons-material/PinDrop';
 import EditLocationAltRoundedIcon from '@mui/icons-material/EditLocationAltRounded';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { HLDropdown, HLMenu, HLCard } from "synos-helena";
 import Avatar from "react-avatar";
 import DropdownMenu from "../dropdown/DropdownMenu"
@@ -22,7 +22,7 @@ const ShowCurrentAddress=({currentAddress,addressLoading,setShowSearchLocationMo
 return (
   <>
   {
-    addressLoading?<Loading/>:(  <div style={{display:"flex",cursor:"pointer",paddingTop:"10px"}} onClick={()=>setShowSearchLocationModal(true)}>
+    addressLoading?<Loading/>:(  <div style={{display:"flex",cursor:"pointer"}} onClick={()=>setShowSearchLocationModal(true)}>
 
       <p className={styles.addres_text}>{prettyAddress}</p>
       <EditLocationAltRoundedIcon style={{color:"#f86c08",width:"2.2rem",height:"2.2rem"}} />
@@ -53,7 +53,7 @@ const Navbar=({
         {
           path:"/cart",
           text:"Cart",
-          Icon:ShoppingCartIcon
+          Icon:LocalMallIcon
         },
       
       ]
@@ -89,44 +89,23 @@ const Navbar=({
     }
      
       <div className={styles.nav_item}>
-       <Link
+       <NavLink
            to={{
              pathname: `/products`,
            
            }}
            className={styles.nav_item_text}
-           
+         
+    
+         
          >
            Products
-         </Link>
+         </NavLink>
        </div>
-    {
-       <div className={styles.nav_item}   onClick={()=>setShowCartInfo(true)} >
-      
-      <div class={styles.cart_wrapper}>
-      <ShoppingCartIcon style={{color:"green",width:"2.2rem",height:"2.2rem"}} />
-       {
-        cartData.items.length>0&& <span>{cartData.items.length} </span>
-       }
-       
-      </div>
-
-      <Link
-          
-          to={{
-            pathname: `/cart`,
-          
-          }}
-          className={styles.nav_item_text}
-         >
-           Cart
-         </Link>
-      
-       </div>
-    }
+   
     
        <div className={styles.nav_item}>
-       <Link
+       <NavLink
            to={{
              pathname: `/orders`,
            
@@ -135,7 +114,30 @@ const Navbar=({
            
          >
            Orders
-         </Link>
+         </NavLink>
+       </div>
+
+       <div className={styles.nav_item}    >
+      
+      
+
+      <NavLink
+          
+          to={{
+            pathname: `/cart`,
+          
+          }}
+          className={styles.nav_item_text}
+         >
+        <div className={styles.cart_wrapper} style={{backgroundColor:cartData?.items?.length>0?"green":"#e8eaf6"}} >
+      <LocalMallIcon style={{color:cartData?.items?.length>0?"white":"#3D4152",width:"2.2rem",height:"2.2rem"}} />
+       {
+     <span style={{color:cartData?.items?.length>0?"white":"#3D4152"}}>{cartData.items.length} </span>
+       }
+       
+      </div>
+         </NavLink>
+      
        </div>
      
        <div className={styles.avatar_dropdown_style}>

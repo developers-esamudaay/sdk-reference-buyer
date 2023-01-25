@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect,useContext,useRef } from 'react'
 import styles from '../../styles/businessProfile/BusinessPage.module.scss'
 import no_image_found from '../../assets/images/no_image_found.png'
 import { getBusinessDetailsById, getProducts } from '../../data/firbaseCalls'
@@ -11,7 +11,8 @@ import haversine from 'haversine-distance'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Navbar from '../../sharedComponents/navBar/Navbar'
-import { MapsComponent, LayersDirective, NavigationLineDirective, LayerDirective, Zoom, MarkersDirective, NavigationLine, NavigationLinesDirective, MarkerDirective, Marker, Inject } from '@syncfusion/ej2-react-maps';
+import { Map, TileLayer,MapContainer,Marker,Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 const BusinessProfile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [products, setProducts] = useState([])
@@ -21,10 +22,12 @@ const BusinessProfile = () => {
   const [businessLocation,setBusinessLocation]=useState({})
   const [bppId,setBppId]=useState("")
   const [bppUri,setBppUri]=useState("")
+  const [businessId,setBusinessId]=useState("")
   const[desc,setDesc]=useState("")
   const { id } = useParams()
   const { cartData } = useContext(CartContext)
   const {currentLocation} =useContext(AddressContext)
+  const mapRef = useRef();
   const defaultLatLng=0.00
   const defaultRadius=6666*1000000;
   const userLocation={
@@ -36,38 +39,39 @@ const BusinessProfile = () => {
     longitude:businessLocation?.lon??defaultLatLng
   }
   const sellerAddress=businessLocation?.address
+  console.log(sellerAddress?.city)
+  const sellerPrettyAddress=""+sellerAddress?.street+", "+sellerAddress?.city+", "+sellerAddress?.state;
 
-  const sellerPrettyAddress=sellerAddress?.street??""+", "+sellerAddress?.city??""+", "+sellerAddress?.state??"";
-  console.log(sellerPrettyAddress)
 const deliveryRadius=businessLocation?.delivery_radius??defaultRadius;
 const distanceFromSelller=haversine(userLocation,providerLocation)
 const inDeliveryDistance=distanceFromSelller<(parseInt(deliveryRadius)*1000)
+const defaultCenter = [38.9072, -77.0369];
+const defaultZoom = 10;
+const position = [51.505, -0.09]
   const cartItems = cartData?.items
 
   const About=(
 <div className={styles.about_container}>
+  
   <div className="container">
     <div className="row">
-      <div className="col-lg-6 col-xl-6 col-md-6 col-sm-12">
-        <p className={styles.about_heading_text}> Map</p>
-        <MapsComponent zoomSettings={{ zoomFactor: 4 }} centerPosition={userLocation}>
-            <Inject services={[Marker, NavigationLine, Zoom]}/>
-                <LayersDirective>
-                    <LayerDirective urlTemplate='https://tile.openstreetmap.org/level/tileX/tileY.png'>
-                        <MarkersDirective>
-                            <MarkerDirective visible={true} height={25} width={15} dataSource={[
-        {
-          ...providerLocation,
-            name: "India"
-        }
-    ]}>
-                            </MarkerDirective>
-                        </MarkersDirective>
-                     
-                    </LayerDirective>
-                </LayersDirective>
-            </MapsComponent>
-
+      <div className="col-lg-6 col-xl-6 col-md-6 col-sm-12" >
+        
+      
+        <p className={styles.about_heading_text}>Map</p>
+      <MapContainer ref={mapRef} center={[providerLocation?.latitude,providerLocation?.longitude]} zoom={defaultZoom}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={[providerLocation?.latitude,providerLocation?.longitude]}>
+      <Popup>
+       seller location
+      </Popup>
+    </Marker>
+  </MapContainer>
+  
+       
       </div>
 
    <div className="col-lg-6 col-xl-6 col-md-6 col-sm-12" >
@@ -81,10 +85,18 @@ const inDeliveryDistance=distanceFromSelller<(parseInt(deliveryRadius)*1000)
     <p  className={styles.address_text}>{sellerPrettyAddress}</p>
     </div>
    
-   <div className={styles.business_details}>
+  
    </div>
-   <p className={styles.about_heading_text}>Business Info</p>
+     <div className={styles.business_details}>
+     <p className={styles.about_heading_text}> Businees Details</p>
+     <div className={styles.address_content}>
+    
+    <p  className={styles.address_text}>{`bppid:${bppId}`}</p>
+    <p  className={styles.address_text}>{`bppUrl:${bppUri}`}</p>
+    <p  className={styles.address_text}>{`businessId:${businessId}`}</p>
+  
    </div>
+     </div>
       </div>
     </div>
     </div>
@@ -144,6 +156,7 @@ const inDeliveryDistance=distanceFromSelller<(parseInt(deliveryRadius)*1000)
      setDesc(businessInfo?.business_data?.long_desc)
      setBppId(businessInfo?.bpp_id)
      setBppUri(businessInfo?.bpp_uri)
+     setBusinessId(businessInfo?.id)
    setLoading(false)
 
   }, [])
