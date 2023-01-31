@@ -4,7 +4,7 @@
     align-items: flex-start;
   justify-content: space-between;
 background-color: rgb(255, 255, 255);
-    padding:3.4rem 2.4rem 2.4rem 2.4rem;
+    padding:3.0rem 2.4rem 2.0rem 2.4rem;
     box-shadow:1px 1px 3px 0px rgb(221, 210, 210)
 
 }
@@ -131,4 +131,13 @@ background-color: rgb(255, 255, 255);
   }
 .delivery_details_container{
  padding-right: 1rem;
+}
+@media screen and (max-width: 707px) {
+  .cart_item_container{
+
+    padding:2.0rem 2.4rem 1.0rem 2.4rem;
+
+
+}
+
 }

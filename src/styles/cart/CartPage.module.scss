@@ -2,7 +2,7 @@
 
 .cart_container{
     width:90%;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 9%;
     
 
@@ -56,6 +56,7 @@
     justify-content: center;
     padding: 1.6rem 1.6rem 1.6rem 1.6rem;
     height: 350px;
+    
 
 }
 .cart_summary_text{
@@ -122,6 +123,14 @@
 @media screen and (max-width: 707px) {
     .price_container{
         margin-left: 0rem;
-        margin-top: 1rem;
+        display: none;
+    
+    }
+    .cart_container{
+        width:96%;
+        margin-left:2%;
+        margin-top: 8%;
+        
+    
     }
 }

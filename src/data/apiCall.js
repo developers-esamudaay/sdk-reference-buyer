@@ -23,12 +23,15 @@ function (error) {
   return Promise.reject(error);
 }
 )
-const axoisInstanceMap = axios.create({
+const axoisInstanceLocationIq = axios.create({
+  baseURL: Urls.locationIqBaseUrl,
+  timeout: 10000,
+
+})
+const axoisInstanceMapOsm = axios.create({
   baseURL: Urls.osmBaseUrl,
   timeout: 10000,
-  headers: {
-    'Access-Control-Allow-Origin': 'https://o2cj2q.csb.app',
-  },
+
 })
 export const verfyCartUsingSdk = async (payload) => {
   return await axoisInstanceSdk.post(Urls.verifyCartUrl, payload)
@@ -38,14 +41,11 @@ export const confirmOrderUsingSdk = async (payload) => {
   return await axoisInstanceSdk.post(Urls.OrderUrl, payload)
 }
 export const getLatLngFromAddress = async (address) => {
-  let url = `/search?
-    street=${address.street}
-    &city=${address.city}
-    &state=${address.state}
-    &country=India
-    &postalcode=${address.areaCode}&format=json`
- 
-  return await axoisInstanceMap.post(url)
+  console.log(address)
+  let url = `https://us1.locationiq.com/v1/search?key=pk.5f5daaeffc2eb3d8822a194dd499df69&
+    q=${address?.door},${address.areaCode}&format=json`
+    return await axios.get(url)
+
 }
 export const trackOrderFromSdk=async(orderId)=>{
   return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/track`,{
@@ -73,9 +73,9 @@ export const returnOrderUsingSdk=(payload,orderId)=>{
 export const getAddressFromLatLng=async({lat,lon})=>{
   const url=`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`
 
-  return await axoisInstanceMap.get(url)
+  return await axoisInstanceMapOsm.get(url)
 }
 export const getLocationSuggetion=async(query)=>{
-  return await axoisInstanceMap.get(`${Urls.goeLocationSuggetion}?q=${query}&format=json&countrycode=IN&&limit=5`)
+  return await axios.get(`${Urls.locationIqBaseUrl}?key=pk.5f5daaeffc2eb3d8822a194dd499df69&q=${query}&format=json&countrycodes=in&limit=5`)
 }
 

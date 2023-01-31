@@ -77,7 +77,8 @@ const defaultRadius=6666*1000000;
     longitude:Array.isArray(locations)&&locations.length>0?locations[0]?.lon:defaultLatLng
   }
   const userProviderDistance=haversine(userLocation,providerLocation)
-  const deliveryRadius= Array.isArray(locations)&&locations.length>0?locations[0]?.delivery_radius?.radius:defaultRadius;
+  const deliveryRadius= Array.isArray(locations)&&locations.length>0?(locations[0]?.delivery_radius?.radius??defaultRadius):defaultRadius;
+  console.log()
  
 const inDeliveryDistance=userProviderDistance<(parseInt(deliveryRadius)*1000)
   useEffect(() => {
