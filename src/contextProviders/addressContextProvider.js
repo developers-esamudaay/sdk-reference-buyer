@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-
+import { getAddressFromLatLng } from '../data/apiCall'
 export const AddressContext = createContext({
   deliveryAddresses: [],
   billingAddresses: [],
@@ -61,6 +61,18 @@ export const AddressContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('billingAddresses', JSON.stringify(billingAddresses))
   }, [billingAddresses])
+  useEffect(async()=>{
+  
+    setAddressLoading(true);
+
+
+    
+    const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
+        
+    
+    setCurrentAddress((prev)=>{return{...prev,city:currentAddress.data?.address?.city||currentAddress.data?.address?.state_district,state:currentAddress.data?.address?.state??"",country:currentAddress.data?.address?.country,areaCode:currentAddress.data?.address?.postcode,door:currentAddress.data?.address?.road||currentAddress.data?.address?.neighbourhood,pretty_address_text:currentAddress.data?.display_name}})
+    setAddressLoading(false)
+  },[currentLocation])
   return (
     <AddressContext.Provider
       value={{

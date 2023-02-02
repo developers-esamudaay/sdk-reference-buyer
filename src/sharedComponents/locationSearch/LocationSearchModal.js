@@ -6,17 +6,29 @@ import { AddressContext } from "../../contextProviders/addressContextProvider"
 import CrossIcon from "../../assets/icons/CrossIcon"
 import { debouncedFunction } from "../../commonUtils"
 import PlaceIcon from '@mui/icons-material/Place';
+import MapView from "../mapView/MapView"
 const LocationSearchModal=()=>{
     const [searchTerm,setSearchTerm]=useState({value:""})
     const [locatioSearchSuggetions,setLocationSearchSuggetions]=useState([])
     const [suggetionsLoading,setSuggetionsLoading]=useState(false)
-    const {currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal}=useContext(AddressContext)
+    const {currentLocation,setCurrentLocation,showSearchLocationModal,setShowSearchLocationModal,currentAddress}=useContext(AddressContext)
+    const [showLocationSuggetion ,setShowLocationSuggestion]=useState(false)
+    console.log(currentAddress)
     const onSelecteLocation=(address)=>{
-        setSuggetionsLoading(true)
-        setShowSearchLocationModal(false)
+   
+          setShowLocationSuggestion(false)
           setCurrentLocation({lat:address?.location?.lat??0.00,lon:address?.location?.lon??0.00})
-          setSuggetionsLoading(false)
+         
     }
+    const userCurrentLocation={
+        latitude:currentLocation?.lat,
+        longitude:currentLocation?.lon
+    }
+    useEffect(()=>{
+          if(locatioSearchSuggetions&&Array.isArray(locatioSearchSuggetions)&&locatioSearchSuggetions.length>0){
+            setShowLocationSuggestion(true)
+          }
+    },[locatioSearchSuggetions])
     console.log(locatioSearchSuggetions)
     const fetchLocationSuggestion=async(value)=>{
         console.log(value)
@@ -46,14 +58,31 @@ const LocationSearchModal=()=>{
                 <CrossIcon width={"30px"} height={"30px"} color={"black"} />
              </div>
             <div className={styles.content}>
-                <div style={{width:"90%"}}>
-            
-            <SearchBar handleChange={debouncedFunction(fetchLocationSuggestion,1000)} placeholder={"search your location"} padding={"10px"} borderRadius="0px" height="60px"/>
+            <div className={styles.map_container}>
+            <MapView location={currentLocation} zoom={8}/>
             </div>
-            <div style={{marginTop:"30px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
-            {
+            <div className={styles.current_address_wrapper}>
+                <p className={styles.address_header}>Address</p>
+             <p className={styles.address_text}>{currentAddress?.pretty_address_text}</p>
+             <div className={styles.confirm_button_container}>
+                         <button className={styles.confirm_button} onClick={()=>setShowSearchLocationModal(false)} >
+                         Save This Address
+                         </button>
+                         </div>
+            </div>
+            <div style={{width:"55%"}}>
+                <div style={{position:"absolute",top:"90px",zIndex:"2000"}}>
             
-                locatioSearchSuggetions?.map((searchItem)=>{
+            <SearchBar handleChange={debouncedFunction(fetchLocationSuggestion,1000)} placeholder={"search your location"}  borderRadius="0px" height="50px"/>
+            </div>
+            </div>
+        
+      
+
+          
+            <div style={{zIndex:"2000",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",cursor:"pointer",position:"absolute",top:"140px",backgroundColor:"white",}}>
+            {
+                showLocationSuggetion?locatioSearchSuggetions?.map((searchItem)=>{
                     return (
                         <div key={searchItem?.place_id} style={{width:"90%",marginTop:"15px",display:"flex",justifyContent:"space-between" }} onClick={()=>onSelecteLocation(searchItem)}>
                             <PlaceIcon style={{color:"#f86c08"}}/>
@@ -63,8 +92,9 @@ const LocationSearchModal=()=>{
                         </div>
                         </div>
                     )
-                })
+                }):null
             }
+
             </div>
             </div>
          </div>

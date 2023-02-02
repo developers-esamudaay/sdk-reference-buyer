@@ -16,7 +16,7 @@
       }
 
       .popup_card {
-      width:clamp(200px, 50%, 400px);
+      width:clamp(200px, 50%, 500px);
         background-color: $white;
        
        height: 100%;
@@ -24,20 +24,64 @@
         opacity: 1;
         // animation: slide 0.5s ease forwards;
       }
+      .map_container{
+        margin-top: 1.0rem;
+        background-color: white;
+        box-shadow: 1px 2px 2px 1px rgb(137, 131, 131);
+      }
       .content{
         display: flex;
         flex-direction: column;
      align-items: center;
        justify-content: center;
-       margin-top: 10%;
+       margin-top: 5%;
       
 
        
        
       }
+      .current_address_wrapper{
+        padding:2rem 2rem 2rem 2rem;
+        box-shadow: 3px 3px 3px 3px rgb(246, 239, 239);
+        width:400px
+
+      }
+      .confirm_button{
+        width:200px;
+        height: 35px;
+        
+        border: 1px solid #FC8019;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size:$font-16;
+        font-weight: $semibold;
+        background-color: #FC8019;
+        color: $white;
+     
+    }
+    .confirm_button_container{
+        margin-top: 2em;
+        width:200px ;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 1rem;
+ 
+    }
+      .address_header{
+        font-size: 1.7rem;
+        font-weight:600;
+        color:#3D4152
+      }
+      .address_text{
+        font-size: 1.5rem;
+        font-weight:500;
+        color:#64697e
+      }
      .first_text{
        font-size:16px;
-       font-weight: 500;
+       font-weight: 400;
        color:#3D4152
      }
      .first_text:hover{

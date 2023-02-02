@@ -13,15 +13,15 @@ import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage";
 import validator from "validator";
 import { AddressContext } from "../../../contextProviders/addressContextProvider";
 
-
+import EditLocationAltRoundedIcon from '@mui/icons-material/EditLocationAltRounded';
 export default function AddressForm(props) {
   console.log(props)
-  const { address_type, selectedAddress, onClose, onAddAddress,onSelectAddress,isEditingAddress,onSubmissionCompleted } = props;
+  const { address_type, selectedAddress, onClose, onAddAddress,onSelectAddress,isEditingAddress, } = props;
 
   // STATES
 
   const [address, setAddress] = useState(selectedAddress);
-  const { addNewDeliveryAddresses, addNewBillingAddresses,editDeliveryAddress, currentAddress,setSelectedDeliveryAddress } =
+  const { addNewDeliveryAddresses, addNewBillingAddresses,editDeliveryAddress, currentAddress,setSelectedDeliveryAddress,setShowSearchLocationModal } =
     useContext(AddressContext);
   const [addAddressLoading, setAddAddressLoading] = useState(false);
   const [error, setError] = useState({
@@ -39,8 +39,9 @@ export default function AddressForm(props) {
 
 
   useEffect(() => {
-    if(!isEditingAddress){
+   
       console.log("in useEffect")
+      console.log(currentAddress)
       setAddress((address) => ({
         ...address,
         door: currentAddress?.door,
@@ -48,9 +49,9 @@ export default function AddressForm(props) {
         state: currentAddress?.state,
         areaCode: currentAddress?.areaCode,
       }));
-    }
+    
   
-  }, []);
+  }, [currentAddress]);
 
   function checkName() {
     if (!address?.name) {
@@ -202,7 +203,7 @@ export default function AddressForm(props) {
 
       
       onSelectAddress(addressWithLatLng)
-      onSubmissionCompleted()
+    
      
     }
   }
@@ -210,20 +211,22 @@ export default function AddressForm(props) {
   // use this function to fetch city and pincode
 
   return (
-    <div style={{width:"70%",marginLeft:"15%"}}>
+    <div >
+
       <div className={styles.card_body}>
+        <div className={styles.map_address_select} onClick={()=>setShowSearchLocationModal(true)}>
+          
+       <p className={styles.map_address_select_text}>Select Location using Map</p>
+       <EditLocationAltRoundedIcon style={{color:"#f86c08",width:"2.2rem",height:"2.2rem"}} />
+        </div>
         <div className={styles.address_form_wrapper}>
           <div className={"container"}>
             <div className="row">
               <div className="col-sm-12 col-md-6 col-lg-6">
+              
                 <Input
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
+                 label_name="Name"
+                 required
                   type="text"
                   placeholder="Enter Name"
                   id="name"
@@ -240,13 +243,15 @@ export default function AddressForm(props) {
                       name_error: "",
                     }));
                   }}
-                  onBlur={checkName}
+           
                 />
                 <ErrorMessage>{error.name_error}</ErrorMessage>
               </div>
               <div className="col-md-6 col-sm-12 col-lg-6">
                 <Input
                   type="email"
+                  label_name="email"
+                  required
                   placeholder="Enter Email"
                   id="email"
                   style={{
@@ -269,13 +274,15 @@ export default function AddressForm(props) {
                       email_error: "",
                     }));
                   }}
-                  onBlur={checkEmail}
+                  
                 />
                 <ErrorMessage>{error.email_error}</ErrorMessage>
               </div>
               <div className="col-md-6 col-sm-12 col-lg-">
                 <Input
                   type="text"
+                  label_name="Enter Phone"
+                  required
                   maxlength="10"
                   placeholder="Enter Phone"
                   id="phone"
@@ -305,7 +312,7 @@ export default function AddressForm(props) {
                       phone_error: "",
                     }));
                   }}
-                  onBlur={checkPhoneNumber}
+                  
                 />
                 <ErrorMessage>{error.phone_error}</ErrorMessage>
               </div>
@@ -313,6 +320,9 @@ export default function AddressForm(props) {
               <div className="col-md-6 col-sm-12">
                 <Input
                   type="text"
+               
+                  label_name="Landmark"
+                  required
                   placeholder="Enter Landmark"
                   id="landmark"
                   style={{
@@ -335,13 +345,15 @@ export default function AddressForm(props) {
                       door_error: "",
                     }));
                   }}
-                  onBlur={checkLandMark}
+                  
                 />
                 <ErrorMessage>{error.door_error}</ErrorMessage>
               </div>
               <div className="col-md-6 col-sm-12">
                 <Input
                   type="text"
+                  label_name="Pincode"
+                  required
                   pattern="\d*"
                   maxlength="6"
                   placeholder="Enter Pin code"
@@ -373,13 +385,15 @@ export default function AddressForm(props) {
                       areaCode_error: "",
                     }));
                   }}
-                  onBlur={checkPinCode}
+                  
                 />
                 <ErrorMessage>{error.areaCode_error}</ErrorMessage>
               </div>
               <div className="col-md-6 col-sm-12">
                 <Input
                   type="text"
+                  label_name="City"
+                  required
                   placeholder="Enter City"
                   id="city"
                   style={{
@@ -404,6 +418,8 @@ export default function AddressForm(props) {
               <div className="col-md-6 col-sm-12">
                 <Input
                   type="text"
+                  label_name="State"
+                  required
                   placeholder="Enter State"
                   id="state"
                   style={{
@@ -433,20 +449,11 @@ export default function AddressForm(props) {
       <div
         className={`${styles.card_footer} `}
       >
-        <Button
-          isloading={addAddressLoading}
-          btnBackColor={APP_COLORS.OrangeColor}
-          hoverBackColor={APP_COLORS.DARK_ORANGE_COLOR}
-          buttonTextColor={APP_COLORS.WHITE}
-          hoverTextColor={APP_COLORS.WHITE}
-          btnBorder={`1px solid ${APP_COLORS.DARK_ORANGE_COLOR}`}
-          button_text="Save And Delivered Here"
-          onClick={() => {
-          
-              handleAddDeliveryAddress()
-       
-          }}
-        />
+       <div className={styles.save_button_container}>
+                          <button className={styles.save_button} onClick={()=>handleAddDeliveryAddress()} >
+                        Save And Continue
+                          </button>
+                          </div>
          <div style={{cursor:"pointer"}} onClick={()=>onClose()}> 
           <p className={styles.cance_text}> Cancel</p>
          </div>

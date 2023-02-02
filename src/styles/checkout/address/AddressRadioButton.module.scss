@@ -4,7 +4,9 @@
   border: 0;
   background-color: transparent;
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
+  gap: 3.5rem;
+  
 }
 
 .box_basis {
@@ -13,6 +15,7 @@
 
 .name_basis {
   flex-basis: 95%;
+  
 }
 
 .radio_button_wrapper:hover,

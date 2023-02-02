@@ -8,7 +8,7 @@ import Checkout from './pages/Checkout/Checkout'
 import uuid from 'react-uuid'
 import OrderList from '../src/pages/orders/OrderList'
 import BusinessProfile from '../src/pages/businessPage/BusinessProfile'
-import { getAddressFromLatLng } from '../src/data/apiCall'
+
 import CartPage from './pages/cart/Components/CartPage'
 export default function AppRoutes() {
   const {currentAddress,currentLocation,setCurrentLocation,setCurrentAddress,setAddressLoading}=useContext(AddressContext)
@@ -23,18 +23,7 @@ export default function AppRoutes() {
     }
   )}}, [])
   //get current address throgh current location
-  useEffect(async()=>{
   
-    setAddressLoading(true);
-
-
-    
-    const currentAddress=await getAddressFromLatLng({lat:currentLocation?.lat,lon:currentLocation?.lon});
-
-    
-    setCurrentAddress((prev)=>{return{...prev,city:currentAddress.data?.address?.city||currentAddress.data?.address?.state_district,state:currentAddress.data?.address?.state??"",country:currentAddress.data?.address?.country,areaCode:currentAddress.data?.address?.postcode,door:currentAddress.data?.address?.road||currentAddress.data?.address?.neighbourhood}})
-    setAddressLoading(false)
-  },[currentLocation])
   return (
     <Router>
       <Switch>

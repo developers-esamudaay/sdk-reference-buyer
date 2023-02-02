@@ -11,8 +11,7 @@ import haversine from 'haversine-distance'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Navbar from '../../sharedComponents/navBar/Navbar'
-import { Map, TileLayer,MapContainer,Marker,Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import MapView from '../../sharedComponents/mapView/MapView'
 const BusinessProfile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const [products, setProducts] = useState([])
@@ -46,7 +45,7 @@ const deliveryRadius=businessLocation?.delivery_radius??defaultRadius;
 const distanceFromSelller=haversine(userLocation,providerLocation)
 const inDeliveryDistance=distanceFromSelller<(parseInt(deliveryRadius)*1000)
 const defaultCenter = [38.9072, -77.0369];
-const defaultZoom = 10;
+
 const position = [51.505, -0.09]
   const cartItems = cartData?.items
 
@@ -59,17 +58,7 @@ const position = [51.505, -0.09]
         
       
         <p className={styles.about_heading_text}>Map</p>
-      <MapContainer ref={mapRef} center={[providerLocation?.latitude,providerLocation?.longitude]} zoom={defaultZoom}>
-    <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-    <Marker position={[providerLocation?.latitude,providerLocation?.longitude]}>
-      <Popup>
-       seller location
-      </Popup>
-    </Marker>
-  </MapContainer>
+    <MapView location={providerLocation} zoom={10}/>
   
        
       </div>

@@ -27,7 +27,7 @@ const CartPage=()=>{
               </div>
               <div className="container">
                 <div className="row">
-                    <div className={`col-lg-7 col-xl-8 col-md-8 col-sm-12 ${styles.item_container}` }>
+                    <div className={`col-lg-7 col-xl-8 col-md-8 col-sm-12 col-12 ${styles.item_container}` }>
                      {
                       cartData?.items?.map((item)=>{
                         return (
@@ -38,7 +38,7 @@ const CartPage=()=>{
                       })
                      }
                     </div>
-                    <div className={`col-lg-3 col-xl-3 col-md-4 col-sm-12 ${styles.price_container}`}>
+                    <div className={`col-lg-3 col-xl-3 col-md-4 col-sm-12 col-12 ${styles.price_container}`}>
                       <p className={styles.cart_summary_text}>Cart Summary</p>
                       <p className={styles.cart_desc_text}>Shipping and additional costs are calculated once you checkout.</p>
                        <div className={styles.total_continer}>

@@ -17,7 +17,17 @@
     margin: 0;
   }
 }
-
+.map_address_select{
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 2rem;
+  cursor: pointer;
+}
+.map_address_select_text{
+  font-size: $font-14;
+  text-align: left;
+  color:#f86c08;
+}
 .card_footer {
   padding: 20px 25px;
 
@@ -25,9 +35,10 @@
 
   display: flex;
 
-   justify-content: space-around;
+     justify-content: center;
+     gap:4rem;
  
-   align-items: center;
+   align-items: baseline;
 }
 .input_style{
   border-top:0px solid;
@@ -164,7 +175,23 @@
     color: $white;
   }
 }
-
+.save_button{
+  width:200px;
+  height: 40px;
+  
+  border: 1px solid #FC8019;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:$font-16;
+  font-weight: $semibold;
+  background-color: #FC8019;
+  color: $white;
+}
+.save_button_container{
+  margin-top: 2rem;
+}
 .search_type_value {
   margin: 0;
   font-size: $font-14;
@@ -228,8 +255,11 @@
   font-size: $font-18;
   font-weight: $medium;
   text-align: left;
-  color: blue;
+  color: rgb(90, 90, 167);
   margin: 0;
+}
+.cance_text:hover{
+  color: rgb(54, 54, 193);
 }
 @keyframes fade {
   from {

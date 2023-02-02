@@ -14,10 +14,13 @@ import DeliveryAddress from './DeliveryAddress'
 import { isEmptyObject } from "../../../commonUtils"
 import Add from '../../../assets/icons/Add'
 import AddressForm from './AddressForm'
+import HomeIcon from '@mui/icons-material/Home';
+import { CartContext } from '../../../contextProviders/cartContextProvider'
 export default function AddressCardStep(props) {
-  const { currentActiveStep, setCurrentActiveStep,step } = props
+const {goNext,goPrev} =props
   const [showAddressForm,setShowAddressForm]=useState(false)
-
+  const { cartData, setCartData, cartTotalPrice, onRemoveProduct,onAddQuantity,onReduceQuantity,setShowCartInfo} = useContext(CartContext)
+ 
   
   const {
    
@@ -29,121 +32,81 @@ export default function AddressCardStep(props) {
 
   } = useContext(AddressContext)
 
-  // function to check whether step is completed or not
-  function isStepCompleted() {
-    if (currentActiveStep>step) {
-      return true
-    }
-    return false
-  }
 
-
-
-  // function to check step is currently active
-  function isCurrentStep() {
-    if (currentActiveStep===step) {
-      return true
-    }
-    return false
-  }
-  const goToNextStep=()=>{
-    props.setCurrentActiveStep((prevStep)=>prevStep+1)
-  }
   
   const onSelectAddress=(address)=>{
     setSelectedDeliveryAddress(address)
-    goToNextStep()
+    goNext()
     
   }
-  const in_card_loading = (
-    <div className="d-flex align-items-center justify-content-center" style={{ height: '100px' }}>
-      <Loading backgroundColor={APP_COLORS.ACCENTCOLOR} />
-    </div>
-  )
+ 
 
   return (
     <div className={styles.address_card}>
-   <div className={styles.address_card_header}>
-    
-
-<p className={styles.address_card_header_title}> <span className={styles.step_no_text}>1</span> Delivery Address</p>
-
-
-</div>
-{isCurrentStep() && (
-        <Fragment>
-          <div className={styles.card_body}>
-           {deliveryAddresses&&deliveryAddresses.length>0&&<DeliveryAddress  onSelectAddress={onSelectAddress}  />} 
-            
-
-       
-          </div>
-          <div className={`${styles.card_footer} d-flex align-items-center justify-content-left`}>
-            {
-              showAddressForm?(<AddressForm
-          
-           
-             
-                onSelectAddress={onSelectAddress}
-                selectedAddress={selectedDeliveryAddress}
-                onClose={() =>
-                  setShowAddressForm(false)
-                }
-                onSubmissionCompleted={
-                  ()=>setShowAddressForm(false)
-                }
-              
-                
-              />):(       <div className="container-fluid py-2">
-              <div className="row">
-                <div className="col-12">
-                  <div
-                    className={styles.add_address_wrapper}
+     
+      <div className="container">
+       <div className="row">
+        <div className="col-lg-8 col-xl-8 col-md-8 col-sm-12 col-12">
+        <div className={styles.address_card_header}>
+     <p className={styles.address_card_header_title}> Delivery Addresses</p>
+      </div>
+         <div className={styles.add_address_wrapper}
                     onClick={() =>
                      setShowAddressForm(true)
                     }
                     onClose={()=>setShowAddressForm(false)}
                   >
-                    <Add width="15" height="15" classes={styles.add_svg_color} />
+                    <HomeIcon style={{width:"24px",height:"24px"}}/>
                     <div className="ps-3 flex-grow-1">
-                      <p className={styles.add_address_text}>Add Address</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>)
-            }
-   
-          </div>
-        </Fragment>
-      )}
-         {isStepCompleted() && (
-          <>
-           <div className="px-3">
-              <Checkmark width="25" height="16" style={{ marginBottom: '5px' }} />
-            </div>
-            <div className="py-2 px-5">
-              <p
-                className={styles.address_type_label}
-                style={{ fontSize: '14px', fontWeight: 'normal' }}
-              >
-                Delivering to:
-              </p>
-              <p className={styles.address_name_and_phone}>{selectedDeliveryAddress?.name}</p>
-              <p className={`${styles.address_line_2} pb-2`}>
-                {selectedDeliveryAddress?.email} - {selectedDeliveryAddress?.phone}
-              </p>
-              <p className={styles.address_line_1}>
-                {selectedDeliveryAddress?.street
-                  ? selectedDeliveryAddress.street
-                  : selectedDeliveryAddress?.door}
-                , {selectedDeliveryAddress?.city} {selectedDeliveryAddress?.state}
-              </p>
-              <p className={styles.address_line_2}>{selectedDeliveryAddress?.areaCode}</p>
-            </div>
-            
-          </>
-        )}
+                      <p className={styles.add_address_text}>Add New Address</p>
+                     </div>
+                     </div>
+                     <div className={styles.saved_address_header}>
+         
+                      </div>
+                      {
+                        showAddressForm?<AddressForm
+          
+           
+             
+                        onSelectAddress={onSelectAddress}
+                        selectedAddress={selectedDeliveryAddress}
+                        onClose={() =>
+                          setShowAddressForm(false)
+                        }
+                      
+                      
+                        
+                      />:(<>                      <p className={styles.address_card_header_title}> Saved Addresses</p>
+                      {deliveryAddresses&&deliveryAddresses.length>0&&<DeliveryAddress  onSelectAddress={onSelectAddress}  />} </>)
+                      }
+
+                       </div>
+         <div className={`col-lg-4 col-xl-3 col-md-3 col-sm-12 col-12 ${styles.price_container}`}>
+         <p className={styles.cart_summary_text}>Cart Summary</p>
+                      <p className={styles.cart_desc_text}>Shipping and additional costs are calculated once you checkout.</p>
+                       <div className={styles.total_continer}>
+                      <p className={styles.total_item_text}>Total Items</p>
+                       <p className={styles.total_item_text}>{cartData?.items?.length}</p>
+                       </div>
+                      
+                       <div className={styles.total_continer}>
+                       <p className={styles.total_item_text}>Total Price</p>
+                       <p className={styles.total_item_text}>{cartTotalPrice}</p>
+                         </div>
+                         {
+                         !isEmptyObject(selectedDeliveryAddress) && !showAddressForm&&<div className={styles.continue_button_container}>
+                          <button className={styles.continue_button} onClick={()=>goNext()} >
+                           Continue
+                          </button>
+                          </div>
+                         }
+                          
+         </div>
+       </div>
+      </div>
+  
+       
    
     </div>
   )

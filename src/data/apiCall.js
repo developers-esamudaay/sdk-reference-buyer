@@ -71,11 +71,9 @@ export const returnOrderUsingSdk=(payload,orderId)=>{
   return axoisInstanceSdk.post(`${Urls.OrderUrl}/${orderId}/return`,payload)
 }
 export const getAddressFromLatLng=async({lat,lon})=>{
-  const url=`${Urls.reverseGeoCodeUrl}?lat=${lat}&lon=${lon}&format=json`
-
-  return await axoisInstanceMapOsm.get(url)
+  return await axios.get(`${Urls.locationIqBaseUrl}/reverse?key=pk.5f5daaeffc2eb3d8822a194dd499df69&lat=${lat}&lon=${lon}&format=json`)
 }
 export const getLocationSuggetion=async(query)=>{
-  return await axios.get(`${Urls.locationIqBaseUrl}?key=pk.5f5daaeffc2eb3d8822a194dd499df69&q=${query}&format=json&countrycodes=in&limit=5`)
+  return await axios.get(`${Urls.locationIqBaseUrl}/autocomplete?key=pk.5f5daaeffc2eb3d8822a194dd499df69&q=${query}&format=json&countrycodes=in&limit=5`)
 }
 
