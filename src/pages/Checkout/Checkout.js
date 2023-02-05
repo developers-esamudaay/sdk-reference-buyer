@@ -11,7 +11,7 @@ import AddressCardStep from './Components/AddressCardStep'
 import OrderSummary from './Components/OrderSummary'
 import { AddressContext } from '../../contextProviders/addressContextProvider';
 import LocationSearchModal from '../../sharedComponents/locationSearch/LocationSearchModal';
-
+import TransactionModal from './Components/TransactionStatusModal';
 export const CheckoutSteps=[
   {
         stepNumber:1,
@@ -21,14 +21,14 @@ export const CheckoutSteps=[
   },
   {
     stepNumber:2,
-    name:"Order Summary",
+    name:"Place Order",
     Component:OrderSummary
 
 },
 {
   stepNumber:3,
   name:"Pay",
-  Component:<>Payment</>
+  Component:TransactionModal
 
 }
 

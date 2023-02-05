@@ -5,27 +5,13 @@
     color: $primaryColor;
     margin: 0;
   }
-  .saved_address_wrapper{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 1rem 2rem 1rem 1rem;
-    box-shadow: 1px 2px 4px 2px rgb(239, 234, 234);
-    cursor: pointer;
-   
-  }
+
   
   .address_wrapper {
     max-height: auto;
     overflow: auto;
   }
-  .edit_address_text{
-    font-size: $font-16;
-    font-weight: $semibold;
-    text-align: left;
-    color: #f86c08;
-    margin: 0;
-  }
+ 
   
 .address_name_and_phone {
     font-size: $font-16;
@@ -54,4 +40,6 @@
     justify-content: center;
   
   }
- 
+  @media screen and (max-width: 707px) {
+   
+}

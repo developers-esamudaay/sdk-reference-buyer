@@ -2,7 +2,7 @@
 .address_card {
     width: 100%;
     background-color: $white;
- 
+    
 
     height:auto;
     margin-top: 90px;
@@ -78,7 +78,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-    border-bottom:1px solid gray
+    border-bottom:1px solid rgb(239, 236, 236)
 
 }
 .total_item_text{
@@ -139,3 +139,20 @@
     fill: $accentColor;
     // margin-bottom: 5px;
   }
+  @media screen and (max-width: 707px) {
+    .address_card {
+      width: 100%;
+      background-color: $white;
+      
+  
+      height:auto;
+      margin-top: 40px;
+    }
+    .price_container{
+      margin-left: 0rem;
+      margin-top: 1rem;
+      box-shadow:0px 0px 0px 0px;
+      
+  
+  }
+}

@@ -13,16 +13,29 @@ import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage";
 import validator from "validator";
 import { AddressContext } from "../../../contextProviders/addressContextProvider";
 
-import EditLocationAltRoundedIcon from '@mui/icons-material/EditLocationAltRounded';
+import EditLocationAltRoundedIcon from "@mui/icons-material/EditLocationAltRounded";
 export default function AddressForm(props) {
-  console.log(props)
-  const { address_type, selectedAddress, onClose, onAddAddress,onSelectAddress,isEditingAddress, } = props;
+  console.log(props);
+  const {
+    address_type,
+    selectedAddress,
+    onClose,
+    onAddAddress,
+    onSelectAddress,
+    isEditingAddress,
+  } = props;
 
   // STATES
 
   const [address, setAddress] = useState(selectedAddress);
-  const { addNewDeliveryAddresses, addNewBillingAddresses,editDeliveryAddress, currentAddress,setSelectedDeliveryAddress,setShowSearchLocationModal } =
-    useContext(AddressContext);
+  const {
+    addNewDeliveryAddresses,
+    addNewBillingAddresses,
+    editDeliveryAddress,
+    currentAddress,
+    setSelectedDeliveryAddress,
+    setShowSearchLocationModal,
+  } = useContext(AddressContext);
   const [addAddressLoading, setAddAddressLoading] = useState(false);
   const [error, setError] = useState({
     name_error: "",
@@ -35,27 +48,20 @@ export default function AddressForm(props) {
     street_name_error: "",
   });
 
-
-
-
   useEffect(() => {
-   
-      console.log("in useEffect")
-      console.log(currentAddress)
-      setAddress((address) => ({
-        ...address,
-        door: currentAddress?.door,
-        city: currentAddress?.city,
-        state: currentAddress?.state,
-        areaCode: currentAddress?.areaCode,
-      }));
-    
-  
+    console.log("in useEffect");
+    console.log(currentAddress);
+    setAddress((address) => ({
+      ...address,
+      door: currentAddress?.door,
+      city: currentAddress?.city,
+      state: currentAddress?.state,
+      areaCode: currentAddress?.areaCode,
+    }));
   }, [currentAddress]);
 
   function checkName() {
     if (!address?.name) {
-   
       setError((error) => ({
         ...error,
         name_error: "Please enter Name",
@@ -163,8 +169,6 @@ export default function AddressForm(props) {
     return true;
   }
 
-
-
   // add delivery address
   async function handleAddDeliveryAddress() {
     const allChecksPassed = [
@@ -177,12 +181,11 @@ export default function AddressForm(props) {
       checkState(),
       checkPinCode(),
     ].every(Boolean);
-  
+
     if (!allChecksPassed) {
-  
       return;
     } else {
-      console.log("edit address")
+      console.log("edit address");
       setAddAddressLoading(true);
       const res = await getLatLngFromAddress(address);
       console.log(res, "res");
@@ -198,35 +201,39 @@ export default function AddressForm(props) {
             };
 
       setAddAddressLoading(false);
-      const addressWithLatLng={...address,location:location}
-     isEditingAddress?editDeliveryAddress(props.addressId,addressWithLatLng):addNewDeliveryAddresses({ ...addressWithLatLng, id: Math.random() });
 
-      
-      onSelectAddress(addressWithLatLng)
-    
-     
+      const addressWithLatLng = { ...address, location: location };
+      isEditingAddress
+        ? editDeliveryAddress(props.addressId, addressWithLatLng)
+        : addNewDeliveryAddresses({ ...addressWithLatLng, id: Math.random() });
+
+      onSelectAddress(addressWithLatLng);
     }
   }
 
   // use this function to fetch city and pincode
 
   return (
-    <div >
-
+    <div>
       <div className={styles.card_body}>
-        <div className={styles.map_address_select} onClick={()=>setShowSearchLocationModal(true)}>
-          
-       <p className={styles.map_address_select_text}>Select Location using Map</p>
-       <EditLocationAltRoundedIcon style={{color:"#f86c08",width:"2.2rem",height:"2.2rem"}} />
+        <div
+          className={styles.map_address_select}
+          onClick={() => setShowSearchLocationModal(true)}
+        >
+          <p className={styles.map_address_select_text}>
+            Select Location using Map
+          </p>
+          <EditLocationAltRoundedIcon
+            style={{ color: "#f86c08", width: "2.2rem", height: "2.2rem" }}
+          />
         </div>
         <div className={styles.address_form_wrapper}>
           <div className={"container"}>
             <div className="row">
               <div className="col-sm-12 col-md-6 col-lg-6">
-              
                 <Input
-                 label_name="Name"
-                 required
+                  label_name="Name"
+                  required
                   type="text"
                   placeholder="Enter Name"
                   id="name"
@@ -243,7 +250,6 @@ export default function AddressForm(props) {
                       name_error: "",
                     }));
                   }}
-           
                 />
                 <ErrorMessage>{error.name_error}</ErrorMessage>
               </div>
@@ -274,7 +280,6 @@ export default function AddressForm(props) {
                       email_error: "",
                     }));
                   }}
-                  
                 />
                 <ErrorMessage>{error.email_error}</ErrorMessage>
               </div>
@@ -312,7 +317,6 @@ export default function AddressForm(props) {
                       phone_error: "",
                     }));
                   }}
-                  
                 />
                 <ErrorMessage>{error.phone_error}</ErrorMessage>
               </div>
@@ -320,7 +324,6 @@ export default function AddressForm(props) {
               <div className="col-md-6 col-sm-12">
                 <Input
                   type="text"
-               
                   label_name="Landmark"
                   required
                   placeholder="Enter Landmark"
@@ -345,7 +348,6 @@ export default function AddressForm(props) {
                       door_error: "",
                     }));
                   }}
-                  
                 />
                 <ErrorMessage>{error.door_error}</ErrorMessage>
               </div>
@@ -365,7 +367,7 @@ export default function AddressForm(props) {
                     outline: "none",
                     borderRadius: "0px",
                   }}
-                  value={address?.aßreaCode}
+                  value={address?.areaCode}
                   has_error={error.areaCode_error}
                   onChange={(event) => {
                     const regexp = /^[0-9]+$/;
@@ -375,7 +377,7 @@ export default function AddressForm(props) {
                     )
                       return;
                     const areaCode = event.target.value;
-                 
+
                     setAddress((address) => ({
                       ...address,
                       areaCode: areaCode,
@@ -385,7 +387,6 @@ export default function AddressForm(props) {
                       areaCode_error: "",
                     }));
                   }}
-                  
                 />
                 <ErrorMessage>{error.areaCode_error}</ErrorMessage>
               </div>
@@ -445,18 +446,19 @@ export default function AddressForm(props) {
           </div>
         </div>
       </div>
-    
-      <div
-        className={`${styles.card_footer} `}
-      >
-       <div className={styles.save_button_container}>
-                          <button className={styles.save_button} onClick={()=>handleAddDeliveryAddress()} >
-                        Save And Continue
-                          </button>
-                          </div>
-         <div style={{cursor:"pointer"}} onClick={()=>onClose()}> 
+
+      <div className={`${styles.card_footer} `}>
+        <div className={styles.save_button_container}>
+          <button
+            className={styles.save_button}
+            onClick={() => handleAddDeliveryAddress()}
+          >
+            Save And Continue
+          </button>
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={() => onClose()}>
           <p className={styles.cance_text}> Cancel</p>
-         </div>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { APP_COLORS } from "../../constants/colors";
 import styles from "./Loading.module.scss";
 
 export default function Loading(props) {
-  const { backgroundColor = APP_COLORS.ACCENTCOLOR } = props;
+  const { backgroundColor = "#f86c08" } = props;
   return (
     <div className={styles.wrapper}>
       <div className={styles.dot1} style={{ backgroundColor }}></div>

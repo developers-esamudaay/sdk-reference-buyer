@@ -1,11 +1,16 @@
 @import "../variables.scss";
+.loading_wrapper{
+  margin-top: 6rem;
+  padding:2rem 2rem 2rem 2rem
+}
 .order_summary_card {
     width: 100%;
+
     background-color: $white;
-    box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
-    border-radius: 10px;
+ 
     height:auto;
     margin-top: 30px;
+    
   }
   .order_summary_card_header {
 
@@ -14,48 +19,109 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    ;
-    background-color:#2370f4;
+    border-bottom:solid 1px rgb(239, 236, 236)
+  }
+    
+
     
   
   
     .order_summary_card_header_title {
       font-family: $firaSans;
       font-size: $font-24;
-      font-weight: $medium;
+      font-weight: $semibold;
       text-align: left;
-      color: white;
+      color: #41434C;
       margin: 0;
   
     }
-  }
-  .step_no_text
-  {background-color:white;border-radius:10px;padding:4px; color:blue;font-size:$font-18;margin-right: 5px;}
-  .item_price_details {
-    font-family: $firaSans;
-    font-size: $font-18;
-    font-weight: $medium;
-    text-align: left;
-    color: $primaryColor;
-    margin: 0;
-   
-  }
-  .cost_charges_breakup{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width:100%;
-    padding: 4px;
+  
+    .item_container{
+      padding: 3rem 1rem 3rem 1rem;
+      
+    }
+    .price_container{
+      margin-left: 1.6rem;
+      background-color:$white;
+      box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
+      display:flex;
+      align-items: center;
+      flex-direction :column;
+      
+      padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+      margin-top: 1rem;
 
-}
-.card_footer {
-    padding: 20px;
+     
+      
+  
+  }
+  .selcted_address_wrapper{
+    border-bottom:solid 1px rgb(239, 236, 236);
+    width:100%
+  }
+  .address_header{
+    display: flex;
+    justify-content: space-between;
+  }
+  .change_address_text{
+    font-size: $font-16;
+    color:#FC8019;
+    font-weight: $semibold;
+    cursor: pointer;
+  }
+  .address_header_text{
+    font-size: $font-18;
+    color:#3D4152;
+    font-weight: $semibold;
+  }
+  .address_text{
+    font-size: $font-14;
+    color:#6e717e;
+    font-weight: $regular;
+  }
+  .total_continer{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: 1.2rem 1.2rem 1.2rem 1.2rem;
     
-   
-     .card_body_text {
-       font-size: $font-14;
-       text-align: left;
-       color: $secondaryColor;
-       margin: 0;
-     }
-   }
+  
+  }
+  .cost_description_container{
+    width: 100%;
+    border-bottom:solid 1px rgb(239, 236, 236);
+  }
+  .total_item_text{
+      font-size: 1.4rem;
+      font-weight: $regular;
+      color:#686a75
+  }
+  .total_item_price{
+    font-size: 1.4rem;
+    font-weight: $semibold;
+    color:#3D4152
+  }
+  .place_order_button{
+    width:200px;
+    height: 35px;
+    
+    border: 1px solid#FC8019;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:$font-16;
+    font-weight: $semibold;
+    background-color: #FC8019;
+    color: $white;
+}
+
+.place_order_button_container{
+    margin-top: 5rem;
+}
+@media screen and (width: 707px) {
+  .price_container{
+    margin-left:0px;
+  }
+  
+}

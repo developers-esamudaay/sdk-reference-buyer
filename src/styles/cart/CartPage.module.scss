@@ -29,7 +29,7 @@
 .cart_header{
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1.6rem;
+ 
 }
 
 .header_text{
@@ -55,7 +55,7 @@
     flex-direction :column;
     justify-content: center;
     padding: 1.6rem 1.6rem 1.6rem 1.6rem;
-    height: 350px;
+   
     
 
 }
@@ -74,7 +74,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-    border-bottom:1px solid gray
+    border-bottom:1px solid rgb(239, 236, 236)
 
 }
 .total_item_text{
@@ -123,13 +123,14 @@
 @media screen and (max-width: 707px) {
     .price_container{
         margin-left: 0rem;
-        display: none;
+         margin-top:30px
+     
     
     }
     .cart_container{
-        width:96%;
+        width:98%;
         margin-left:2%;
-        margin-top: 8%;
+        margin-top: 17%;
         
     
     }

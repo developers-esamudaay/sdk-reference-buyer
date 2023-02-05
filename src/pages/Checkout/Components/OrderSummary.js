@@ -1,325 +1,261 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState } from "react";
 
-import { checkoutSteps } from '../../../constants/checkoutSteps'
-import styles from '../../../../src/styles/checkout/OrderSummary.module.scss'
-import { getCurrentStep } from '../utils'
-import { APP_COLORS } from '../../../constants/colors'
+import { checkoutSteps } from "../../../constants/checkoutSteps";
+import styles from "../../../../src/styles/checkout/OrderSummary.module.scss";
+import { getCurrentStep } from "../utils";
+import { APP_COLORS } from "../../../constants/colors";
 import {
   createCart,
   getVerificationCartData,
   createOrder,
   getOrderDetails,
-} from '../../../data/firbaseCalls'
-import { CartContext } from '../../../contextProviders/cartContextProvider'
-import { AddressContext } from '../../../contextProviders/addressContextProvider'
-import Checkmark from '../../../assets/icons/Checkmark'
-import Button from '../../../sharedComponents/button/Button'
-import Loading from '../../../sharedComponents/loading/Loading'
-import { verfyCartUsingSdk, confirmOrderUsingSdk } from '../../../data/apiCall'
+} from "../../../data/firbaseCalls";
+import { CartContext } from "../../../contextProviders/cartContextProvider";
+import { AddressContext } from "../../../contextProviders/addressContextProvider";
+import Checkmark from "../../../assets/icons/Checkmark";
+import Button from "../../../sharedComponents/button/Button";
+import Loading from "../../../sharedComponents/loading/Loading";
+import { verfyCartUsingSdk, confirmOrderUsingSdk } from "../../../data/apiCall";
 
-import uuid from 'react-uuid'
-import TransactionStatusModal from './TransactionStatusModal'
-import { transactionStatusValues } from '../../../constants/transactionStatus'
-import { delay } from '../../../commonUtils'
-import ErrorMessage from '../../../sharedComponents/errorMessage/ErrorMessage'
-import { showErrorMsg,msgPosition } from '../../../contextProviders/toastMessegeProvider'
-import { useHistory } from 'react-router-dom'
 
-const OrderSummary = (props) => {
-  const [loading, setLoading] = useState(false)
-  const [cartVerificationStatus, setCartVerificationStatus] = useState('')
-  const [cartVerificationError, setCartVerificationError] = useState('')
-  const [chargesBreakup, setChargesBreakup] = useState([])
-  const [itemCostBreakup, setItemCostBreakup] = useState([])
-  const [showTransactionModal, setShowTransactionModal] = useState(false)
-  const { cartData, setCartData } = useContext(CartContext)
-  const { selectedBillingAddress, selectedDeliveryAddress } = useContext(AddressContext)
-  const isStepCompleted = props.currentActiveStep>props.step
-  const isCurrentStep = props.currentActiveStep===props.step
-  const [totalOrderPrice, setTotalOrderPrice] = useState(0)
-  const [initializeOrderLoading, setInitializeOrderLoading] = useState(false)
-  const [orderId, setOrderId] = useState('')
-  const [transactionStatus, setTransactionStatus] = useState('')
-  const [orderItems, setOrderItems] = useState([])
-  const [orderStatus, setOrderStatus] = useState('')
-  const [transactionId,setTransactionId]=useState("")
+import TransactionStatusModal from "./TransactionStatusModal";
+import { transactionStatusValues } from "../../../constants/transactionStatus";
+import { delay } from "../../../commonUtils";
+import ErrorMessage from "../../../sharedComponents/errorMessage/ErrorMessage";
+import CartItemCard from "../../cart/Components/CartItemCard";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import {
+  showErrorMsg,
+  msgPosition,
+} from "../../../contextProviders/toastMessegeProvider";
+import { useHistory } from "react-router-dom";
+import IndianRupee from "../../../assets/icons/IndianRupee";
+
+const OrderSummary = ({ goNext, goPrev }) => {
+  const [loading, setLoading] = useState(false);
+  const [cartVerificationStatus, setCartVerificationStatus] = useState("");
+  const [cartVerificationError, setCartVerificationError] = useState("");
+  const [chargesBreakup, setChargesBreakup] = useState([]);
+  const [itemCostBreakup, setItemCostBreakup] = useState([]);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
+  const { cartData, setCartData,totalOrderPrice,setToltalOrderPrice } = useContext(CartContext);
+  const { selectedBillingAddress, selectedDeliveryAddress } =
+    useContext(AddressContext);
+
+  console.log(chargesBreakup);
+  const convertPrettyAddress = (address) =>
+    `${address?.door},${address?.city},${address?.state},${address?.areaCode}`;
 
   
-  const history = useHistory()
+  
 
-  const initializrOrder = async () => {
-    setInitializeOrderLoading(true)
-    const id = uuid()
-   
-    setOrderId(id)
+  const [orderItems, setOrderItems] = useState([]);
+
+  
+  const [totalAdditionalCharge, setTotalAdditionalCharge] = useState(0);
+  const history = useHistory();
+
+
+  useEffect(async () => {
+    setLoading(true);
+    console.log(selectedDeliveryAddress);
+    const payload = {
+      ...cartData,
+      items: cartData.items.map((item) => {
+        return {
+          quantity: item?.quantity?.count,
+          id: item?.id,
+          location_id: item?.location_id,
+        };
+      }),
+      fulfillment_type: "DA_DELIVERY",
+      billing_info: {
+        name: selectedDeliveryAddress?.name,
+        email: selectedDeliveryAddress?.email,
+        phone: selectedDeliveryAddress?.phone,
+        address: {
+          name: "HOME",
+          door: selectedDeliveryAddress?.door,
+
+          city: selectedDeliveryAddress?.city,
+          state: selectedDeliveryAddress?.state,
+          country: "India",
+          area_code: selectedDeliveryAddress?.areaCode,
+        },
+      },
+      delivery_info: {
+        location: selectedDeliveryAddress?.location,
+        address: {
+          name: "WORK",
+          door: selectedDeliveryAddress?.door,
+          locality: selectedDeliveryAddress?.door,
+          city: selectedDeliveryAddress?.city,
+          state: selectedDeliveryAddress?.state,
+          country: "India",
+          area_code: selectedDeliveryAddress?.areaCode,
+        },
+      },
+      customer_info: {
+        name: selectedDeliveryAddress?.name,
+        phone: selectedDeliveryAddress?.phone,
+        email: selectedDeliveryAddress?.email,
+      },
+    };
+
     try {
-      await createOrder(id,cartData?.business_id)
+      await createCart(payload);
+      const res = await verfyCartUsingSdk(payload);
 
-      const orderPayload = {
-        cart_id: cartData.cart_id,
-        order_id: id,
-        city_code: 'std:080',
-        payment_info: {
-          uri: 'https://ondc.transaction.com/payment',
-          tl_method: 'http/get',
-          params: {
-            currency: 'INR',
-            transaction_id: '0125836177',
-            transaction_status: 'captured',
-            amount: '' + totalOrderPrice,
-          },
-        },
-      }
-      await confirmOrderUsingSdk(orderPayload)
-      await delay(3000)
-      setCartData({items:[]})
-      setInitializeOrderLoading(false)
-      history.push({pathname:"/orders",state:{orderId:id}})
+      if (res.status === 200 && res?.data?.message?.ack?.status === "ACK") {
+        await delay(3000);
+        const response = await getVerificationCartData(payload?.cart_id);
+        const cartVerifiedData = response.data();
+        console.log(cartVerifiedData);
 
-      
+        setCartVerificationStatus(cartVerifiedData?.status);
+        setCartVerificationError(cartVerifiedData?.error);
+        setChargesBreakup(
+          cartVerifiedData?.cost?.breakup?.filter((val) => val.type !== "item")
+        );
 
-   
-    } catch (e) {
-      showErrorMsg({position:msgPosition.BOTTOM_RIGHT,msg:e})
-    }
-  }
-  
-
-  useEffect(async () => {
-    if (isCurrentStep) {
-      setLoading(true)
-      console.log(selectedDeliveryAddress)
-      const payload = {
-        ...cartData,
-        items: cartData.items.map((item) => {
-          const ids=item.id.split('_')
-          return { quantity: item?.quantity?.count, id: Array.isArray(ids)&&ids.length>1?ids[0]:"", location_id: item?.location_id }
-        }),
-        fulfillment_type: 'DA_DELIVERY',
-        billing_info: {
-          name: selectedDeliveryAddress?.name,
-          email: selectedDeliveryAddress?.email,
-          phone: selectedDeliveryAddress?.phone,
-          address: {
-            name: 'HOME',
-            door: selectedDeliveryAddress?.door,
-
-            city: selectedDeliveryAddress?.city,
-            state: selectedDeliveryAddress?.state,
-            country: 'India',
-            area_code: selectedDeliveryAddress?.areaCode,
-          },
-        },
-        delivery_info: {
-          location: selectedDeliveryAddress?.location,
-          address: {
-            name: 'WORK',
-            door: selectedDeliveryAddress?.door,
-            locality: selectedDeliveryAddress?.door,
-            city: selectedDeliveryAddress?.city,
-            state: selectedDeliveryAddress?.state,
-            country: 'India',
-            area_code: selectedDeliveryAddress?.areaCode,
-          },
-        },
-        customer_info: {
-          name: selectedDeliveryAddress?.name,
-          phone: selectedDeliveryAddress?.phone,
-          email: selectedDeliveryAddress?.email,
-        },
-      }
-
-      try {
-        await createCart(payload)
-        const res = await verfyCartUsingSdk(payload)
-       
-        if (res.status === 200 && res?.data?.message?.ack?.status === 'ACK') {
-       
-          await delay(3000)
-          const response = await getVerificationCartData(payload?.cart_id)
-          const cartVerifiedData = response.data()
-         
-
-          setCartVerificationStatus(cartVerifiedData?.status)
-          setCartVerificationError(cartVerifiedData?.error)
-          setChargesBreakup(cartVerifiedData?.cost?.breakup?.filter((val) => val.type !== 'item'))
-          setItemCostBreakup(cartVerifiedData?.cost?.breakup?.filter((val) => val.type === 'item'))
-          setTotalOrderPrice(
-            cartVerifiedData?.cost?.breakup?.reduce((acc, val) => val.price / 100 + acc, 0),
+        setItemCostBreakup(
+          cartVerifiedData?.cost?.breakup?.filter((val) => val.type === "item")
+        );
+        setToltalOrderPrice(
+          cartVerifiedData?.cost?.breakup?.reduce(
+            (acc, val) => val.price / 100 + acc,
+            0
           )
-         
-        }
-        setLoading(false)
-      } catch (err) {
-        console.log(err)
-       showErrorMsg({position:msgPosition.BOTTOM_RIGHT,msg:err.message})
-       setLoading(false) 
+        );
+        setTotalAdditionalCharge(
+          cartVerifiedData?.cost?.breakup
+            ?.filter((item) => item?.type != "item")
+            ?.reduce((acc, val) => val.price / 100 + acc, 0)
+        );
       }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      showErrorMsg({ position: msgPosition.BOTTOM_RIGHT, msg: err.message });
+      setLoading(false);
     }
-  }, [isCurrentStep])
-  useEffect(async () => {
-    if (transactionStatus === transactionStatusValues.SUCCESS) {
-      await initializrOrder()
-    }
-  }, [transactionStatus])
+  }, []);
+
   return (
-    <div className={styles.order_summary_card}>
-   
-        <div className={styles.order_summary_card_header}>
-          <p className={styles.order_summary_card_header_title}><span className={styles.step_no_text}>2</span>  Order Summary</p>
+    <>
+      {loading ? (
+        <div className={styles.loading_wrapper}>
+          <Loading />
         </div>
-       
-        {isCurrentStep && (
-          <div style={{ width: '100% ' ,padding:"20px 20px" }}>
-            {loading ? (
-              <Loading backgroundColor={APP_COLORS.ACCENTCOLOR} />
-            ) : cartVerificationStatus ? (
-              cartVerificationStatus !== 'FAILED' ? (
-                <>
-                  <div
-                    style={{
-                      width: '100%',
-
-                      paddingRight: '5px',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'start',
-                        marginBottom: '5px',
-                        marginTop: '20px',
-                      }}
-                    >
-                      <p className={styles.item_price_details}>Cart Item Prices</p>
+      ) : (
+        <div className={styles.order_summary_card}>
+          <div className={styles.order_summary_card_header}>
+            <p className={styles.order_summary_card_header_title}>
+              Review Order
+            </p>
+          </div>
+          <div className="container">
+            <div className="row">
+              <div
+                className={`col-lg-7 col-xl-7 col-md-8 col-sm-12 col-12`}
+              >
+                {cartData?.items?.map((item) => {
+                  console.log(itemCostBreakup);
+                  console.log(
+                    itemCostBreakup?.filter((i) => i?.id === item?.id)
+                  );
+                  const updatedPrice = itemCostBreakup?.filter(
+                    (i) => i?.id === item?.id
+                  )[0]?.price;
+                  return (
+                    <div key={item?.id}>
+                      <CartItemCard item={item} updatedPrice={updatedPrice} />
                     </div>
-                    <hr />
-                    {itemCostBreakup?.map((val) => {
-                      return (
-                        <div className={styles.cost_charges_breakup}>
-                          <div>
-                            <p>{val?.title}</p>
-                          </div>
-                          <p>{val?.quantity}</p>
-                          <p>{val?.price / 100}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <div style={{ width: '100%', marginTop: '5px', paddingLeft: '5px' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'start',
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <p className={styles.item_price_details}>Chares</p>
-                    </div>
-                    <hr />
-                    {chargesBreakup?.map((val) => {
-                      return (
-                        <div className={styles.cost_charges_breakup}>
-                          <div>
-                            <p>{val?.title}</p>
-                          </div>
-
-                          <p>{val?.price / 100}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <hr />
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      marginBottom: '5px',
-                    }}
-                  >
-                    <p> {` Total Price :${totalOrderPrice}`}</p>
-                  </div>
-                  <hr />
-                  <div
-                    className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
-                  >
-                    <Button
-                      isloading={initializeOrderLoading ? 1 : 0}
-                      btnBackColor={APP_COLORS.OrangeColor}
-                      hoverBackColor={APP_COLORS.DARK_ORANGE_COLOR}
-                      buttonTextColor={APP_COLORS.WHITE}
-                      hoverTextColor={APP_COLORS.WHITE}
-                      btnBorder={`1px solid ${APP_COLORS.DARK_ORANGE_COLOR}`}
-                      button_text="Place Order"
-                      onClick={() => setShowTransactionModal(true)}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <ErrorMessage>
-                      <p>{cartVerificationError?.message}</p>
-                    </ErrorMessage>
-                  </div>
-                  <div
-                    className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
-                  >
-                    <Button
-                 btnBackColor={APP_COLORS.WHITE}
-                 hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                 buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                 hoverTextColor={APP_COLORS.WHITE}
-                      button_text="Go to Products"
-                      onClick={() => {
-                        setCartData({ items: [] })
-                        history.push('/products')
-                      }}
-                    />
-                  </div>
-                </>
-              )
-            ) : (
-              <>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <ErrorMessage>
-                  <p>Oops something went wrong with the seller partner</p>
-                </ErrorMessage>
+                  );
+                })}
               </div>
               <div
-                className={`${styles.card_footer} d-flex align-items-center justify-content-center`}
+                className={`col-lg-4 col-xl-4 col-md-3 col-sm-12 col-12 `}
               >
-                <Button
-                btnBackColor={APP_COLORS.WHITE}
-                hoverBackColor={APP_COLORS.ACCENTCOLOR}
-                buttonTextColor={APP_COLORS.ACCENTCOLOR}
-                hoverTextColor={APP_COLORS.WHITE}
-                  button_text="Go to Products"
-                  onClick={() => {
-                    setCartData({ items: [] })
-                    history.push('/products')
-                  }}
-                />
+                <div className={styles.price_container}>
+                <div className={styles.selcted_address_wrapper}>
+                  <div className={styles.address_header}>
+                  <p className={styles.address_header_text}>Address</p>
+                  <p className={styles.change_address_text} onClick={()=>goPrev()}>Change </p>
+                  </div>
+                  <p
+                    className={styles.address_text}
+                  >{`${selectedDeliveryAddress?.name} | ${selectedDeliveryAddress?.phone} `}</p>
+                  <p className={styles.address_text}>
+                    {convertPrettyAddress(selectedDeliveryAddress)}
+                  </p>
+                </div>
+                <div className={styles.cost_description_container}>
+                
+
+                  <div className={styles.total_continer}>
+                    <p className={styles.total_item_text}>Subtotal Price</p>
+                    <p className={styles.total_item_price}>
+                      <span>
+                        {" "}
+                        <CurrencyRupeeIcon
+                          style={{
+                            color: "#3D4152",
+                            width: "17px",
+                            height: "17px",
+                          }}
+                        />
+                      </span>
+                      {totalOrderPrice - totalAdditionalCharge}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.cost_description_container}>
+                  {chargesBreakup?.map((charge) => {
+                    return (
+                      <div className={styles.total_continer}>
+                        <p
+                          className={styles.total_item_text}
+                        >{`${charge?.title}`}</p>
+                        <p className={styles.total_item_price}>
+                          {" "}
+                          <span>
+                            {" "}
+                            <CurrencyRupeeIcon
+                              style={{
+                                color: "#3D4152",
+                                width: "17px",
+                                height: "17px",
+                              }}
+                            />
+                          </span>
+                          {charge?.price / 100}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className={styles.cost_description_container}>
+                  <div className={styles.total_continer}>
+                    <p className={styles.total_item_text}>{"Total Price"}</p>
+                    <p className={styles.total_item_price}>{totalOrderPrice}</p>
+                  </div>
+                </div>
+                <div className={styles.place_order_button_container}>
+                  <button
+                    className={styles.place_order_button}
+                    onClick={() => goNext()}
+                  >
+                    Place Order
+                  </button>
+                </div>
               </div>
-            </>
-             
-            )}
-            {showTransactionModal && (
-              <TransactionStatusModal
-                updateTrasactionStatus={(status) => {
-                  setTransactionStatus(status)
-                  setShowTransactionModal(false)
-                }}
-              />
-            )}
-       
+              </div>
+            </div>
           </div>
-        )}
-      
-    </div>
-  )
-}
-export default OrderSummary
+        </div>
+      )}
+    </>
+  );
+};
+export default OrderSummary;

@@ -10,7 +10,9 @@ export const CartContext = createContext({
   onAddProduct: () => {},
   cartTotalPrice: 0,
   showCartInfo:false,
-  setShowCartInfo:()=>{}
+  setShowCartInfo:()=>{},
+  totalOrderPrice:0,
+  setToltalOrderPrice:()=>{}
 })
 
 
@@ -19,7 +21,7 @@ export function CartContextProvider({ children }) {
 
   const [cartData, setCartData] = useState(parsedCartData)
   const [showCartInfo,setShowCartInfo]=useState(false)
-
+  const[ totalOrderPrice,setToltalOrderPrice]=useState(0)
   useEffect(() => {
     localStorage.setItem('cartData', JSON.stringify(cartData))
   }, [cartData])
@@ -31,6 +33,7 @@ export function CartContextProvider({ children }) {
       return { ...prevCart, items: newCartItems }
     })
   }
+  
   const totalCartPrice = useMemo(() => {
     let sum = 0
     cartData?.items?.forEach(({ product, quantity }) => {
@@ -81,6 +84,10 @@ export function CartContextProvider({ children }) {
   }
 
   function onAddProductsToCart({ product, id, location_id, quantity, onErrorAddToCart }) {
+    //we are getting product id and business id as string 
+    //so retrieving product id saprately
+    const ids = product?.id.split("_");
+    const productId=Array.isArray(ids) && ids.length > 1 ? ids[0] : ""
     if (cartData.items && cartData.items.length === 0) {
      showSuccessMsg({position:msgPosition.TOP_RIGHT,msg:`${product.item_name} is succesfully added to cart`})
       setCartData((prevCart) => {
@@ -94,7 +101,7 @@ export function CartContextProvider({ children }) {
           business_location_ids: product?.locations?.map((location) => location.id),
           items: [
             {
-              id: product?.id,
+              id: productId,
               quantity: quantity,
               location_id: product?.location_id,
               product,
@@ -156,7 +163,9 @@ export function CartContextProvider({ children }) {
         onAddProduct: onAddProductsToCart,
         cartTotalPrice: totalCartPrice,
         showCartInfo:showCartInfo,
-        setShowCartInfo:setShowCartInfo
+        setShowCartInfo:setShowCartInfo,
+        totalOrderPrice:totalOrderPrice,
+        setToltalOrderPrice:setToltalOrderPrice
       }}
     >
       {children}
