@@ -109,14 +109,7 @@ const CartItemCard = ({ item, isCartPage,updatedPrice }) => {
       </div>
       {!isCartPage&&<p className={styles.edit_address_text} onClick={()=>history.push("/cart")}>Edit</p>}
       
-      {/* <div className={styles.delivery_details_container}>
-        <p className={styles.delivery_info_text}>{`shipped in ${extractTimeInfo(
-          item?.product?.time_to_ship
-        )}`}</p>
-        <p className={styles.delivery_info_text}>
-          {item?.product?.returnable ? "Returnable" : "Not Returnable"}
-        </p>
-      </div> */}
+   
     </div>
   );
 };

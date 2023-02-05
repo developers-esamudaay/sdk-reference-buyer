@@ -58,7 +58,7 @@ const position = [51.505, -0.09]
         
       
         <p className={styles.about_heading_text}>Map</p>
-    <MapView location={providerLocation} zoom={10}/>
+    <MapView location={{lat:providerLocation?.latitude,lon:providerLocation?.longitude}} zoom={10}/>
   
        
       </div>
