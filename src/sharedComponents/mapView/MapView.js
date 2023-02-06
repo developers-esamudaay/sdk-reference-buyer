@@ -24,7 +24,7 @@ const MapView=({location,zoom})=>{
         <Marker
           draggable
           position={location}
-          //ref={markerRef}
+        
           icon={icon}
         >
           <Popup>{"your locstion"}</Popup>

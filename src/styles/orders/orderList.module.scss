@@ -1,52 +1,12 @@
 @import "../variables.scss";
-.overlay {
-    height:100%;
-    width:100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: white;
-    display: flex;
 
 
-    justify-content: center;
-    animation: fade 1s ease forwards;
-    
-  }
-.order_list_wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    
-   
-
-
-}
-.order_list_label_wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-}
-.list_label_text{
-  
-        font-family: $firaSans;
-        font-size: $font-20;
-        font-weight: $medium;
-        text-align: left;
-        color: $primaryColor;
-        margin: 0;
-      
-}
 .order_card_wrapper{
    
  
-    height:100%;
-    width:100%;
-    margin-top: 70px;
+    
+    margin-top: 80px;
+    background-color: $white;
     
   
 
