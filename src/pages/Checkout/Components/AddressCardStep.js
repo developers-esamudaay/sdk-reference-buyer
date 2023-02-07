@@ -16,6 +16,7 @@ import AddressForm from "./AddressForm";
 import HomeIcon from "@mui/icons-material/Home";
 import { CartContext } from "../../../contextProviders/cartContextProvider";
 import CloseIcon from '@mui/icons-material/Close';
+
 export default function AddressCardStep(props) {
   const { goNext, goPrev } = props;
   const [showAddressForm, setShowAddressForm] = useState(false);
@@ -94,6 +95,7 @@ export default function AddressCardStep(props) {
                       {
                         cartData?.items.map((item)=>(
                           <div className={styles.item_container}>
+                       
                           <p className={styles.item_text}>{item?.product?.item_name} <span><CloseIcon/></span> <span>{item?.quantity?.count}</span></p>
                           <p className={styles.item_text}>
                            {item?.product?.price/100*item?.quantity?.count}

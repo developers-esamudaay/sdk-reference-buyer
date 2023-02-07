@@ -84,7 +84,7 @@ const CartItemCard = ({ item, isCartPage,updatedPrice }) => {
      
           {
             isCartPage&&
-            <div className={styles.remove_wrapper}>
+            <div className={styles.remove_wrapper} onClick={()=>onRemoveProduct(item?.id)}>
             
             <CloseIcon style={{ color:"white",
               height:"15px",

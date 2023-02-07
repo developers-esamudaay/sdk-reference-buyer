@@ -3,7 +3,12 @@
  width: 35rem;
 height: 50rem;
 }
-
+.Toastify__toast--success {
+  border: 1px solid rgb(86, 84, 84) !important;
+  border-radius: 10px !important;
+  background: rgb(86, 84, 84) !important;
+  color:white
+}
 
 @media screen and (max-width: 480px) {
   .leaflet-container {

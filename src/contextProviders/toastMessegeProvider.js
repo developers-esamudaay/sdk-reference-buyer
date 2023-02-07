@@ -1,4 +1,4 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createContext, useState } from 'react'
 export const msgPosition={
@@ -8,7 +8,7 @@ export const msgPosition={
     BOTTOM_LEFT:toast.POSITION.BOTTOM_LEFT,
 }
 export const showSuccessMsg=({position,msg})=>{
-    console.log("show success")
+ 
     toast.success(msg,{position})
 }
  export const showErrorMsg=({position,msg})=>{
@@ -22,14 +22,14 @@ const showInfoMsg=({position,msg})=>{
     toast.info(msg,{position})
 }
 const ToastMessegeProvider=({children})=>{
-  
+
     
    
    
     return (
       
             <>
-            <ToastContainer/>
+            <ToastContainer hideProgressBar={true} autoClose={1000} draggable/>
          {children}
          </>
 
