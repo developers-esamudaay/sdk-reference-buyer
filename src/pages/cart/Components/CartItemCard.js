@@ -4,8 +4,9 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { CartContext } from "../../../contextProviders/cartContextProvider";
 import Add from "../../../assets/icons/Add";
 import Subtract from "../../../assets/icons/Subtract";
-import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from '@mui/icons-material/Close';
 import { useHistory } from "react-router-dom";
+
 const extractTimeInfo = (time) => {
   let numberValue = "";
   let stringValue;
@@ -80,14 +81,19 @@ const CartItemCard = ({ item, isCartPage,updatedPrice }) => {
               {single_item_price}
             </p>
           </div>
+     
           {
-            isCartPage&&  <p
-            className={styles.remove_text}
-            onClick={() => onRemoveProduct(item?.id)}
-          >
-            Remove
-          </p>
+            isCartPage&&
+            <div className={styles.remove_wrapper}>
+            
+            <CloseIcon style={{ color:"white",
+              height:"15px",
+              width:"15px",
+              cursor:"pointer"
+            }}/>
+            </div>
           }
+      
           {
             !isCartPage&&<p className={styles.quantity_text}>{`${item?.quantity?.count} Pices`}</p>
           }

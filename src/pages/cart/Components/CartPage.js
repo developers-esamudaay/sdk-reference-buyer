@@ -31,13 +31,17 @@ const CartPage = () => {
             <div>
               <p className={styles.empty_cart_text}>Cart Is Empty</p>
             </div>
+            <div className={styles.empty_cart_image_container}>
             <img className={styles.empty_cart_image} src={empty_cart} />{" "}
+            </div>
+            <div className={styles.checkout_button_container}>
             <button
               onClick={() => history.push("/products")}
               className={styles.go_to_products_button}
             >
               Go To Products
             </button>
+            </div>
           </div>
         ) : (
           <>

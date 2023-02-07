@@ -2,7 +2,7 @@
 .cart_item_container{
     display: flex;
     align-items: flex-start;
-    gap:3.5rem;
+    gap:2.5rem;
 background-color: rgb(255, 255, 255);
     padding:3.0rem 2.4rem 2.0rem 3.4rem;
     box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
@@ -11,8 +11,8 @@ background-color: rgb(255, 255, 255);
 }
 
 .image_container{
-    max-width:13.6rem;
-    max-height: 15.6rem;
+    max-width:13.4rem;
+     height:13.6rem;
     min-width:3rem;
     min-height:5rem;
    margin-top:2rem
@@ -24,7 +24,7 @@ background-color: rgb(255, 255, 255);
 .image_style{
     width:100%;
     height:100%;
-    object-fit: cover;
+   
 }
 .item_details_container{
  
@@ -35,9 +35,10 @@ background-color: rgb(255, 255, 255);
 
 }
 .item_name_text{
-    font-size: 1.7rem;
-    font-weight: $semibold;
-    color:#3D4152
+    font-size: 1.8rem;
+    font-weight: $regular;
+    color:#3D4152;
+    padding-left: 0.2rem;
 }
 .seller_text{
     font-size: 1.4rem;
@@ -55,7 +56,7 @@ background-color: rgb(255, 255, 255);
   margin-top: 20px;
 }
 .price_text{
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: $semibold;
     color: #3D4152
 }
@@ -77,54 +78,49 @@ background-color: rgb(255, 255, 255);
    margin-top: 20px;
     width:70px;
     height: 25px;
-    background-color:white;
-  
+    border:solid 2px green;
+  border-radius: 0.5rem;
     display: flex;
-    align-items: center;
+
     justify-content: space-around;
+    gap:0.5rem;
+    margin-bottom: 1.5rem;
+
   }
   
   .quantity_count_wrapper > div {
-    width: 40px;
-    height: 35px;
+    width: 25px;
+    height: 21px;
   }
   
   .subtract_svg_color,
   .add_svg_color {
-    fill: #979aa1;
+    fill: white;
   }
   
   .subtract_svg_wrapper {
-    fill: #979aa1;
+    
     cursor: pointer;
+    background-color:green ;
+
   }
   
-  .subtract_svg_wrapper:hover {
-    background-color: rgba($white, $alpha: 0.75);
-    transition: all 0.3s;
-    .subtract_svg_color {
-      fill:  #2e3c7e;
-    }
-  }
+ 
   
   .add_svg_wrapper {
-  
+    background-color: green;
     cursor: pointer;
+   
   }
   
-  .add_svg_wrapper:hover {
-    background-color: rgba($white, $alpha: 0.75);
-    transition: all 0.3s;
-    .add_svg_color {
-      fill: #2e3c7e;
-    }
-  }
+  
   .quantity_count {
     font-size: $font-14;
     font-weight: $medium;
-    color: #979aa1;
+    color: #3D4152;
     text-align: center;
     margin: 0;
+    padding: 0rem 0.2rem;
   }
   .cart_actions{
 
@@ -132,9 +128,14 @@ background-color: rgb(255, 255, 255);
     display: flex;
       justify-content: space-between;
      background-color: #f8f8f8;
-    justify-content: baseline;
-    padding:0rem 1.5rem 0rem 1.5rem;
-    border-radius: 0.2rem;
+    align-items: center;
+    padding: 0.2rem 1rem 0.2rem 1rem;
+    max-height:45px;
+    border-radius: 0.8rem;
+    max-width: 500px;
+    min-width: 150px;
+    
+
    
   }
   .quantity_text{
@@ -144,16 +145,12 @@ background-color: rgb(255, 255, 255);
         color:#6d728a;
     
 }
-  .remove_text{
-    font-size: $font-16;
-    font-weight: $regular;
-    color:#DC3545;
-    cursor: pointer;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
+.remove_wrapper{
+  background-color: #DC3545;
+  border-radius: 2rem;
+}
   .remove_text:hover{
-    color:#e71228
+   opacity: 0.7;
   }
 .delivery_details_container{
  padding-right: 1rem;
@@ -162,6 +159,7 @@ background-color: rgb(255, 255, 255);
   .cart_item_container{
   
     padding:2.0rem 2.4rem 1.0rem 2.4rem;
+    box-shadow: 0px 0px 0px 0px;
 
 
 }

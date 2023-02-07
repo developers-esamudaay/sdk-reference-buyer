@@ -15,6 +15,7 @@ import Add from "../../../assets/icons/Add";
 import AddressForm from "./AddressForm";
 import HomeIcon from "@mui/icons-material/Home";
 import { CartContext } from "../../../contextProviders/cartContextProvider";
+import CloseIcon from '@mui/icons-material/Close';
 export default function AddressCardStep(props) {
   const { goNext, goPrev } = props;
   const [showAddressForm, setShowAddressForm] = useState(false);
@@ -88,12 +89,21 @@ export default function AddressCardStep(props) {
             <p className={styles.cart_desc_text}>
               Shipping and additional costs are calculated once you checkout.
             </p>
-            <div className={styles.total_continer}>
-              <p className={styles.total_item_text}>Total Items</p>
-              <p className={styles.total_item_text}>
-                {cartData?.items?.length}
-              </p>
-            </div>
+            <div className={styles.cart_items_summary}>
+            
+                      {
+                        cartData?.items.map((item)=>(
+                          <div className={styles.item_container}>
+                          <p className={styles.item_text}>{item?.product?.item_name} <span><CloseIcon/></span> <span>{item?.quantity?.count}</span></p>
+                          <p className={styles.item_text}>
+                           {item?.product?.price/100*item?.quantity?.count}
+                          </p>
+                        </div>
+                        ))
+                      }
+                      </div>
+                   
+                  
 
             <div className={styles.total_continer}>
               <p className={styles.total_item_text}>Total Price</p>

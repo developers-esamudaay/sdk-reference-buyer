@@ -20,6 +20,9 @@
         background-color: $white;
        
        height: 100%;
+       display: flex;
+       flex-direction: column;
+
     
         opacity: 1;
         // animation: slide 0.5s ease forwards;
@@ -45,6 +48,9 @@
    
         width: 35rem;
 
+      }
+      .map_wrapper{
+        flex-grow: 2;
       }
       .confirm_button{
         width:200px;
