@@ -17,7 +17,7 @@ const MultiStepProgressBar = ({ currentActiveStep,setCurrentActiveStep}) => {
                 children={({ accomplished}) => (
                   <div
                    className={`${styles.indexedStep} ${accomplished?styles.accomplished:null}`} 
-                   onClick={()=>setCurrentActiveStep(index+1)}
+                   onClick={()=>step?.stepNumber<currentActiveStep&& setCurrentActiveStep(index+1)}
                   >
                     <span>{`${step.stepNumber}.   `}</span>
                     {step.name}

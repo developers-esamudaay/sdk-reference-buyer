@@ -1,26 +1,30 @@
 @import "../variables.scss";
 .seller_page_header_wrapper{
+   width:100%;
+   background-color: white;
+}
+.seller_page_header{
     width:80%;
     margin-left: 10%;
-    height:20%;
+
     display: flex;
     flex-direction: row;
     margin-top: 5rem;
    
-    align-items: start;
-    background-color: white;
+    align-items: center;
+
     padding:1.5rem 1.5rem 1.5rem 1.5rem
  
-
 }
 .image_container{
-    max-width: 150px;
-    max-height:150px;
+    max-width: 130px;
+    max-height:130px;
     min-width: 80px;
     min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem 1rem;
    
 
 
@@ -66,6 +70,16 @@
    cursor: pointer;
   
 }
+.product_screen_wrapper{
+    background-color: white;
+    padding: 5px 5px 5px 5px;
+    width: 90%;
+    margin-top: 20px;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 .product_screen_header_text{
     font-size: $font-20;
     font-weight: $regular;
@@ -121,7 +135,14 @@
     padding: 1.6rem 1.6rem 1.6rem 1.6rem;
     border-radius: 10px;
     border:1px solid #e5e5e5;
-    box-shadow:1px 1px 2px 1px #e5e5e5
+    box-shadow:1px 1px 2px 1px #e5e5e5;
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+
+   
 }
 .address{
     display:flex;
@@ -130,16 +151,17 @@
 .address_text{
     font-size: $font-16;
     font-weight: $regular;
-    color: #3D4152; 
+    color: #3D4152;
+    word-break: break-word;
+    
+    
+ 
+
+   
    
 }
 .business_details{
     margin-top: 2rem;
-}
-.leaflet-container{
-    width:500px;
-    height:500px;
-   
 }
 
 @media screen and (max-width: 707px) {
@@ -161,14 +183,6 @@
         padding: 1.6rem 0.6rem 1.6rem 0.6rem;
        
     }
-    .seller_page_header_wrapper{
-        width:90%;
-   
-       margin-left: 0%;
-        background-color: white;
-        padding-left:0.5rem;
-     
-    
-    }
+ 
     
 }

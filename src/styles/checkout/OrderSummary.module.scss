@@ -1,4 +1,33 @@
 @import "../variables.scss";
+.overlay {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(#282C3F, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade 1s ease forwards;
+  z-index: 1002;
+}
+.popup_card {
+  width:clamp(200px, 50%, 250px);
+    background-color: $white;
+   
+   height: 200px;
+   display: flex;
+   flex-direction: column;
+   box-shadow:1px 1px 2px 1px rgb(248, 247, 247);
+   border-radius: 0.5rem;
+   align-items: center;
+   justify-content: center;
+
+
+    opacity: 1;
+    // animation: slide 0.5s ease forwards;
+  }
 .loading_wrapper{
   margin-top: 6rem;
   padding:2rem 2rem 2rem 2rem
@@ -118,6 +147,33 @@
 
 .place_order_button_container{
     margin-top: 5rem;
+}
+.cross_wrapper{
+  background-color: #DC3545;
+  border-radius: 2rem;
+  width:4rem;
+  height:4rem
+
+
+}
+.clear_cart_button{
+  width:140px;
+  height: 35px;
+  
+  border: 1px solid #2e3c7e;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:$font-16;
+  font-weight: $semibold;
+  background-color: #2e3c7e;
+  color: $white;
+}
+.cart_verify_error{
+  font-size:$font-16;
+  font-weight: $semibold;
+  color:#6e717e
 }
 @media screen and (width: 707px) {
   .price_container{

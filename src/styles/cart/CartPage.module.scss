@@ -8,7 +8,7 @@
 
 }
 .empty_cart_container{
-    margin-top: 200px;
+    margin-top: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,11 +24,7 @@
     height:200px;
 
 }
-.empty_cart_image{
-   
-    
 
-}
 .cart_header{
     display: flex;
     justify-content: space-between;
@@ -45,10 +41,7 @@
         color:#6d728a;
     }
 }
-.item_container{
 
-   
-}
 .price_container{
     margin-left: 1.6rem;
     background-color:$white;

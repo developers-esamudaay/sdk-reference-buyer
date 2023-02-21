@@ -3,7 +3,7 @@ import styles from './ExpededView.module.scss'
 import DropdownSvg from '../../assets/icons/Dropdown'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-const ExpededView = ({ children, header, subheader, shouldExpendedInitially,Icon }) => {
+const ExpededView = ({ children, header, shouldExpendedInitially,Icon }) => {
   const [isExpended, setIsExpeded] = useState(shouldExpendedInitially)
   return (
     <>

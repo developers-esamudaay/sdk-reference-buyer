@@ -63,13 +63,14 @@ a {
 
 margin-top: 80px;
  height:100%;
- width:100%
+ width:100%;
+ background-color: white;
  
 }
 .top_navigation{
   display: flex;
 
-
+  align-items: baseline;
   margin-left:15%;padding-bottom:5px
 }
 
@@ -106,7 +107,7 @@ margin-top: 80px;
 }
 
 .product_name {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 400;
   color: #3D4152;
   margin: 0;
@@ -283,6 +284,7 @@ overflow-x: scroll;
  .product_img_container{
   height: 340px;
   width:340px;
+  margin-top: 4.5rem;
 
 
  }
@@ -290,6 +292,8 @@ overflow-x: scroll;
   width:98%;
   margin-left: 1%;
   justify-content: center;
+
+  
 }
 .left_container{
 
@@ -303,7 +307,7 @@ overflow-x: scroll;
  
    justify-content: center;
   padding-left: 20px;
-   margin-top: 0px;
+   margin-top: 1.5rem;
    margin-right:0px;
    padding-bottom: 20px;
 

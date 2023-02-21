@@ -13,13 +13,15 @@
 
 }
 .product_list_container{
-  background-color: white;
+
          
-          width: 100%;
+          width: 94%;
           margin-top: 75px;
      
           display: flex;
           flex-direction: column;
+          margin-left:3%;
+          background-color: #fff;
          
 }
 
@@ -29,7 +31,7 @@
   justify-content: center;
   margin-top: 2ch;
   margin-bottom: 2rem;
-  background-color: white;
+  
 
 }
 
@@ -55,6 +57,8 @@ input:focus{
     .product_list_container{
      
               margin-top: 170px;
+              width:100%;
+              margin-left: 0;
             
            
     }
