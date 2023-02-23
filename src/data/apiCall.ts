@@ -17,7 +17,7 @@ const axoisInstanceSdk: AxiosInstance = axios.create({
   baseURL: Urls.sdkBaseUrl,
   timeout: 2000,
   headers: {
-    apid: process.env.REACT_APP_API_ID,
+    apid: process.env.REACT_APP_API_ID??"d1e7f644-552c-4a4e-a4e3-3233b876c060",
   },
 });
 export interface ResponseModel {
