@@ -12,6 +12,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import { Location } from "../../interfaces/AddressInterfaces";
 import MapView from "../mapView/MapView";
 import React from "react";
+import useDebounce from "customHooks/useDebounce";
 type LocationSuggetionType = {
   firstText: string;
   secondText: string;
@@ -19,11 +20,14 @@ type LocationSuggetionType = {
   place_id: string;
 };
 const LocationSearchModal = () => {
-  const [searchTerm, setSearchTerm] = useState({ value: "" });
+  
   const [locatioSearchSuggetions, setLocationSearchSuggetions] = useState<
     LocationSuggetionType[] | []
   >([]);
   const [suggetionsLoading, setSuggetionsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const debounceSearchTrem: string = useDebounce(searchTerm, 500);
   const {
     currentLocation,
     setCurrentLocation,
@@ -31,9 +35,11 @@ const LocationSearchModal = () => {
     setShowSearchLocationModal,
     currentAddress,
   }: AddressContextType = useContext(AddressContext);
-  const [showLocationSuggetion, setShowLocationSuggestion] = useState(false);
+
+  const [showLocationSuggetion, setShowLocationSuggestion] = useState(true);
   console.log(currentAddress);
   const onSelecteLocation = (address: LocationSuggetionType) => {
+    setIsSearching(false)
     setShowLocationSuggestion(false);
     setCurrentLocation &&
       setCurrentLocation({
@@ -46,14 +52,11 @@ const LocationSearchModal = () => {
     longitude: currentLocation?.lon,
   };
   useEffect(() => {
-    if (
-      locatioSearchSuggetions &&
-      Array.isArray(locatioSearchSuggetions) &&
-      locatioSearchSuggetions.length > 0
-    ) {
-      setShowLocationSuggestion(true);
-    }
-  }, [locatioSearchSuggetions]);
+     (async()=>{
+      setIsSearching(true)
+      await fetchLocationSuggestion(debounceSearchTrem)
+     })()
+  }, [debounceSearchTrem]);
   console.log(locatioSearchSuggetions);
   const fetchLocationSuggestion = async (value: string) => {
     console.log(value);
@@ -103,10 +106,14 @@ const LocationSearchModal = () => {
         <div className={styles.content}>
           <div style={{ width: "75%" }}>
             <SearchBar
-              handleChange={debouncedFunction(fetchLocationSuggestion, 1000)}
+              handleChange={(value:string)=>setSearchTerm(value)}
               placeholder="search your location"
               borderRadius="0px"
               height="50px"
+              searchTerm={searchTerm}
+              isSearching={isSearching}
+
+              
             />
           </div>
 
@@ -123,8 +130,7 @@ const LocationSearchModal = () => {
               backgroundColor: "white",
             }}
           >
-            {showLocationSuggetion
-              ? locatioSearchSuggetions?.map((searchItem) => {
+            { showLocationSuggetion&& locatioSearchSuggetions?.map((searchItem) => {
                   return (
                     <div
                       key={searchItem?.place_id}
@@ -154,7 +160,7 @@ const LocationSearchModal = () => {
                     </div>
                   );
                 })
-              : null}
+             }
           </div>
           {/* <div className={styles.map_wrapper}>
             <MapView location={currentLocation} zoom={8} />

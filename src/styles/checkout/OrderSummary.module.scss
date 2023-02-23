@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(#282C3F, 0.5);
+  background-color: rgba(#535871, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +173,10 @@
 .cart_verify_error{
   font-size:$font-16;
   font-weight: $semibold;
-  color:#6e717e
+  color:#6e717e;
+  text-align: center;
+  padding-top: 2rem;
+  
 }
 @media screen and (width: 707px) {
   .price_container{

@@ -124,7 +124,7 @@ console.log(searchKeyword)
   //               searchIndexes.push(searchIndex)
   //             }
   //           }
-    //           await addBusinessKeys(business?.business_id,business?.business_data?.name,searchIndexes)
+  //             await addBusinessKeys(business?.business_id,business?.business_data?.name,searchIndexes)
   //         const businessObj = {
   //           bpp_id: business?.bpp_id,
   //           bpp_uri: business?.bpp_uri,
@@ -147,12 +147,12 @@ console.log(searchKeyword)
   //         for (let item of business?.business_data?.items ?? []) {
   //           let product_short_name = "";
   //           const keys = item?.item_name.split(" ")??[];
-  //           const newKeys=keys.map((key)=>key.toLowerCase())
+  //           const newKeys=keys.map((key:string)=>key.toLowerCase())
   //           console.log(keys);
   //           console.log(Math.min(keys.length, 5));
   //           for (let i = 0; i < Math.min(keys.length, 4); i++) {
   //             product_short_name = product_short_name + " " + keys[i];
-  //             await addKeys(keys[i]);
+  //            // await addKeys(keys[i]);
   //           }
 
 
@@ -165,7 +165,7 @@ console.log(searchKeyword)
   //               item?.images[0]) ??
   //             "";
   //           const location = {
-  //             delivery_redius:
+  //             delivery_radius:
   //               (locations.length > 0 && locations[0]?.delivery_radius?.radius) ?? 0,
   //             lat: locations.length > 0 ? locations[0]?.lat : 0.0,
   //             lon: locations.length > 0 ? locations[0]?.lon : 0.0,
@@ -218,32 +218,7 @@ console.log(searchKeyword)
   //   })();
   // }, []);
 
-  // use this function to fetch products
-
-  //using IIFE
-
-  //fetch products with search query
-  //   const fetchQueryProducts = async (value: string) => {
-  //     console.log(value);
-  //     if (!value && !isAlreadySearched) {
-  //       return;
-  //     }
-  //     if (value && value.length < 3) {
-  //       if (isAlreadySearched) {
-  //         await fetchProducts(QueryTypes.NO_QUERY, "");
-  //         setIsAlreadySearched(false);
-  //       }
-  //       if (!isAlreadySearched)
-  //         setInlineError(
-  //           (error) => `please enter atleast 3 letter to activate search`
-  //         );
-  //     } else {
-  //       setInlineError("");
-  //       //debouncing fetch function is remaining forthis search call
-  //       await fetchProducts(QueryTypes.SEARCH_QUERY, value);
-  //       setIsAlreadySearched(true);
-  //     }
-  //   };
+  
 
   return (
     <React.Fragment>

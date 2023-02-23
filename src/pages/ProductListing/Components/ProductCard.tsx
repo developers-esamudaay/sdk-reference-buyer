@@ -48,8 +48,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, fromScreen }) => {
   };
 
   const userProviderDistance = haversine(userLocation, providerLocation);
-  const deliveryRadius = business_location?.delivery_radius ??0;
 
+  const deliveryRadius = business_location?.delivery_radius ??0;
+console.log(business_location,deliveryRadius,"userProviderDistance")
 
   const inDeliveryDistance = userProviderDistance < deliveryRadius * 1000;
 

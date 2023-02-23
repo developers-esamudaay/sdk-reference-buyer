@@ -27,6 +27,7 @@ const DeliveryAddress:React.FC<DeliveryAddressProps>=(props) =>{
   const handleClick=(delivery_address:DeliveryAddressInfo) => {
     console.log("clicked selecte address")
     setEditAddressForm(false);
+    console.log(delivery_address)
     setSelectedDeliveryAddress&&setSelectedDeliveryAddress(delivery_address);
   }
 

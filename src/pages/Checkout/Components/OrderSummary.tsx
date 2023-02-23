@@ -70,10 +70,13 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
 
   const [totalAdditionalCharge, setTotalAdditionalCharge] = useState(0);
   const history = useHistory();
+  console.log(cartVerificationError)
 
   useEffect(() => {
+  
     (async () => {
       setLoading(true);
+    
       console.log(selectedDeliveryAddress);
       const payload: CartVerifyPayloadInterface = {
         ...cartData,
@@ -314,13 +317,13 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
                   />
                  
                 </div>
-                <p className={styles.cart_verify_error}>{cartVerificationError?`${cartVerificationError?.code} :${cartVerificationError?.message}`:"something wrong with seller partner"}</p>
+                <p className={styles.cart_verify_error}>{cartVerificationError?`${cartVerificationError?.code} :${cartVerificationError?.message}`:"something wrong with seller partner please clear cart and place new order"}</p>
                   <div>
                       <button
                         className={styles.clear_cart_button}
-                        onClick={() => history.push("/products")}
+                        onClick={() =>{setCartData({items:[]}); history.push("/products")} }
                       >
-                       Go To Products
+                     Clear Cart
                       </button>
                     </div>
               </div>
