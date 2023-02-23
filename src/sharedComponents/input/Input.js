@@ -11,10 +11,12 @@ export default function Input(props) {
       >
         {props.label_name}
       </label>
+      <div className={styles.input_wrapper}>
       <input
         {...props}
         className={`${has_error ? styles.error : styles.formControl}`}
       />
+      </div>
     </div>
   );
 }

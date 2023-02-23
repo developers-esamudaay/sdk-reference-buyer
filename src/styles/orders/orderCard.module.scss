@@ -15,30 +15,35 @@
   z-index: 1;
 }
 .card_wrapper{
-  margin-top:40px;
-  border-radius: 20px;
+
+  border-radius: 10px;
   cursor: pointer;
   width:50%;
   margin-left:25%;
-  background-color:white
+  background-color:white;
+  box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
 }
 .card_header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-  background-color: #2b538e;
-  border-radius: 7px;
+    padding:2rem 2rem 2rem 2rem
+
+
    
    
 }
+.order_info{
+  padding-top: 1rem;
+}
 .card_header_title {
   font-size: $font-16;
-  color: #a1a1a1;
-  margin: 0;
+  color: #3D4152;
+
   }
   .date_label {
-    font-size: $font-16;
-    color: #4582dd;
+    font-size: $font-12;
+    color: #727481;
     margin: 0;
   }
   .status_label {
@@ -99,7 +104,7 @@ padding-right: 20px;
   }
   .item_name_text{
     font-family: $firaSans;
-    font-size: $font-16;
+    font-size: $font-14;
     font-weight: $medium;
     text-align: center;
     color: $primaryColor;
@@ -108,7 +113,7 @@ padding-right: 20px;
   
   .item_quantity_text{
     font-family: $firaSans;
-    font-size: $font-16;
+    font-size: $font-14;
     font-weight: $medium;
     text-align: center;
     color: $primaryColor;
@@ -203,7 +208,7 @@ padding-right: 20px;
 // }
   @media screen and (max-width: 780px) {
     .card_wrapper{
-      width:90%;
-      margin-left: 5%;
+      width:100%;
+      margin-left: 0px;
     }
   }

@@ -7,34 +7,103 @@
         top: 0;
         left: 0;
         right: 0;
-        background-color: rgba($primaryColor, 0.15);
+        background-color: rgba(#282C3F, 0.5);
         display: flex;
         align-items: center;
         justify-content: left;
         animation: fade 1s ease forwards;
-        z-index: 1;
+        z-index: 1002;
       }
 
       .popup_card {
-      width:35%;
+      width:clamp(350px, 50%, 500px);
         background-color: $white;
        
        height: 100%;
+       display: flex;
+       flex-direction: column;
+
     
         opacity: 1;
-        animation: slide 0.5s ease forwards;
+        // animation: slide 0.5s ease forwards;
       }
+
       .content{
         display: flex;
         flex-direction: column;
      align-items: center;
        justify-content: center;
-       margin-top: 10%;
+       margin-top: 5%;
+      
+      
+
        
        
       }
-      @media screen and (max-width: 780px) {
-        .popup_card{
-          width:70%;
-        }
+      .current_address_wrapper{
+        position:fixed;
+        bottom:0px;
+    
+        padding:2rem 2rem 2rem 2rem;
+   
+        width: 35rem;
+
       }
+      .map_wrapper{
+        flex-grow: 2;
+      }
+      .confirm_button{
+        width:200px;
+        height: 35px;
+        
+        border: 1px solid #FC8019;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size:$font-16;
+        font-weight: $semibold;
+        background-color: #FC8019;
+        color: $white;
+     
+    }
+    .confirm_button_container{
+        margin-top: 2em;
+        width:200px ;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 1rem;
+ 
+    }
+      .address_header{
+        font-size: 1.7rem;
+        font-weight:600;
+        color:#3D4152
+      }
+      .address_text{
+        font-size: 1.5rem;
+        font-weight:500;
+        color:#64697e
+      }
+     .first_text{
+       font-size:16px;
+       font-weight: 400;
+       color:#3D4152
+     }
+     .first_text:hover{
+       color:#f86c08
+     }
+     .second_text{
+      font-size:13px;
+      font-weight: 300;
+      color:#3D4152
+    }
+   
+    @media screen and (max-width: 480px) {
+      .current_address_wrapper{
+ 
+        width: 30rem;
+
+      }
+      
+    }

@@ -5,30 +5,33 @@
     color: $primaryColor;
     margin: 0;
   }
+
+  
   .address_wrapper {
     max-height: auto;
     overflow: auto;
   }
+ 
   
 .address_name_and_phone {
     font-size: $font-16;
-    font-weight: $medium;
+    font-weight: $semibold;
     text-align: left;
-    color: $primaryColor;
+    color: #41434c;
     margin: 0;
   }
   
   .address_line_1 {
     font-size: $font-14;
     text-align: left;
-    color: $primaryColor;
+    color: #000000;
     margin: 0;
   }
   
   .address_line_2 {
     font-size: $font-14;
     text-align: left;
-    color: $secondaryColor;
+    color: #000000;
     margin: 0;
   }
   .delivery_button{
@@ -37,4 +40,6 @@
     justify-content: center;
   
   }
- 
+  @media screen and (max-width: 707px) {
+   
+}

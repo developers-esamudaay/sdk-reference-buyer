@@ -2,25 +2,28 @@
 .address_card {
     width: 100%;
     background-color: $white;
-    box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
-    border-radius: 10px;
+    
+
     height:auto;
-    margin-top: 30px;
+    margin-top: 90px;
   }
   .address_card_header{
     display: flex;
     justify-content: start;
-    background-color:#2370f4;
+    border-bottom: 1px solid rgb(237, 228, 228);
+   
   }
   .address_card_header_title{
     font-family: $firaSans;
     font-size: $font-24;
-    font-weight: $medium;
+    font-weight: $semibold;
     text-align: left;
-    color: white;
+    color: #3D4152;
     margin: 0;
-    padding: 10px 10px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
+  
   .step_no_text
     {background-color:white;border-radius:10px;padding:4px; color:blue;font-size:$font-18;margin-right: 5px;}
   
@@ -47,23 +50,125 @@
       margin: 0;
     }
   }
+  .price_container{
+    margin-left: 6.5rem;
+    background-color:$white;
+    box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
+    display:flex;
+    align-items: center;
+    flex-direction :column;
+    justify-content: center;
+    padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+
+    
+
+}
+.cart_summary_text{
+    font-size: 1.8rem;
+    font-weight: $medium;
+    color:#3D4152
+}
+.cart_desc_text{
+    font-size: 1.4rem;
+    font-weight: $regular;
+    color:#71768a
+}
+.total_continer{
+    display: flex;
+    width: 100%;
+    gap:1rem;
+    justify-content: center;
+    padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+   
+
+}
+.item_container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+}
+.cart_items_summary{
+  width:100%;
+  border-bottom:1px solid rgb(239, 236, 236)
+}
+.item_text{
+  font-size: 1.5rem;
+  font-weight: $regular;
+  color:#3D4152
+}
+.total_item_text{
+    font-size: 1.5rem;
+    font-weight: $semibold;
+    color:#3D4152
+}
+
+
+.continue_button{
+    width:200px;
+    height: 35px;
+    
+    border: 1px solid #FC8019;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:$font-16;
+    font-weight: $semibold;
+    background-color: #FC8019;
+    color: $white;
+}
+.continue_button_container{
+    margin-top: 5rem;
+}
   .add_address_wrapper {
-    width: 160px;
-    padding: 10px 15px;
+
+
+
     background-color: transparent;
-    border-radius: 36px;
+
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgb(237, 228, 228);
   }  
+  .saved_address_header{
+    background-color: transparent;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
   .add_address_text {
     font-size: $font-14;
     font-weight: $medium;
-    color: $accentColor;
+    color: #3D4152;
     margin: 0;
   }
   .add_svg_color {
     fill: $accentColor;
     // margin-bottom: 5px;
   }
+  @media screen and (max-width: 707px) {
+    .address_card {
+      width: 100%;
+      background-color: $white;
+      
+  
+      height:auto;
+      margin-top: 40px;
+    }
+    .price_container{
+      margin-left: 0rem;
+      margin-top: 1rem;
+      box-shadow:0px 0px 0px 0px;
+      
+  
+  }
+}

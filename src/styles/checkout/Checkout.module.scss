@@ -1,0 +1,29 @@
+@import "../variables.scss";
+.checkout_container{
+    margin-top: 8rem;
+    padding:2.5rem 2.5rem 2.5rem 2.5rem;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
+}
+.progressbar_container{
+   
+   max-width: 600px;
+   margin: auto auto;
+
+   padding:1.4rem 1.4rem 1.4rem 1.4rem
+}
+@media screen and (max-width: 480px) {
+    .checkout_container{
+        margin-top: 8rem;
+        padding:3.5rem 0.5rem 0.5rem 0.5rem;
+        background-color: white;
+        box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
+    }
+    .progressbar_container{
+   
+        max-width: 250px;
+        margin: auto auto;
+     
+        padding:0.4rem 0.4rem 0.4rem 0.4rem
+     }
+}

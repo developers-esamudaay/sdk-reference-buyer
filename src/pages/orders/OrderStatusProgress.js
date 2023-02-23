@@ -52,16 +52,19 @@ const OrderStatusProgress=({orderStatus})=>{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  borderRadius: "50%",
+                  borderRadius: "100%",
                   width: 25,
                   height: 25,
-                  color: "gray",
-                  backgroundColor: accomplished ? "green" : "gray"
+                  color: "#727481",
+                  backgroundColor: accomplished ? "green" : "#727481"
+                  
                 }}
               >
                 <br />
                 <br />
                 <br />
+                <br />
+               
                 {step.status}
               </div>
             )}
