@@ -17,13 +17,13 @@ type AboutProps={
         <div className="row">
           <div className="col-lg-6 col-xl-5 col-md-6 col-sm-12">
             <p className={styles.about_heading_text}>Map</p>
-            <MapView
+            {/* <MapView
               location={{
                 lat: providerLocation?.latitude,
                 lon: providerLocation?.longitude,
               }}
               zoom={10}
-            />
+            /> */}
           </div>
 
           <div className="col-lg-6 col-xl-7 col-md-6 col-sm-12">
