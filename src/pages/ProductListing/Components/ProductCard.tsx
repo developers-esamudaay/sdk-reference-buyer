@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import styles from "../../../styles/products/ProductCard.module.scss"
+import styles from "styles/products/ProductCard.module.scss"
 import no_image_found from "../../../../src/assets/images/no_image_found.png";
 import Subtract from "../../../assets/icons/Subtract";
 import Add from "../../../assets/icons/Add";
