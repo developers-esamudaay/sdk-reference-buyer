@@ -31,7 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, fromScreen }) => {
     business_id: provider_id,
     location: business_location,
   } = product;
-  console.log(imageUrl)
   const [quantityCount, setQuantityCount] = useState<number>(0);
 
   const [toggleAddToCart, setToggleAddToCart] = useState<boolean>(false);
@@ -68,18 +67,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, fromScreen }) => {
 
   return (
     <div className={`${styles.product_card_background}`}>
+      
       <div className={styles.product_img_container}>
-        {!inDeliveryDistance && (
+      {!inDeliveryDistance && (
           <div className={styles.ribbon}>
             <span>Not Deliverable</span>
           </div>
         )}
         <img
           src={imageUrl ?? no_image_found}
-          style={{}}
+         
           alt={product_name}
-          width="200"
-          height="200"
+         
           className={styles.product_img}
           onError={({ currentTarget }) =>
           {

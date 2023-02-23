@@ -27,6 +27,7 @@ import {
   Product,
   ProductDetailsInterface,
   BusinessDetails,
+  BusinessSearchRes
 } from "../interfaces/ResponseInterfaces";
 const db = getFirestore(app);
 
@@ -40,27 +41,27 @@ const genrateQuery = ({
   const productRef = collection(db, firestoreCollections.ONDC_PRODUCTS);
   switch (queryType) {
     case QueryTypes.NO_QUERY:
-      return query(productRef, limit(offset), orderBy("product_name"));
+      return query(productRef, limit(offset), orderBy("item_id"));
 
     case QueryTypes.SEARCH_QUERY:
       return query(
         productRef,
         limit(offset),
-        orderBy("product_name"),
-        where("selectedIndexes", "array-contains", queryParam.toLowerCase())
+        orderBy("item_id"),
+        where("poduct_name_indexes", "array-contains", queryParam.toLowerCase())
       );
     case QueryTypes.NEXT_PAGE_QUERY:
       return query(
         productRef,
         limit(offset),
-        orderBy("product_name"),
+        orderBy("item_id"),
         startAfter(queryParam)
       );
     case QueryTypes.PREV_PAGE_QUERY:
       return query(
         productRef,
         limit(offset),
-        orderBy("product_name"),
+        orderBy("item_id"),
         endAt(queryParam),
         limitToLast(offset)
       );
@@ -110,6 +111,21 @@ export const getProductKeySuggetion = async (key: string) => {
   ) as string[];
   return productKeySuggetions;
 };
+export const getBusinessSuggetion = async (key: string) => {
+  console.log(key,"key")
+  const q: any = query(
+    collection(db, firestoreCollections.BUSINESS_NAME_INDEXES),
+    limit(5),
+    orderBy("id"),
+    where("searchIndexes", "array-contains", key)
+  );
+  const querySnapshot = await getDocs(q);
+  const productKeySuggetions = querySnapshot.docs.map((doc) => doc.data()
+  ) as unknown  as BusinessSearchRes ;
+  console.log(productKeySuggetions,"key")
+  return productKeySuggetions;
+};
+
 export const getProductDetailsById = async (id: string) => {
   const productRef = collection(
     db,
@@ -245,7 +261,9 @@ export const getBusinessDetailsById = async (
   const querySnapshot = await getDocs(q);
   const businesses = querySnapshot.docs.map((doc) =>
     doc.data()
+
   ) as BusinessDetails[];
+  console.log(businesses)
   return businesses.length > 0 ? businesses[0] : null;
 };
 export const getSupportData = async (id: string) => {

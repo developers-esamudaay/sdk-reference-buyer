@@ -5,5 +5,6 @@ export const firestoreCollections = {
   ONDC_CATALOG: 'ondcCatalog',
   ONDC_SUPPORT:"ondcSupport",
   ONDC_BUSINESSES:"ondcBusiness",
-  PRODUCT_NAME_INDEXES:"productNameIndexes"
+  PRODUCT_NAME_INDEXES:"productNameIndexes",
+  BUSINESS_NAME_INDEXES:"BusinessNameIndexes"
 }

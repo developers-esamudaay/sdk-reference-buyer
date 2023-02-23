@@ -60,7 +60,8 @@ const BusinessProfile = () => {
     () => haversine(userLocation, providerLocation),
     [userLocation, providerLocation]
   );
-  console.log(distanceFromSelller);
+  console.log(deliveryRadius,"radius");
+
 
   const inDeliveryDistance = distanceFromSelller < deliveryRadius * 1000;
   const defaultCenter = [38.9072, -77.0369];

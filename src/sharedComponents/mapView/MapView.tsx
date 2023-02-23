@@ -33,7 +33,7 @@ zoom:number,
     
       // icon={icon}
     >
-      <Popup>{"your  locstion"}</Popup>
+      <Popup>{"your  location"}</Popup>
     </Marker>
   ) : null;
 }
@@ -43,13 +43,13 @@ const MapView:React.FC<MapViewProps>=({location,zoom})=>{
     
     return(
         <div className={styles.map_view_container}>
-        {/* <MapContainer  center={[20.5937, 78.9629]} zoom={zoom}>
+        <MapContainer  >
     <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
     <MarkPointer location={location??{}}  />
-  </MapContainer> */}
+  </MapContainer>
  
        </div>
     )

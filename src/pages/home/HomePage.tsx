@@ -13,7 +13,8 @@ import {
   addKeys,
   addUpdatedBusiness,
   getProductKeySuggetion,
-  addBusinessKeys
+  getBusinessSuggetion,
+  addBusinessKeys,
 } from "../../data/firbaseCalls";
 // import CartInfo from '../cart/Components/CartInfo'
 import { isEmptyObject } from "../../commonUtils";
@@ -25,7 +26,14 @@ import { Product } from "interfaces/ResponseInterfaces";
 import { CartDataInterface } from "interfaces/CartInterface";
 import { LanTwoTone } from "@mui/icons-material";
 import useDebounce from "customHooks/useDebounce";
-const  Homepage=() =>{
+import SearchKeyWordSuggetion from "./SearchSuggetion";
+type ProductKeySuggetions = {
+  key: string;
+  searchIndexes: string[];
+};
+
+
+const Homepage = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -33,18 +41,28 @@ const  Homepage=() =>{
   const [productKeySuggetions, setProductKeySuggetions] = useState<
     string[] | []
   >([]);
+  const [businessSearchSuggetions,setBusinessSearchSuggetions]=useState([])
+  const [showSuggetions, setShowSuggetions] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
+console.log(searchKeyword)
   useEffect(() => {
     (async () => {
       if (debounceSearchTrem) {
         setIsSearching(true);
-        const Suggetions: string[] = await getProductKeySuggetion(
+        const productSuggetions: string[] = await getProductKeySuggetion(
           debounceSearchTrem
         );
-        setProductKeySuggetions(Suggetions);
+         const businessSuggetion:any=await getBusinessSuggetion(debounceSearchTrem)
+         console.log(productSuggetions,businessSuggetion)
+        setShowSuggetions(true);
+    
+        setProductKeySuggetions(productSuggetions);
+        setBusinessSearchSuggetions(businessSuggetion)
+
       }
     })();
-  });
+  }, [debounceSearchTrem]);
 
   const { cartData, showCartInfo, setShowCartInfo } =
     useContext<CartInterface>(CartContext);
@@ -61,14 +79,20 @@ const  Homepage=() =>{
   } = useContext(AddressContext);
 
   const cartItems = cartData?.items;
-
+  const onBlur = () => {
+    console.log("test")
+     setTimeout(()=>{setShowSuggetions(false)},500)
+  };
+  const onFocus = () => {
+    setShowSuggetions(true);
+  };
   // useEffect(() => {
   //   (async () => {
   //     const allBusiness = await getAllBusiness();
 
   //     const mySet1 = new Set();
   //     for (let business of allBusiness) {
-  //       if (!isEmptyObject(business)) {
+  //       if (!isEmptyObject(business)&& business?.business_id!=="35") {
   //         const businessImages = business?.business_data?.images ?? [];
   //         const businessImageUrl =
   //           (Array.isArray(businessImages?.images) &&
@@ -89,7 +113,18 @@ const  Homepage=() =>{
   //           country: location_details?.address?.country??"",
   //           areaCode: location_details?.address?.area_code??"",
   //         };
+  //          const businessNameKeys= business?.business_data?.name.split(" ")
+  //          let searchIndexes=[];
+  //           for(let i=0;i<Math.min(4,businessNameKeys.length);i++){
 
+  //             let searchIndex=""
+  //             for(let j=0;j<businessNameKeys[i].length;j++){
+  //               searchIndex=searchIndex+businessNameKeys[i][j]
+  //               console.log(searchIndex)
+  //               searchIndexes.push(searchIndex)
+  //             }
+  //           }
+    //           await addBusinessKeys(business?.business_id,business?.business_data?.name,searchIndexes)
   //         const businessObj = {
   //           bpp_id: business?.bpp_id,
   //           bpp_uri: business?.bpp_uri,
@@ -112,24 +147,15 @@ const  Homepage=() =>{
   //         for (let item of business?.business_data?.items ?? []) {
   //           let product_short_name = "";
   //           const keys = item?.item_name.split(" ")??[];
+  //           const newKeys=keys.map((key)=>key.toLowerCase())
   //           console.log(keys);
   //           console.log(Math.min(keys.length, 5));
   //           for (let i = 0; i < Math.min(keys.length, 4); i++) {
   //             product_short_name = product_short_name + " " + keys[i];
   //             await addKeys(keys[i]);
   //           }
-  //          const businessNameKeys= business?.business_data?.name.split(" ")
-  //          let searchIndexes=[];
-  //           for(let i=0;i<Math.min(4,businessNameKeys.length);i++){
-          
-  //             let searchIndex=""
-  //             for(let j=0;j<businessNameKeys[i].length;j++){
-  //               searchIndex=searchIndex+businessNameKeys[i][j]
-  //               console.log(searchIndex)
-  //               searchIndexes.push(searchIndex)
-  //             }
-  //           }
-  //           await addBusinessKeys(business?.business_id,business?.business_data?.name,searchIndexes)
+
+
   //           console.log(product_short_name);
   //           const locations = business?.business_data?.locations ?? [];
   //           const imageUrl =
@@ -154,7 +180,7 @@ const  Homepage=() =>{
   //             business_id: business?.business_id??"",
   //             business_name: business?.business_data?.name??"",
   //             product_name: product_short_name??"",
-  //             poduct_name_indexes: keys,
+  //             poduct_name_indexes: newKeys,
   //             price: (item?.price / 100).toFixed(0)??0,
   //             imageUrl: imageUrl??"",
   //             location_id: item?.location_id??"",
@@ -228,13 +254,31 @@ const  Homepage=() =>{
         addressLoading={addressLoading ?? false}
         setShowSearchLocationModal={setShowSearchLocationModal}
         fromProductPage
+        onBlur={onBlur}
+        onFocus={onFocus}
+        searchKeyword={searchKeyword}
+        searchTerm={searchTerm}
+        isSearching={isSearching}
+        setSearchKeyword={setSearchKeyword}
+        
+        
+      />
+      <SearchKeyWordSuggetion
+        productKeySuggetions={productKeySuggetions}
+        showSuggetions={showSuggetions}
+        debounceSearchTrem={debounceSearchTrem}
+        setSearchKeyword={setSearchKeyword}
+        setShowSuggetions={setShowSuggetions}
+        setIsSearching={setIsSearching}
+        setBusinessSearchSuggetions={setBusinessSearchSuggetions}
+        businessSearchSuggetions={businessSearchSuggetions}
+        
       />
       <div className={"container"}>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-2">
-          <ProductList/>
+            <ProductList searchKeyword={searchKeyword} />
           </div>
-
         </div>
       </div>
 
@@ -243,5 +287,5 @@ const  Homepage=() =>{
       {/* show cart modal  */}
     </React.Fragment>
   );
-}
+};
 export default Homepage;

@@ -58,8 +58,13 @@ type NavbarProps={
   fromProductPage?:boolean,
   currentAddress?:Address|null,
   addressLoading?:boolean,
- 
-  setShowSearchLocationModal?:(x:React.SetStateAction<boolean>)=>void
+  onBlur?:()=>void,
+  onFocus?:()=>void,
+  setShowSearchLocationModal?:(x:React.SetStateAction<boolean>)=>void,
+  searchKeyword?:string,
+  searchTerm?:string,
+  isSearching?:boolean
+  setSearchKeyword?:React.Dispatch<React.SetStateAction<string>>
 }
 
 const Navbar:React.FC<NavbarProps> = ({
@@ -71,6 +76,12 @@ const Navbar:React.FC<NavbarProps> = ({
   currentAddress,
   addressLoading,
   setShowSearchLocationModal,
+  onBlur,
+  onFocus,
+  searchKeyword,
+  searchTerm,
+  isSearching,
+  setSearchKeyword
 
 }) => {
 
@@ -186,11 +197,16 @@ const Navbar:React.FC<NavbarProps> = ({
             <SearchBar
               handleChange={handleChange?handleChange:null}
            
- 
+              handleBlur={onBlur}
+              handleFocus={onFocus}
               placeholder={"What are you looking for?"}
               padding={"5px"}
               borderRadius="4px"
               height="40px"
+              searchKeyword={searchKeyword}
+              searchTerm={searchTerm}
+              isSearching={isSearching}
+              setSearchKeyword={setSearchKeyword}
             />
           )}
         </div>

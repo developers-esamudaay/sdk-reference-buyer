@@ -19,7 +19,10 @@ const EmptyProductView = (
     <img src={"../../assets/images/empty_box.png"} width="150" height="150" />
   </div>
 );
-const ProductList = () => {
+type ProductListProps = {
+  searchKeyword: string;
+};
+const ProductList: React.FC<ProductListProps> = ({ searchKeyword }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<Product[] | []>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -34,6 +37,17 @@ const ProductList = () => {
       setNextPage(currentPage + 1);
     }
   }, [currentPage]);
+  useEffect(() => {
+    (async () => {
+      if (!searchKeyword) {
+      
+        await fetchProducts(QueryTypes.NO_QUERY, "");
+        return
+      }
+
+      await fetchProducts(QueryTypes.SEARCH_QUERY, searchKeyword);
+    })();
+  }, [searchKeyword]);
   async function fetchProducts(query_type: QueryTypes, queryParam: string) {
     console.log(query_type, queryParam);
     setLoading(true);
@@ -60,38 +74,38 @@ const ProductList = () => {
     setProducts(allProducts);
     setLoading(false);
   }
-  //fetch products on first call
-  useEffect(() => {
-    (async () => {
-      await fetchProducts(QueryTypes.NO_QUERY, "");
-    })();
-  }, []);
+
+
   return (
     <div className={styles.product_list_container}>
-      {loading ? <Loading/> : ( <div className="container" style={{ borderBottom: "1px solid gray" }}>
-        {products.length === 0 && (
-          <div className={styles.empty_product_view}>
-            <img src={no_product_found} width={"300px"} height={"300px"} />
+      {loading ? (
+        <Loading />
+      ) : (
+
+        <div className="container" style={{ borderBottom: "1px solid gray" }}>
+          {searchKeyword&&<p className={styles.seacrh_result_text}>{`search result for ${searchKeyword}`}</p>}
+          {products.length === 0 && (
+            <div className={styles.empty_product_view}>
+              <img src={no_product_found} width={"300px"} height={"300px"} />
+            </div>
+          )}
+          <div className={`row pe-2`}>
+            {products.map((product) => {
+              return (
+                <div
+                  key={product?.item_id}
+                  className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 p-2"
+                >
+                  <ProductCard product={product} />
+                </div>
+              );
+            })}
           </div>
-        )}
-        <div className={`row pe-2`}>
-          {products.map((product) => {
-            return (
-              <div
-                key={product?.item_id}
-                className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 p-2"
-              >
-                <ProductCard product={product} />
-              </div>
-            );
-          })}
+          {/* products cards */}
+
+          {/* pagination for prev and next page */}
         </div>
-        {/* products cards */}
-
-        {/* pagination for prev and next page */}
-      </div>)}
-
-     
+      )}
 
       {products.length === 24 && (
         <div className={styles.pagination}>

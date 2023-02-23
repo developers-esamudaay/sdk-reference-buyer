@@ -113,6 +113,11 @@ export interface locationResponse{
         type:string,
         importance: string
 }
+export interface BusinessSearchRes{
+  id:string,
+  name:string,
+  searchIndexes:string[]
+}
 export interface BusinessDetails{
   bpp_id:string,
 bpp_uri:string,
