@@ -156,9 +156,9 @@ const LocationSearchModal = () => {
                 })
               : null}
           </div>
-          <div className={styles.map_wrapper}>
+          {/* <div className={styles.map_wrapper}>
             <MapView location={currentLocation} zoom={8} />
-          </div>
+          </div> */}
           <div className={styles.current_address_wrapper}>
             <p className={styles.address_header}>Address</p>
             <p className={styles.address_text}>
