@@ -15,11 +15,10 @@ import Add from "../../../assets/icons/Add";
 import AddressForm from "./AddressForm";
 import HomeIcon from "@mui/icons-material/Home";
 import { CartContext } from "../../../contextProviders/cartContextProvider";
-import CloseIcon from '@mui/icons-material/Close';
-import {CheckStepProps} from "pages/Checkout/Checkout"
+import CloseIcon from "@mui/icons-material/Close";
+import { CheckStepProps } from "pages/Checkout/Checkout";
 import { DeliveryAddressInfo } from "interfaces/PayloadsInterfaces";
-const  AddressCardStep:React.FC<CheckStepProps>=( { goNext, goPrev })=> {
-
+const AddressCardStep: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const {
     cartData,
@@ -37,8 +36,8 @@ const  AddressCardStep:React.FC<CheckStepProps>=( { goNext, goPrev })=> {
     deliveryAddresses,
   } = useContext(AddressContext);
 
-  const onSelectAddress = (address:DeliveryAddressInfo) => {
-    setSelectedDeliveryAddress&&setSelectedDeliveryAddress(address);
+  const onSelectAddress = (address: DeliveryAddressInfo) => {
+    setSelectedDeliveryAddress && setSelectedDeliveryAddress(address);
     goNext();
   };
 
@@ -56,7 +55,6 @@ const  AddressCardStep:React.FC<CheckStepProps>=( { goNext, goPrev })=> {
             <div
               className={styles.add_address_wrapper}
               onClick={() => setShowAddressForm(true)}
-             
             >
               <HomeIcon style={{ width: "24px", height: "24px" }} />
               <div className="ps-3 flex-grow-1">
@@ -67,7 +65,6 @@ const  AddressCardStep:React.FC<CheckStepProps>=( { goNext, goPrev })=> {
             {showAddressForm ? (
               <AddressForm
                 onSelectAddress={onSelectAddress}
-               
                 onClose={() => setShowAddressForm(false)}
               />
             ) : (
@@ -83,50 +80,49 @@ const  AddressCardStep:React.FC<CheckStepProps>=( { goNext, goPrev })=> {
               </>
             )}
           </div>
-          <div
-            className={`col-lg-4 col-xl-3 col-md-3 col-sm-12 col-12 `}
-          >
+          <div className={`col-lg-4 col-xl-3 col-md-3 col-sm-12 col-12 `}>
             <div className={styles.price_container}>
-            <p className={styles.cart_summary_text}>Cart Summary</p>
-            <p className={styles.cart_desc_text}>
-              Shipping and additional costs are calculated once you checkout.
-            </p>
-            <div className={styles.cart_items_summary}>
-            
-                      {
-                        cartData?.items.map((item)=>(
-                          <div className={styles.item_container}>
-                       
-                          <p className={styles.item_text}>{item?.product_name} <span><CloseIcon/></span> <span>{item?.quantity?.count}</span></p>
-                          <p className={styles.item_text}>
-                           {item?.price*item?.quantity?.count}
-                          </p>
-                        </div>
-                        ))
-                      }
-                      </div>
-                   
-                  
-
-            <div className={styles.total_continer}>
-              <p className={styles.total_item_text}>Total Price</p>
-              <p className={styles.total_item_text}>{cartTotalPrice}</p>
-            </div>
-            {!selectedDeliveryAddress || !showAddressForm && (
-              <div className={styles.continue_button_container}>
-                <button
-                  className={styles.continue_button}
-                  onClick={() => goNext()}
-                >
-                  Continue
-                </button>
+              <p className={styles.cart_summary_text}>Cart Summary</p>
+              <p className={styles.cart_desc_text}>
+                Shipping and additional costs are calculated once you checkout.
+              </p>
+              <div className={styles.cart_items_summary}>
+                {cartData?.items.map((item) => (
+                  <div className={styles.item_container}>
+                    <p className={styles.item_text}>
+                      {item?.product_name}{" "}
+                      <span>
+                        <CloseIcon />
+                      </span>{" "}
+                      <span>{item?.quantity?.count}</span>
+                    </p>
+                    <p className={styles.item_text}>
+                      {item?.price * item?.quantity?.count}
+                    </p>
+                  </div>
+                ))}
               </div>
-            )}
+
+              <div className={styles.total_continer}>
+                <p className={styles.total_item_text}>Total Price</p>
+                <p className={styles.total_item_text}>{cartTotalPrice}</p>
+              </div>
+              {!selectedDeliveryAddress ||
+                (!showAddressForm && (
+                  <div className={styles.continue_button_container}>
+                    <button
+                      className={styles.continue_button}
+                      onClick={() => goNext()}
+                    >
+                      Continue
+                    </button>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
-export default AddressCardStep
+};
+export default AddressCardStep;

@@ -10,16 +10,16 @@ import { AddressContext } from "../../contextProviders/addressContextProvider";
 import LocationSearchModal from "../../sharedComponents/locationSearch/LocationSearchModal";
 import TransactionModal from "./Components/TransactionStatusModal";
 
-type CheckoutStepsType={
-     stepNumber:number,
-     name:string,
-     Component:React.FC<CheckStepProps>
-}
- export type CheckStepProps={
-  goNext:()=>void,
-  goPrev:()=>void
-}
-export const CheckoutSteps:CheckoutStepsType[] = [
+type CheckoutStepsType = {
+  stepNumber: number;
+  name: string;
+  Component: React.FC<CheckStepProps>;
+};
+export type CheckStepProps = {
+  goNext: () => void;
+  goPrev: () => void;
+};
+export const CheckoutSteps: CheckoutStepsType[] = [
   {
     stepNumber: 1,
     name: "Address",

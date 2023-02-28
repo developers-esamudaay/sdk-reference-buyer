@@ -18,7 +18,6 @@ type SearchBarProps = {
   searchTerm?: string;
   isSearching?: boolean;
   setSearchKeyword?: React.Dispatch<React.SetStateAction<string>>;
-  
 };
 const SearchBar: React.FC<SearchBarProps> = ({
   handleChange,

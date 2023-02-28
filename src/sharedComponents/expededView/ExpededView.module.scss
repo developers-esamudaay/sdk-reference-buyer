@@ -1,24 +1,22 @@
-.expeded_view{
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   cursor: pointer;
-   
+.expeded_view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
 }
-.header{
-    font-size: 18px;
-    font-weight: 400;
-    color:#1c75bc
-
+.header {
+  font-size: 18px;
+  font-weight: 400;
+  color: #1c75bc;
 }
-.header:hover{
-    color: rgb(49, 49, 146);
+.header:hover {
+  color: rgb(49, 49, 146);
 }
-.content{
-    height:0;
+.content {
+  height: 0;
   overflow: hidden;
   transition: height ease 0.2s;
 }
 .content_open {
-    height: auto;
-  }
+  height: auto;
+}

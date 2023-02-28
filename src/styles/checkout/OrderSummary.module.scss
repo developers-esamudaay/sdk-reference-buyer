@@ -13,174 +13,155 @@
   z-index: 1002;
 }
 .popup_card {
-  width:clamp(200px, 50%, 250px);
-    background-color: $white;
-   
-   height: 200px;
-   display: flex;
-   flex-direction: column;
-   box-shadow:1px 1px 2px 1px rgb(248, 247, 247);
-   border-radius: 0.5rem;
-   align-items: center;
-   justify-content: center;
+  width: clamp(200px, 50%, 250px);
+  background-color: $backgroundTheme;
 
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 2px 1px rgb(248, 247, 247);
+  border-radius: 0.5rem;
+  align-items: center;
+  justify-content: center;
 
-    opacity: 1;
-    // animation: slide 0.5s ease forwards;
-  }
-.loading_wrapper{
+  opacity: 1;
+  // animation: slide 0.5s ease forwards;
+}
+.loading_wrapper {
   margin-top: 6rem;
-  padding:2rem 2rem 2rem 2rem
+  padding: 2rem 2rem 2rem 2rem;
 }
 .order_summary_card {
-    width: 100%;
+  width: 100%;
 
-    background-color: $white;
- 
-    height:auto;
-    margin-top: 30px;
-    
-  }
-  .order_summary_card_header {
+  background-color: $backgroundTheme;
 
-    padding: 10px 15px;
-    background-color: $white;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border-bottom:solid 1px rgb(239, 236, 236)
-  }
-    
-
-    
-  
-  
-    .order_summary_card_header_title {
-      font-family: $firaSans;
-      font-size: $font-24;
-      font-weight: $semibold;
-      text-align: left;
-      color: #41434C;
-      margin: 0;
-  
-    }
-  
-    .item_container{
-      padding: 3rem 1rem 3rem 1rem;
-      
-    }
-    .price_container{
-      margin-left: 1.6rem;
-      background-color:$white;
-      box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
-      display:flex;
-      align-items: center;
-      flex-direction :column;
-      
-      padding: 1.6rem 1.6rem 1.6rem 1.6rem;
-      margin-top: 1rem;
-
-     
-      
-  
-  }
-  .selcted_address_wrapper{
-    border-bottom:solid 1px rgb(239, 236, 236);
-    width:100%
-  }
-  .address_header{
-    display: flex;
-    justify-content: space-between;
-  }
-  .change_address_text{
-    font-size: $font-16;
-    color:#FC8019;
-    font-weight: $semibold;
-    cursor: pointer;
-  }
-  .address_header_text{
-    font-size: $font-18;
-    color:#3D4152;
-    font-weight: $semibold;
-  }
-  .address_text{
-    font-size: $font-14;
-    color:#6e717e;
-    font-weight: $regular;
-  }
-  .total_continer{
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-    
-  
-  }
-  .cost_description_container{
-    width: 100%;
-    border-bottom:solid 1px rgb(239, 236, 236);
-  }
-  .total_item_text{
-      font-size: 1.4rem;
-      font-weight: $regular;
-      color:#686a75
-  }
-  .total_item_price{
-    font-size: 1.4rem;
-    font-weight: $semibold;
-    color:#3D4152
-  }
-  .place_order_button{
-    width:200px;
-    height: 35px;
-    
-    border: 1px solid#FC8019;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size:$font-16;
-    font-weight: $semibold;
-    background-color: #FC8019;
-    color: $white;
+  height: auto;
+  margin-top: 30px;
+}
+.order_summary_card_header {
+  padding: 10px 15px;
+  background-color: $backgroundTheme;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: solid 1px rgb(239, 236, 236);
 }
 
-.place_order_button_container{
-    margin-top: 5rem;
+.order_summary_card_header_title {
+  font-family: $firaSans;
+  font-size: $font-24;
+  font-weight: $semibold;
+  text-align: left;
+  color: #41434c;
+  margin: 0;
 }
-.cross_wrapper{
-  background-color: #DC3545;
-  border-radius: 2rem;
-  width:4rem;
-  height:4rem
 
-
+.item_container {
+  padding: 3rem 1rem 3rem 1rem;
 }
-.clear_cart_button{
-  width:140px;
+.price_container {
+  margin-left: 1.6rem;
+  background-color: $backgroundTheme;
+  box-shadow: 1px 1px 3px 0px rgb(221, 210, 210);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+  margin-top: 1rem;
+}
+.selcted_address_wrapper {
+  border-bottom: solid 1px rgb(239, 236, 236);
+  width: 100%;
+}
+.address_header {
+  display: flex;
+  justify-content: space-between;
+}
+.change_address_text {
+  font-size: $font-16;
+  color: $primaryColor;
+  font-weight: $semibold;
+  cursor: pointer;
+}
+.address_header_text {
+  font-size: $font-18;
+  color: $textPrimaryColor;
+  font-weight: $semibold;
+}
+.address_text {
+  font-size: $font-14;
+  color: $textLigthColor;
+  font-weight: $regular;
+}
+.total_continer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+}
+.cost_description_container {
+  width: 100%;
+  border-bottom: solid 1px rgb(239, 236, 236);
+}
+.total_item_text {
+  font-size: 1.4rem;
+  font-weight: $regular;
+  color: $textLigthColor;
+}
+.total_item_price {
+  font-size: 1.4rem;
+  font-weight: $semibold;
+  color: $textPrimaryColor;
+}
+.place_order_button {
+  width: 200px;
   height: 35px;
-  
+
+  border: 1px solid $secondaryColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-16;
+  font-weight: $semibold;
+  background-color: $secondaryColor;
+  color: $backgroundTheme;
+}
+
+.place_order_button_container {
+  margin-top: 5rem;
+}
+.cross_wrapper {
+  background-color: $errorColor;
+  border-radius: 2rem;
+  width: 4rem;
+  height: 4rem;
+}
+.clear_cart_button {
+  width: 140px;
+  height: 35px;
+
   border: 1px solid #2e3c7e;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size:$font-16;
+  font-size: $font-16;
   font-weight: $semibold;
   background-color: #2e3c7e;
-  color: $white;
+  color: $backgroundTheme;
 }
-.cart_verify_error{
-  font-size:$font-16;
+.cart_verify_error {
+  font-size: $font-16;
   font-weight: $semibold;
-  color:#6e717e;
+  color: $secondaryColor;
   text-align: center;
   padding-top: 2rem;
-  
 }
 @media screen and (width: 707px) {
-  .price_container{
-    margin-left:0px;
+  .price_container {
+    margin-left: 0px;
   }
-  
 }

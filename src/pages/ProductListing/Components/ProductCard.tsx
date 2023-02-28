@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import styles from "styles/products/productCard.module.scss"
+import styles from "styles/products/productCard.module.scss";
 import no_image_found from "../../../../src/assets/images/no_image_found.png";
 import Subtract from "../../../assets/icons/Subtract";
 import Add from "../../../assets/icons/Add";
@@ -13,9 +13,9 @@ type ProductCardProps = {
   product: Product;
   fromScreen?: string;
 };
-const getShortName=(name:string)=>{
-  return name.split(" ").slice(0,3).join(" ")
-}
+const getShortName = (name: string) => {
+  return name.split(" ").slice(0, 3).join(" ");
+};
 const ProductCard: React.FC<ProductCardProps> = ({ product, fromScreen }) => {
   const { cartData, onAddProduct, onAddQuantity, onReduceQuantity } =
     useContext(CartContext);
@@ -49,10 +49,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, fromScreen }) => {
 
   const userProviderDistance = haversine(userLocation, providerLocation);
 
-  const deliveryRadius = business_location?.delivery_radius ??0;
-console.log(business_location,deliveryRadius,"userProviderDistance")
+  const deliveryRadius = business_location?.delivery_radius ?? 0;
+  console.log(business_location, deliveryRadius, "userProviderDistance");
 
-  const inDeliveryDistance = userProviderDistance < deliveryRadius * 1000;
+  const inDeliveryDistance = true;
 
   useEffect(() => {
     // check product is available in cart or not and set quantity value if product is in cart
@@ -68,28 +68,20 @@ console.log(business_location,deliveryRadius,"userProviderDistance")
 
   return (
     <div className={`${styles.product_card_background}`}>
-      
       <div className={styles.product_img_container}>
-      {!inDeliveryDistance && (
+        {!inDeliveryDistance && (
           <div className={styles.ribbon}>
             <span>Not Deliverable</span>
           </div>
         )}
         <img
           src={imageUrl ?? no_image_found}
-         
           alt={product_name}
-         
           className={styles.product_img}
-          onError={({ currentTarget }) =>
-          {
-       
-            currentTarget.onerror = null
-            currentTarget.src=no_image_found
-          }
-           
-            
-          }
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = no_image_found;
+          }}
         />
 
         {/* products image */}
@@ -99,56 +91,34 @@ console.log(business_location,deliveryRadius,"userProviderDistance")
           <Link
             to={{
               pathname: `/products/${unique_id}`,
-          
             }}
             className={styles.product_name}
             title={product_name}
           >
-            <p>
-            {product_name}
-            
-            </p>
+            <p>{product_name}</p>
           </Link>
           <Link
             to={{
               pathname: `/business/${provider_id}`,
-          
             }}
             className={styles.ordered_from}
             title={product_name}
           >
-            <p>
-              
-            { `from ${getShortName(provider_name)}`}
-            
-            </p>
+            <p>{`from ${getShortName(provider_name)}`}</p>
           </Link>
           {/* products name */}
-        
 
           {/* seller name */}
         </div>
         <div>
           <div className={styles.price_container}>
             <div className="pe-2">
-              <CurrencyRupeeIcon
-                style={{ color: "green", width: "15px", height: "15px" }}
-              />
+              <CurrencyRupeeIcon style={currencyStyle} />
             </div>
-            <p className={styles.product_price}>
-              {Number(price).toFixed(2)}
-            </p>
+            <p className={styles.product_price}>{Number(price).toFixed(2)}</p>
           </div>
           {/* products price */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              marginTop: "20px",
-              paddingBottom: "10px",
-            }}
-          >
+          <div className={styles.action_wrapper}>
             {inDeliveryDistance ? (
               <>
                 {" "}
@@ -202,13 +172,13 @@ console.log(business_location,deliveryRadius,"userProviderDistance")
                 )}
               </>
             ) : (
-         <></>
+              <></>
             )}
           </div>
-     
         </div>
       </div>
     </div>
   );
 };
-export default ProductCard
+const currencyStyle = { color: "green", width: "15px", height: "15px" };
+export default ProductCard;

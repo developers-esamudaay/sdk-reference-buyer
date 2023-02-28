@@ -1,188 +1,173 @@
 @import "../variables.scss";
-.seller_page_header_wrapper{
-   width:100%;
-   background-color: white;
+.seller_page_header_wrapper {
+  width: 100%;
+  background-color: $backgroundTheme;
 }
-.seller_page_header{
-    width:80%;
-    margin-left: 10%;
+.seller_page_header {
+  width: 80%;
+  margin-left: 10%;
 
-    display: flex;
-    flex-direction: row;
-    margin-top: 5rem;
-   
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5rem;
 
-    padding:1.5rem 1.5rem 1.5rem 1.5rem
- 
+  align-items: center;
+
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
 }
-.image_container{
-    max-width: 130px;
-    max-height:130px;
-    min-width: 80px;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 1rem;
-   
-
-
- 
-
-    
+.image_container {
+  max-width: 130px;
+  max-height: 130px;
+  min-width: 80px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem;
 }
-.business_image{
-    width:100%;
-    height:100%;
-    border-radius: 10px;
+.business_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
-.business_name{
-   
-        font-size: $font-20;
-        font-weight: $semibold;
-        color: $primaryColor;
-        padding:10px
-    
+.business_name {
+  font-size: $font-20;
+  font-weight: $semibold;
+  color: $primaryColor;
+  padding: 10px;
 }
-.other_info{
-    font-size: $font-16;
-        font-weight: $regular;
-        color: $secondaryColor;
-        padding:10px
+.other_info {
+  font-size: $font-16;
+  font-weight: $regular;
+  color: $secondaryColor;
+  padding: 10px;
 }
-.seller_page_subheader_wrapper{
-    width:100%;
-    height:7%;
-    background-color: rgba(114, 132, 158, 0.5);
-    display: flex;
-    border-radius: 8px;
+.seller_page_subheader_wrapper {
+  width: 100%;
+  height: 7%;
+  background-color: $textLigthColor;
+  display: flex;
+  border-radius: 8px;
 
-    flex-direction:row ;
+  flex-direction: row;
+}
+.tabbar_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10%;
+}
+.tab_wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
+  height: 100%;
+  border-radius: 8px;
 }
-.tabbar_text{
-    font-size: $font-20;
-    font-weight: $semibold;
-  
-    padding:15px;
-   cursor: pointer;
-  
-}
-.product_screen_wrapper{
-    background-color: white;
-    padding: 5px 5px 5px 5px;
-    width: 90%;
-    margin-top: 20px;
-    margin-left: 5%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-.product_screen_header_text{
-    font-size: $font-20;
-    font-weight: $regular;
-    color: $secondaryColor;
-    padding:20px
-}
-.business_name{
-    font-size: $font-24;
-    font-weight: $semibold;
-    color:#3D4152
-}
-.business_info{
-    display: flex;
-    flex-direction: column;
-    padding: 1.6rem 1.6rem 1.6rem 3.6rem;
+.tabbar_text {
+  font-size: $font-20;
+  font-weight: $semibold;
 
-   
+  padding: 15px;
+  cursor: pointer;
 }
-.delivery_distance{
-    display: flex;
-    align-items: start;
-
+.product_screen_wrapper {
+  background-color: $backgroundTheme;
+  padding: 5px 5px 5px 5px;
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-.delivery_distance_text{
-    font-size: $font-20;
-    font-weight: $semibold;
-    color: green; 
-    margin-left: 0.5rem;
+.product_screen_header_text {
+  font-size: $font-20;
+  font-weight: $regular;
+  color: $textLigthColor;
+  padding: 20px;
 }
-.delivery_availablity{
-    margin-left: 2rem;
-    display: flex;
-    align-items: start;
+.business_name {
+  font-size: $font-24;
+  font-weight: $semibold;
+  color: $textPrimaryColor;
 }
-.about_container{
-    width:80%;
-    margin-left:10%;
-    background-color: $white;
-    padding:1.6rem 1.6rem 1.6rem 1.6rem
+.business_info {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 1.6rem 3.6rem;
 }
-.about_heading_text{
-    font-size: $font-20;
-    font-weight: $semibold;
-    color: #3D4152; 
-    margin-left: 0.5rem; 
+.delivery_distance {
+  display: flex;
+  align-items: start;
 }
-.address_contact_container{
-    padding: 1.6rem 1.6rem 1.6rem 2.6rem;
-   
+.delivery_distance_text {
+  font-size: $font-20;
+  font-weight: $semibold;
+  color: $successColor;
+  margin-left: 0.5rem;
 }
-.address_content{
-    margin-top: 1rem;
-    padding: 1.6rem 1.6rem 1.6rem 1.6rem;
-    border-radius: 10px;
-    border:1px solid #e5e5e5;
-    box-shadow:1px 1px 2px 1px #e5e5e5;
-   display:flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-
-
-   
+.delivery_availablity {
+  margin-left: 2rem;
+  display: flex;
+  align-items: start;
 }
-.address{
-    display:flex;
-    
+.about_container {
+  width: 80%;
+  margin-left: 10%;
+  background-color: $backgroundTheme;
+  padding: 1.6rem 1.6rem 1.6rem 1.6rem;
 }
-.address_text{
-    font-size: $font-16;
-    font-weight: $regular;
-    color: #3D4152;
-    word-break: break-word;
-    
-    
- 
-
-   
-   
+.about_heading_text {
+  font-size: $font-20;
+  font-weight: $semibold;
+  color: $textPrimaryColor;
+  margin-left: 0.5rem;
 }
-.business_details{
-    margin-top: 2rem;
+.address_contact_container {
+  padding: 1.6rem 1.6rem 1.6rem 2.6rem;
+}
+.address_content {
+  margin-top: 1rem;
+  padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 1px 1px 2px 1px #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.address {
+  display: flex;
+}
+.address_text {
+  font-size: $font-16;
+  font-weight: $regular;
+  color: $textPrimaryColor;
+  word-break: break-word;
+}
+.business_details {
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 707px) {
-    .business_info{
-        padding:  0.6rem 1.6rem 1.6rem 1.6rem;
-    }
-    .delivery_distance_text{
-        font-size: $font-16;
-    }
-    .image_container{
-        padding-top: 0.6rem;
-    }
-    .about_container{
-        width: 100%;
-        margin-left: 0%;
-    }
-    .address_contact_container{
-  
-        padding: 1.6rem 0.6rem 1.6rem 0.6rem;
-       
-    }
- 
-    
+  .business_info {
+    padding: 0.6rem 1.6rem 1.6rem 1.6rem;
+  }
+  .delivery_distance_text {
+    font-size: $font-16;
+  }
+  .image_container {
+    padding-top: 0.6rem;
+  }
+  .about_container {
+    width: 100%;
+    margin-left: 0%;
+  }
+  .address_contact_container {
+    padding: 1.6rem 0.6rem 1.6rem 0.6rem;
+  }
 }

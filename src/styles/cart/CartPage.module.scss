@@ -32,19 +32,19 @@
 }
 
 .header_text{
-    color:#3D4152;
+    color:$textPrimaryColor;
     font-size: $font-20; 
     font-weight: $semibold;
     span{
         font-size: $font-14; 
         font-weight: $regular;  
-        color:#6d728a;
+        color:$textLigthColor;
     }
 }
 
 .price_container{
     margin-left: 1.6rem;
-    background-color:$white;
+    background-color:$backgroundTheme;
     box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
     display:flex;
     align-items: center;
@@ -58,12 +58,12 @@
 .cart_summary_text{
     font-size: 1.8rem;
     font-weight: $medium;
-    color:#3D4152
+    color:$textPrimaryColor
 }
 .cart_desc_text{
     font-size: 1.4rem;
     font-weight: $regular;
-    color:#71768a
+    color:$textLigthColor
 }
 .total_continer{
     display: flex;
@@ -76,27 +76,27 @@
 .total_item_text{
     font-size: 1.4rem;
     font-weight: $regular;
-    color:#3D4152
+    color:$textPrimaryColor
 }
 
 .go_to_products_button{
     width:200px;
     height: 35px;
     
-    border: 1px solid #2e3c7e;
+    border: 1px solid $secondaryColor;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size:$font-16;
     font-weight: $semibold;
-    background-color: #2e3c7e;
-    color: $white;
+    background-color: $secondaryColor;
+    color: $backgroundTheme;
 }
 .go_to_products_button :hover{
     background-color: #dd468a;
     border: 1px solid #dd468a;
-    color: $white;
+    color: $backgroundTheme;
     transition: all 0.3s;
 }
 
@@ -104,15 +104,15 @@
     width:200px;
     height: 35px;
     
-    border: 1px solid #2e3c7e;
+    border: 1px solid $secondaryColor;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size:$font-16;
     font-weight: $semibold;
-    background-color: #2e3c7e;
-    color: $white;
+    background-color: $secondaryColor;
+    color: $backgroundTheme;
 }
 .checkout_button_container{
     margin-top: 6rem;

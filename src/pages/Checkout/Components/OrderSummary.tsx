@@ -46,7 +46,7 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
     useState<CartVerifyStatus>(CartVerifyStatus.PANDING);
   const [cartVerificationError, setCartVerificationError] =
     useState<CartVerificationError | null>(null);
-    console.log(cartVerificationError,"error")
+  console.log(cartVerificationError, "error");
   const [chargesBreakup, setChargesBreakup] = useState<
     CostBreakupInterface[] | []
   >([]);
@@ -70,13 +70,12 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
 
   const [totalAdditionalCharge, setTotalAdditionalCharge] = useState(0);
   const history = useHistory();
-  console.log(cartVerificationError)
+  console.log(cartVerificationError);
 
   useEffect(() => {
-  
     (async () => {
       setLoading(true);
-    
+
       console.log(selectedDeliveryAddress);
       const payload: CartVerifyPayloadInterface = {
         ...cartData,
@@ -166,7 +165,6 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
 
   return (
     <>
- 
       {loading ? (
         <div className={styles.loading_wrapper}>
           <Loading />
@@ -304,7 +302,7 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
               </div>
             </>
           ) : (
-             <div className={styles.overlay}>
+            <div className={styles.overlay}>
               <div className={styles.popup_card}>
                 <div className={styles.cross_wrapper}>
                   <CloseIcon
@@ -315,17 +313,23 @@ const OrderSummary: React.FC<CheckStepProps> = ({ goNext, goPrev }) => {
                       cursor: "pointer",
                     }}
                   />
-                 
                 </div>
-                <p className={styles.cart_verify_error}>{cartVerificationError?`${cartVerificationError?.code} :${cartVerificationError?.message}`:"something wrong with seller partner please clear cart and place new order"}</p>
-                  <div>
-                      <button
-                        className={styles.clear_cart_button}
-                        onClick={() =>{setCartData({items:[]}); history.push("/products")} }
-                      >
-                     Clear Cart
-                      </button>
-                    </div>
+                <p className={styles.cart_verify_error}>
+                  {cartVerificationError
+                    ? `${cartVerificationError?.code} :${cartVerificationError?.message}`
+                    : "something wrong with seller partner please clear cart and place new order"}
+                </p>
+                <div>
+                  <button
+                    className={styles.clear_cart_button}
+                    onClick={() => {
+                      setCartData({ items: [] });
+                      history.push("/products");
+                    }}
+                  >
+                    Clear Cart
+                  </button>
+                </div>
               </div>
             </div>
           )}

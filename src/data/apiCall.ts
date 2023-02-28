@@ -17,7 +17,8 @@ const axoisInstanceSdk: AxiosInstance = axios.create({
   baseURL: Urls.sdkBaseUrl,
   timeout: 2000,
   headers: {
-    apid: process.env.REACT_APP_API_ID??"d1e7f644-552c-4a4e-a4e3-3233b876c060",
+    apid:
+      process.env.REACT_APP_API_ID ?? "d1e7f644-552c-4a4e-a4e3-3233b876c060",
   },
 });
 export interface ResponseModel {
@@ -123,11 +124,14 @@ export const getLatLngFromAddress = async (address: {
   );
   const location: locationResponse[] = res.data;
   return location.length > 0
-    ? { lat: Number(location[0]?.lat), lon: Number(location[0]?.lon)} as Location
-    : {
+    ? ({
+        lat: Number(location[0]?.lat),
+        lon: Number(location[0]?.lon),
+      } as Location)
+    : ({
         lat: 13.343300703689293,
         lon: 74.79207370430231,
-      } as Location;
+      } as Location);
 };
 
 // api call to get lattitude logitude from address

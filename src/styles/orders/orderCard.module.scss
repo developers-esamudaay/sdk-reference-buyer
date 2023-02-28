@@ -1,6 +1,5 @@
 @import "../variables.scss";
 
-
 .overlay {
   height: 100vh;
   position: fixed;
@@ -14,174 +13,156 @@
   animation: fade 1s ease forwards;
   z-index: 1;
 }
-.card_wrapper{
-
+.card_wrapper {
   border-radius: 10px;
   cursor: pointer;
-  width:50%;
-  margin-left:25%;
-  background-color:white;
+  width: 50%;
+  margin-left: 25%;
+  background-color: white;
   box-shadow: 0 0 10px 0 rgba($primaryColor, 0.15);
 }
-.card_header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:2rem 2rem 2rem 2rem
-
-
-   
-   
+.card_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2rem 2rem 2rem;
 }
-.order_info{
+.order_info {
   padding-top: 1rem;
 }
 .card_header_title {
   font-size: $font-16;
-  color: #3D4152;
-
-  }
-  .date_label {
-    font-size: $font-12;
-    color: #727481;
-    margin: 0;
-  }
-  .status_label {
-    font-size: $font-14;
-    margin: 0;
-    color: $primaryColor;
-    text-align: center;
-  }
-  
-.status_chip {
-    padding: 2px 10px;
-    border-radius: 36px;
-   
-    border: "3px solid blue";
-    background-color: cadetblue;
-  }
-  
-  .status_text {
-    font-size: $font-12;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .card_body{
-    display: flex;
-    flex-direction: column;
-  
-
-   
-    border-bottom: 1px solid rgba($secondaryColor, 0.15);
+  color: #3d4152;
 }
-  .order_items{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color:white;
-    padding: 5px;
+.date_label {
+  font-size: $font-12;
+  color: #727481;
+  margin: 0;
+}
+.status_label {
+  font-size: $font-14;
+  margin: 0;
+  color: $primaryColor;
+  text-align: center;
+}
 
-  }
-  .order_items_text{
+.status_chip {
+  padding: 2px 10px;
+  border-radius: 36px;
 
-padding-left: 20px;
-padding-right: 20px;
- 
-  }
-  .order_items_image{
+  border: "3px solid blue";
+  background-color: cadetblue;
+}
 
-   margin-right: 1.5vh;
- 
-  }
-  .items_heading{
-    font-family: $firaSans;
-    font-size: $font-18;
-    font-weight: $bold;
-    text-align: center;
-    color: #2b538e;
-  }
-  .item_name_text{
-    font-family: $firaSans;
-    font-size: $font-14;
-    font-weight: $medium;
-    text-align: center;
-    color: $primaryColor;
-    margin-top: 2vh;
-  }
-  
-  .item_quantity_text{
-    font-family: $firaSans;
-    font-size: $font-14;
-    font-weight: $medium;
-    text-align: center;
-    color: $primaryColor;
+.status_text {
+  font-size: $font-12;
+  text-align: center;
+  margin: 0;
+}
 
-    margin-top: 2vh;
-  }
-  .card_footer{
-    display: flex;
-    justify-content: space-evenly;
-    padding:10px;
+.card_body {
+  display: flex;
+  flex-direction: column;
 
-  }
-  .support_modal{
-    min-width: 30%;
-    max-width: 70%;
-    background-color: $white;
-    border-radius: 10px;
-    max-height: 95%;
-    overflow: auto;
-    opacity: 1;
-    padding:10px;
-    animation: slide 0.5s ease forwards;
-  }
-  .return_modal_items{
-    display: flex;
-   margin-top: 5px;
-  
-   justify-content: space-between;
-   align-items: center;
-   margin-left: 10px;
+  border-bottom: 1px solid rgba($secondaryColor, 0.15);
+}
+.order_items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 5px;
+}
+.order_items_text {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.order_items_image {
+  margin-right: 1.5vh;
+}
+.items_heading {
+  font-family: $firaSans;
+  font-size: $font-18;
+  font-weight: $bold;
+  text-align: center;
+  color: #2b538e;
+}
+.item_name_text {
+  font-family: $firaSans;
+  font-size: $font-14;
+  font-weight: $medium;
+  text-align: center;
+  color: $primaryColor;
+  margin-top: 2vh;
+}
 
-  }
-  .return_modal_heading{
-    display: flex;
-  
-  
-   justify-content: space-between;
-   align-items: center;
-   margin-left: 10px;
-   padding-left: 30px;
-   padding-right: 20px;
-   margin-top: 20px;
-  }
-  .left_section{
-    display: flex;
-  
+.item_quantity_text {
+  font-family: $firaSans;
+  font-size: $font-14;
+  font-weight: $medium;
+  text-align: center;
+  color: $primaryColor;
+
+  margin-top: 2vh;
+}
+.card_footer {
+  display: flex;
   justify-content: space-evenly;
-  
-  }
-  .return_item_title{
-    font-family: $firaSans;
-    font-size: $font-18;
-    font-weight: $medium;
-    text-align: left;
-    color: $primaryColor;
-  }
-  .action_text{
-    font-family: $firaSans;
-    font-size: $font-16;
-    font-weight: $medium;
-    text-align: center;
-    color: #1f3b64;
-    cursor:pointer,
+  padding: 10px;
+}
+.support_modal {
+  min-width: 30%;
+  max-width: 70%;
+  background-color: $backgroundTheme;
+  border-radius: 10px;
+  max-height: 95%;
+  overflow: auto;
+  opacity: 1;
+  padding: 10px;
+  animation: slide 0.5s ease forwards;
+}
+.return_modal_items {
+  display: flex;
+  margin-top: 5px;
 
-  }
-  .action_text:hover{
-    color: rgb(89, 95, 176);
-  }
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+}
+.return_modal_heading {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+  padding-left: 30px;
+  padding-right: 20px;
+  margin-top: 20px;
+}
+.left_section {
+  display: flex;
+
+  justify-content: space-evenly;
+}
+.return_item_title {
+  font-family: $firaSans;
+  font-size: $font-18;
+  font-weight: $medium;
+  text-align: left;
+  color: $primaryColor;
+}
+.action_text {
+  font-family: $firaSans;
+  font-size: $font-16;
+  font-weight: $medium;
+  text-align: center;
+  color: #1f3b64;
+  cursor: pointer;
+}
+.action_text:hover {
+  color: rgb(89, 95, 176);
+}
 //   .dot{
 //     width:20px;
 //     height:20px;
@@ -189,7 +170,6 @@ padding-right: 20px;
 //     align-items: center;
 //     background-color: #4582dd;
 //   }
-
 
 //  .dot:after
 //  {
@@ -206,9 +186,9 @@ padding-right: 20px;
 // .dot:last-child ::after {
 //   display: none
 // }
-  @media screen and (max-width: 780px) {
-    .card_wrapper{
-      width:100%;
-      margin-left: 0px;
-    }
+@media screen and (max-width: 780px) {
+  .card_wrapper {
+    width: 100%;
+    margin-left: 0px;
   }
+}

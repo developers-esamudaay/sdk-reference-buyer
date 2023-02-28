@@ -30,13 +30,11 @@ type CartItemCardProps = {
   item: CartItemInterface;
   isCartPage?: boolean;
   updatedPrice?: number;
-
 };
 const CartItemCard: React.FC<CartItemCardProps> = ({
   item,
   isCartPage,
   updatedPrice = 0,
-
 }) => {
   const single_item_price = isCartPage ? item?.price : updatedPrice / 100;
   const total_price = single_item_price * item?.quantity?.count;
@@ -60,67 +58,60 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
 
         <div className={styles.cart_actions}>
           <>
-          {isCartPage && (
-            <div className={styles.quantity_count_wrapper}>
-              <div
-                className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
-                onClick={() => {
-                  onReduceQuantity(item?.id);
-                }}
-              >
-                <Subtract width="10" height="10" classes={styles.subtract_svg_color} />
+            {isCartPage && (
+              <div className={styles.quantity_count_wrapper}>
+                <div
+                  className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
+                  onClick={() => {
+                    onReduceQuantity(item?.id);
+                  }}
+                >
+                  <Subtract
+                    width="10"
+                    height="10"
+                    classes={styles.subtract_svg_color}
+                  />
+                </div>
+                <div className="d-flex align-items-center justify-content-center">
+                  <p className={styles.quantity_count}>
+                    {item?.quantity?.count}
+                  </p>
+                </div>
+                <div
+                  className={`${styles.add_svg_wrapper} d-flex align-items-center justify-content-center`}
+                  onClick={() => {
+                    onAddQuantity(item?.id);
+                  }}
+                >
+                  <Add width="10" height="10" classes={styles.add_svg_color} />
+                </div>
               </div>
-              <div className="d-flex align-items-center justify-content-center">
-                <p className={styles.quantity_count}>{item?.quantity?.count}</p>
-              </div>
-              <div
-                className={`${styles.add_svg_wrapper} d-flex align-items-center justify-content-center`}
-                onClick={() => {
-                  onAddQuantity(item?.id);
-                }}
-              >
-                <Add width="10" height="10" classes={styles.add_svg_color} />
-              </div>
-            </div>
-          )}
+            )}
 
-              <div className={styles.single_item_price_container}>
+            <div className={styles.single_item_price_container}>
               <p className={styles.price_text}>
                 <span>
-                  <CurrencyRupeeIcon
-                    style={{ color: "#3D4152", width: "17px", height: "17px" }}
-                  />
+                  <CurrencyRupeeIcon style={currencyRupeeIcon} />
                 </span>
-  
+
                 {single_item_price}
               </p>
             </div>
-            
-          
 
+            {isCartPage && (
+              <div
+                className={styles.remove_wrapper}
+                onClick={() => onRemoveProduct(item?.id)}
+              >
+                <CloseIcon style={closeIconStyle} />
+              </div>
+            )}
 
-
-          {isCartPage && (
-            <div
-              className={styles.remove_wrapper}
-              onClick={() => onRemoveProduct(item?.id)}
-            >
-              <CloseIcon
-                style={{
-                  color: "white",
-                  height: "15px",
-                  width: "15px",
-                  cursor: "pointer",
-                }}
-              />
-            </div>
-          )}
-
-          {!isCartPage && (
-            <p
-              className={styles.quantity_text}
-            >{`${item?.quantity?.count} Pices`}</p>
-          )}
+            {!isCartPage && (
+              <p
+                className={styles.quantity_text}
+              >{`${item?.quantity?.count} Pices`}</p>
+            )}
           </>
         </div>
 
@@ -128,9 +119,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
           <p className={styles.price_text}>
             <span>
               Total:
-              <CurrencyRupeeIcon
-                style={{ color: "#3D4152", width: "17px", height: "17px" }}
-              />
+              <CurrencyRupeeIcon style={currencyRupeeIcon} />
             </span>
 
             {total_price}
@@ -147,5 +136,16 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
       )}
     </div>
   );
+};
+const closeIconStyle = {
+  color: "white",
+  height: "15px",
+  width: "15px",
+  cursor: "pointer",
+};
+const currencyRupeeIcon = {
+  color: "#3D4152",
+  width: "17px",
+  height: "17px",
 };
 export default CartItemCard;

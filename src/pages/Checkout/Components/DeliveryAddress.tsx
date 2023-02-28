@@ -12,24 +12,23 @@ import Button from "../../../sharedComponents/button/Button";
 
 import { isEmptyObject } from "../../../commonUtils";
 import { DeliveryAddressInfo } from "interfaces/PayloadsInterfaces";
-type DeliveryAddressProps={
-  onSelectAddress:(x:DeliveryAddressInfo)=>void
-}
-const DeliveryAddress:React.FC<DeliveryAddressProps>=(props) =>{
+type DeliveryAddressProps = {
+  onSelectAddress: (x: DeliveryAddressInfo) => void;
+};
+const DeliveryAddress: React.FC<DeliveryAddressProps> = (props) => {
   const {
     selectedDeliveryAddress,
     setSelectedDeliveryAddress,
     deliveryAddresses,
-
   } = useContext(AddressContext);
 
   const [showEditAddressForm, setEditAddressForm] = useState<boolean>(false);
-  const handleClick=(delivery_address:DeliveryAddressInfo) => {
-    console.log("clicked selecte address")
+  const handleClick = (delivery_address: DeliveryAddressInfo) => {
+    console.log("clicked selecte address");
     setEditAddressForm(false);
-    console.log(delivery_address)
-    setSelectedDeliveryAddress&&setSelectedDeliveryAddress(delivery_address);
-  }
+    console.log(delivery_address);
+    setSelectedDeliveryAddress && setSelectedDeliveryAddress(delivery_address);
+  };
 
   // const onSetDeliveryAddress = (address) => {
   //   return {
@@ -45,8 +44,6 @@ const DeliveryAddress:React.FC<DeliveryAddressProps>=(props) =>{
 
   return (
     <Fragment>
-    
-
       <div className={`${styles.address_wrapper} container-fluid pt-2`}>
         <div className="row">
           {deliveryAddresses
@@ -60,58 +57,49 @@ const DeliveryAddress:React.FC<DeliveryAddressProps>=(props) =>{
                 phone,
                 email,
                 address,
-             
+
                 id,
               } = delivery_address;
               return (
                 <>
                   {showEditAddressForm && selectedDeliveryAddress?.id === id ? (
                     <AddressForm
-                
                       isEditingAddress
-                     
                       onSelectAddress={props.onSelectAddress}
                       addressId={id}
-       
                       onClose={() => setEditAddressForm(false)}
-                    
                     />
                   ) : (
-                    
-                      <div
-                       
-                        style={{
-                          backgroundColor:
-                            selectedDeliveryAddress?.id === id
-                              ? "#E8FCF2"
-                              : "#FFFFFF",
-                              borderRadius:"20px"
-                        }}
+                    <div
+                      style={{
+                        backgroundColor:
+                          selectedDeliveryAddress?.id === id
+                            ? "#E8FCF2"
+                            : "#FFFFFF",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <AddressRadioButton
+                        iseditable={true}
+                        key={id ?? ""}
+                        checked={selectedDeliveryAddress?.id === id}
+                        onEdit={() => setEditAddressForm(false)}
+                        handleClick={() => handleClick(delivery_address)}
                       >
-                        <AddressRadioButton
-                          iseditable={true}
-                          key={id??""}
-                          checked={selectedDeliveryAddress?.id === id}
-                          onEdit={()=>setEditAddressForm(false)}
-                          handleClick={()=>handleClick(delivery_address)}
-                        >
-                          <div className="px-3">
-                            <p
-                              className={styles.address_name_and_phone}
-                            >{`${name} | ${phone}`}</p>
-                            <p className={`${styles.address_line_2} pb-2`}>
-                              {email} - {phone}
-                            </p>
-                            <p className={styles.address_line_1}>
-                              {address?. door}, {address?.city} {address?.state},{" "}
-                              {address?.areaCode}
-                            </p>
-                          </div>
-                        </AddressRadioButton>
-
-                     
-                      </div>
-          
+                        <div className="px-3">
+                          <p
+                            className={styles.address_name_and_phone}
+                          >{`${name} | ${phone}`}</p>
+                          <p className={`${styles.address_line_2} pb-2`}>
+                            {email} - {phone}
+                          </p>
+                          <p className={styles.address_line_1}>
+                            {address?.door}, {address?.city} {address?.state},{" "}
+                            {address?.areaCode}
+                          </p>
+                        </div>
+                      </AddressRadioButton>
+                    </div>
                   )}
                 </>
               );
@@ -120,5 +108,5 @@ const DeliveryAddress:React.FC<DeliveryAddressProps>=(props) =>{
       </div>
     </Fragment>
   );
-}
-export default DeliveryAddress
+};
+export default DeliveryAddress;

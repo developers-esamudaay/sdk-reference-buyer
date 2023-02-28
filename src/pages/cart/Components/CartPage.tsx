@@ -31,16 +31,19 @@ const CartPage = () => {
             <div>
               <p className={styles.empty_cart_text}>Cart Is Empty</p>
             </div>
-            <div >
-            <img src={empty_cart} className={styles.empty_cart_image_container} />{" "}
+            <div>
+              <img
+                src={empty_cart}
+                className={styles.empty_cart_image_container}
+              />{" "}
             </div>
             <div className={styles.checkout_button_container}>
-            <button
-              onClick={() => history.push("/products")}
-              className={styles.go_to_products_button}
-            >
-              Go To Products
-            </button>
+              <button
+                onClick={() => history.push("/products")}
+                className={styles.go_to_products_button}
+              >
+                Go To Products
+              </button>
             </div>
           </div>
         ) : (
@@ -53,9 +56,7 @@ const CartPage = () => {
             </div>
             <div className="container">
               <div className="row">
-                <div
-                  className={`col-lg-7 col-xl-8 col-md-8 col-sm-12 col-12 `}
-                >
+                <div className={`col-lg-7 col-xl-8 col-md-8 col-sm-12 col-12 `}>
                   {cartData?.items?.map((item) => {
                     return (
                       <div key={item?.id}>
@@ -64,14 +65,12 @@ const CartPage = () => {
                     );
                   })}
                 </div>
-                <div
-                  className={`col-lg-3 col-xl-3 col-md-4 col-sm-12 col-12`}
-                >
+                <div className={`col-lg-3 col-xl-3 col-md-4 col-sm-12 col-12`}>
                   <div className={styles.price_container}>
                     <p className={styles.cart_summary_text}>Cart Summary</p>
                     <p className={styles.cart_desc_text}>
-                      Shipping and additional costs are calculated once you
-                      you select delivery address.
+                      Shipping and additional costs are calculated once you you
+                      select delivery address.
                     </p>
                     <div className={styles.total_continer}>
                       <p className={styles.total_item_text}>Total Items</p>

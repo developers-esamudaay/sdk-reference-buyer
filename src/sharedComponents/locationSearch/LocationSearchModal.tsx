@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import  styles from "./LocationSearchModal.module.scss";
+import styles from "./LocationSearchModal.module.scss";
 import SearchBar from "../searchBanner/SearchBar";
 import { getLocationSuggetion } from "../../data/apiCall";
 import {
@@ -20,7 +20,6 @@ type LocationSuggetionType = {
   place_id: string;
 };
 const LocationSearchModal = () => {
-  
   const [locatioSearchSuggetions, setLocationSearchSuggetions] = useState<
     LocationSuggetionType[] | []
   >([]);
@@ -39,7 +38,7 @@ const LocationSearchModal = () => {
   const [showLocationSuggetion, setShowLocationSuggestion] = useState(true);
   console.log(currentAddress);
   const onSelecteLocation = (address: LocationSuggetionType) => {
-    setIsSearching(false)
+    setIsSearching(false);
     setShowLocationSuggestion(false);
     setCurrentLocation &&
       setCurrentLocation({
@@ -52,10 +51,10 @@ const LocationSearchModal = () => {
     longitude: currentLocation?.lon,
   };
   useEffect(() => {
-     (async()=>{
-      setIsSearching(true)
-      await fetchLocationSuggestion(debounceSearchTrem)
-     })()
+    (async () => {
+      setIsSearching(true);
+      await fetchLocationSuggestion(debounceSearchTrem);
+    })();
   }, [debounceSearchTrem]);
   console.log(locatioSearchSuggetions);
   const fetchLocationSuggestion = async (value: string) => {
@@ -106,14 +105,12 @@ const LocationSearchModal = () => {
         <div className={styles.content}>
           <div style={{ width: "75%" }}>
             <SearchBar
-              handleChange={(value:string)=>setSearchTerm(value)}
+              handleChange={(value: string) => setSearchTerm(value)}
               placeholder="search your location"
               borderRadius="0px"
               height="50px"
               searchTerm={searchTerm}
               isSearching={isSearching}
-
-              
             />
           </div>
 
@@ -130,37 +127,37 @@ const LocationSearchModal = () => {
               backgroundColor: "white",
             }}
           >
-            { showLocationSuggetion&& locatioSearchSuggetions?.map((searchItem) => {
-                  return (
+            {showLocationSuggetion &&
+              locatioSearchSuggetions?.map((searchItem) => {
+                return (
+                  <div
+                    key={searchItem?.place_id}
+                    style={{
+                      width: "90%",
+                      marginTop: "15px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                    onClick={() => onSelecteLocation(searchItem)}
+                  >
+                    <PlaceIcon style={{ color: "#f86c08" }} />
                     <div
-                      key={searchItem?.place_id}
                       style={{
-                        width: "90%",
-                        marginTop: "15px",
-                        display: "flex",
-                        justifyContent: "space-between",
+                        width: "270px",
+                        marginLeft: "15px",
+                        borderBottom: "1px solid gray",
                       }}
-                      onClick={() => onSelecteLocation(searchItem)}
                     >
-                      <PlaceIcon style={{ color: "#f86c08" }} />
-                      <div
-                        style={{
-                          width: "270px",
-                          marginLeft: "15px",
-                          borderBottom: "1px solid gray",
-                        }}
-                      >
-                        <p className={styles.first_text}>
-                          {searchItem.firstText}
-                        </p>
-                        <p className={styles.second_text}>
-                          {searchItem.secondText}
-                        </p>
-                      </div>
+                      <p className={styles.first_text}>
+                        {searchItem.firstText}
+                      </p>
+                      <p className={styles.second_text}>
+                        {searchItem.secondText}
+                      </p>
                     </div>
-                  );
-                })
-             }
+                  </div>
+                );
+              })}
           </div>
           {/* <div className={styles.map_wrapper}>
             <MapView location={currentLocation} zoom={8} />

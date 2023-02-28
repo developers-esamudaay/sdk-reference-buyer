@@ -60,8 +60,7 @@ const BusinessProfile = () => {
     () => haversine(userLocation, providerLocation),
     [userLocation, providerLocation]
   );
-  console.log(deliveryRadius,"radius");
-
+  console.log(deliveryRadius, "radius");
 
   const inDeliveryDistance = distanceFromSelller < deliveryRadius * 1000;
   const defaultCenter = [38.9072, -77.0369];
@@ -111,25 +110,14 @@ const BusinessProfile = () => {
   }, []);
   const screenNames = [" Products", "About"];
   const TabBar = (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginLeft: "10%",
-      }}
-    >
+    <div className={styles.tabbar_wrapper}>
       {tabScreens.map(({ name }, index) => {
         return (
           <div
             style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
               backgroundColor: index === selectedTabIndex ? "#dd468a" : "",
-              height: "100%",
-              borderRadius: "8px",
             }}
+            className={styles.tab_wrap}
           >
             <p
               className={styles.tabbar_text}
@@ -146,48 +134,50 @@ const BusinessProfile = () => {
   return (
     <>
       <Navbar />
-      {
-        loading?<Loading/>:( <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
           <div className={styles.seller_page_header_wrapper}>
-          <div className={styles.seller_page_header}>
-            <div className={styles.image_container}>
-              <img
-                src={businessDetails?.businessImageUrl ?? no_image_found}
-                alt={""}
-                width="150"
-                height="150"
-                className={styles.business_image}
-              />
-            </div>
-            <div className={styles.business_info}>
-              <p className={styles.business_name}>
-                {businessDetails?.business_name}
-              </p>
-              <div className={styles.delivery_distance}>
-                <LocationOnIcon
-                  style={{ width: "30px", height: "30px", color: "green" }}
+            <div className={styles.seller_page_header}>
+              <div className={styles.image_container}>
+                <img
+                  src={businessDetails?.businessImageUrl ?? no_image_found}
+                  alt={""}
+                  width="150"
+                  height="150"
+                  className={styles.business_image}
                 />
-                <p className={styles.delivery_distance_text}>{`${(
-                  distanceFromSelller / 1000
-                ).toFixed()} Km`}</p>
-                <div className={styles.delivery_availablity}>
-                  <LocalShippingIcon
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      color: inDeliveryDistance ? "green" : "#DC3545",
-                    }}
-                  />
-                  <p
-                    className={styles.delivery_distance_text}
-                    style={{ color: inDeliveryDistance ? "green" : "#DC3545" }}
-                  >
-                    {inDeliveryDistance ? "Deliverable" : "Not Deliverable"}
-                  </p>
+              </div>
+              <div className={styles.business_info}>
+                <p className={styles.business_name}>
+                  {businessDetails?.business_name}
+                </p>
+                <div className={styles.delivery_distance}>
+                  <LocationOnIcon style={locationMallIcon} />
+                  <p className={styles.delivery_distance_text}>{`${(
+                    distanceFromSelller / 1000
+                  ).toFixed()} Km`}</p>
+                  <div className={styles.delivery_availablity}>
+                    <LocalShippingIcon
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        color: inDeliveryDistance ? "green" : "#DC3545",
+                      }}
+                    />
+                    <p
+                      className={styles.delivery_distance_text}
+                      style={{
+                        color: inDeliveryDistance ? "green" : "#DC3545",
+                      }}
+                    >
+                      {inDeliveryDistance ? "Deliverable" : "Not Deliverable"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
           <div className={styles.seller_page_subheader_wrapper}>{TabBar}</div>
           <div>
@@ -195,10 +185,10 @@ const BusinessProfile = () => {
               return selectedTabIndex === index ? <>{Screen} </> : null;
             })}
           </div>
-          </>)
-      }
-     
+        </>
+      )}
     </>
   );
 };
+const locationMallIcon = { width: "30px", height: "30px", color: "green" };
 export default BusinessProfile;

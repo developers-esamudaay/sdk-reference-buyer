@@ -1,52 +1,44 @@
 @import "../variables.scss";
-.product_suggetion_wrapper{
-  width:100%;
+.product_suggetion_wrapper {
+  width: 100%;
   max-width: 480px;
   z-index: 10000;
-  background-color: white;
+  background-color: $backgroundTheme;
   position: absolute;
   top: 58px;
-  left:278px;
+  left: 278px;
   border-radius: 5px;
   cursor: pointer;
-
-
-
 }
-.product_suggetion{
+.product_suggetion {
   display: flex;
-  padding:1.2rem 0.8rem 1.2rem 1rem;
-  gap:2rem;
+  padding: 1.2rem 0.8rem 1.2rem 1rem;
+  gap: 2rem;
   border-bottom: 1px solid #f5f5f5;
   border-radius: 8px;
-  
 }
-.product_suggetion:hover{
-box-shadow: 1px 1px 1px 1px #f5f5f5 ;
-  
+.product_suggetion:hover {
+  box-shadow: 1px 1px 1px 1px #f5f5f5;
 }
-.suggetion_text{
+.suggetion_text {
   font-size: 1.6rem;
   font-weight: $regular;
 }
-.search_category_text{
+.search_category_text {
   font-size: 1.6rem;
   font-weight: $semibold;
-  padding:1.2rem 0.8rem 1.2rem 1rem;
+  padding: 1.2rem 0.8rem 1.2rem 1rem;
 }
 @media screen and (max-width: 707px) {
-  .product_suggetion_wrapper{
-    width:100%;
+  .product_suggetion_wrapper {
+    width: 100%;
     max-width: 350px;
     z-index: 10000;
-    background-color: white;
+    background-color: $backgroundTheme;
     position: absolute;
     top: 130px;
-    left:20px;
+    left: 20px;
     border-radius: 5px;
     cursor: pointer;
-  
-  
-  
   }
 }

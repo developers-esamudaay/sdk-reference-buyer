@@ -1,14 +1,12 @@
 @import "../../variables.scss";
 
-
-
 .card_body {
   padding: 20px 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
- height:auto;
+  height: auto;
 
   .card_body_text {
     font-size: $font-14;
@@ -17,45 +15,27 @@
     margin: 0;
   }
 }
-.map_address_select{
+.map_address_select {
   display: flex;
   justify-content: flex-end;
   padding-bottom: 2rem;
   cursor: pointer;
 }
-.map_address_select_text{
+.map_address_select_text {
   font-size: $font-14;
   text-align: left;
-  color:#f86c08;
+  color: $primaryColor;
 }
 .card_footer {
   padding: 20px 25px;
 
-
-
   display: flex;
 
-     justify-content: center;
-     gap:4rem;
- 
-   align-items: baseline;
-}
-.input_style{
-  border-top:0px solid;
-  border-left:0px solid;
-  border-right:0px solid;
-  outline:none;
-  border-radius:0px;
-  background-color: yellow;
-}
+  justify-content: center;
+  gap: 4rem;
 
-.modal_input_wrappper {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid $secondaryColor;
+  align-items: baseline;
 }
-
-
 
 .dropdown_link_wrapper {
   padding: 15px;
@@ -68,16 +48,6 @@
   margin: 0;
 }
 
-.dropdown_link_wrapper:hover {
-  background-color: rgba($accentColor, 0.15);
-
-  .dropdown_link {
-    color: $accentColor;
-    font-weight: $medium;
-    transition: all 0.3s;
-  }
-}
-
 .location_name {
   font-size: $font-12;
   width: 100%;
@@ -88,7 +58,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: $medium;
-  color: $white;
+  color: $backgroundTheme;
   margin: 0;
   word-break: break-all;
 }
@@ -96,7 +66,7 @@
 .location_description {
   width: 100%;
   font-size: $font-10;
-  color: $white;
+  color: $backgroundTheme;
   margin: 0;
   word-break: break-all;
   padding-top: 5px;
@@ -137,7 +107,7 @@
   line-height: 1.5;
   color: $primaryColor;
   background-color: transparent;
-  border: 1px solid $error;
+  border: 1px solid $errorColor;
   border-radius: 10px;
   border: 0;
 }
@@ -145,7 +115,7 @@
 .error::placeholder {
   font-size: $font-12;
   text-align: left;
-  color: $error;
+  color: $errorColor;
 }
 
 .formControl::placeholder {
@@ -155,41 +125,24 @@
 }
 
 .address_form_wrapper {
- 
   max-width: 600px;
 }
 
-.search_type_wrapper {
-  padding: 10px 20px;
-  border-radius: 36px;
-  border: 1px solid $secondaryColor;
-  cursor: pointer;
-}
-
-.search_type_wrapper:hover {
-  background-color: $accentColor;
-  border: 1px solid $accentColor;
-  transition: all 0.3s;
-
-  .search_type_value {
-    color: $white;
-  }
-}
-.save_button{
-  width:200px;
+.save_button {
+  width: 200px;
   height: 40px;
-  
-  border: 1px solid #FC8019;
+
+  border: 1px solid $secondaryColor;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size:$font-16;
+  font-size: $font-16;
   font-weight: $semibold;
-  background-color: #FC8019;
-  color: $white;
+  background-color: $secondaryColor;
+  color: $backgroundTheme;
 }
-.save_button_container{
+.save_button_container {
   margin-top: 2rem;
 }
 .search_type_value {
@@ -199,67 +152,16 @@
   text-align: center;
 }
 
-.active_search_type {
-  padding: 10px 20px;
-  border-radius: 36px;
-  background-color: $accentColor;
-  border: 1px solid $accentColor;
-
-  .search_type_value {
-    color: $white;
-  }
-}
-
-.category_drodpwon_wrapper {
-  background: $accentColor;
-  border-radius: 7px;
-  cursor: pointer;
-  padding: 5px 10px;
-}
-
-.search_type_text {
-  font-size: $font-14;
-  color: $white;
-  margin: 0;
-}
-
-.cancel_dropdown_wrapper {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 10px 15px;
-  background-color: transparent;
-  border: 1px solid $secondaryColor;
-  border-radius: 10px;
-}
-
-.cancel_dropdown_label_text {
-  font-size: $font-14;
-  font-weight: $medium;
-  text-align: left;
-  color: $primaryColor;
-  margin: 5px;
-}
-
-.cancel_dropdown_text {
-  font-size: $font-14;
-  font-weight: 400;
-  line-height: 1.5;
-  color: $primaryColor;
-  margin: 0;
-}
-
-.cance_text{
-    
+.cance_text {
   font-family: $firaSans;
   font-size: $font-18;
   font-weight: $medium;
   text-align: left;
-  color: rgb(90, 90, 167);
+  color: $cancelTextColor;
   margin: 0;
 }
-.cance_text:hover{
-  color: rgb(54, 54, 193);
+.cance_text:hover {
+  color: $cancelTextColor;
 }
 @keyframes fade {
   from {

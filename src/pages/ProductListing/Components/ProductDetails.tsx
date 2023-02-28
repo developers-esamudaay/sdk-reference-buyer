@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styles from "../../../../src/styles/products/productDetails.module.scss";
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import no_image_found from "../../../../src/assets/images/no_image_found.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -10,7 +10,7 @@ import { CartContext } from "../../../contextProviders/cartContextProvider";
 import Subtract from "../../../assets/icons/Subtract";
 import Add from "../../../assets/icons/Add";
 import ExpendedView from "../../../sharedComponents/expededView/ExpededView";
-import { getProducts ,getProductDetailsById} from "../../../data/firbaseCalls";
+import { getProducts, getProductDetailsById } from "../../../data/firbaseCalls";
 import { ProductDetailsInterface } from "../../../interfaces/ResponseInterfaces";
 import { firestoreCollections } from "../../../constants/firestoreCollections";
 import Navbar from "../../../sharedComponents/navBar/Navbar";
@@ -22,7 +22,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 // extract time info from time String
-const extractTimeInfo = (time:string):string => {
+const extractTimeInfo = (time: string): string => {
   let numberValue = "";
   let stringValue;
   for (let i = 0; i < time?.length ?? 0; i++) {
@@ -39,16 +39,13 @@ const extractTimeInfo = (time:string):string => {
   }
   return numberValue + " " + stringValue;
 };
-const getShortName=(name:string)=>{
-  return name.split(" ").slice(0,3).join(" ")
-}
-const  ProductDetails=()=> {
+const getShortName = (name: string) => {
+  return name.split(" ").slice(0, 3).join(" ");
+};
+const ProductDetails = () => {
+  const { id } = useParams() as { id: string };
 
-
-  const { id } = useParams()as{id :string} 
-
-
-  const [product,setProduct]=useState<ProductDetailsInterface|null>(null)
+  const [product, setProduct] = useState<ProductDetailsInterface | null>(null);
   const [quantityCount, setQuantityCount] = useState<number>(0);
   const [toggleAddToCart, setToggleAddToCart] = useState<boolean>(false);
   const {
@@ -72,22 +69,23 @@ const  ProductDetails=()=> {
   };
   const providerLocation = {
     latitude: product?.location?.lat ?? defaultLatLng,
-    longitude:product?.location?.lon ?? defaultLatLng,
+    longitude: product?.location?.lon ?? defaultLatLng,
   };
-  console.log(userLocation,providerLocation)
+  console.log(userLocation, providerLocation);
   const userProviderDistance = haversine(userLocation, providerLocation);
   const deliveryRadius = product?.location?.delivery_radius ?? defaultRadius;
-console.log(userProviderDistance)
+  console.log(userProviderDistance);
 
   const inDeliveryDistance = userProviderDistance < deliveryRadius * 1000;
-   console.log(product)
-  useEffect(()=>{
-    (async ()=>{
-       const  productDetails:ProductDetailsInterface|null=await getProductDetailsById(id)
-       console.log(productDetails)
-       setProduct(productDetails)
-    })()
-  },[])
+  console.log(product);
+  useEffect(() => {
+    (async () => {
+      const productDetails: ProductDetailsInterface | null =
+        await getProductDetailsById(id);
+      console.log(productDetails);
+      setProduct(productDetails);
+    })();
+  }, []);
   useEffect(() => {
     //check if product is already in cart
     const isProductPresent = cartItems?.find(({ id }) => id === product?.id);
@@ -98,11 +96,11 @@ console.log(userProviderDistance)
       setToggleAddToCart(false);
       setQuantityCount(0);
     }
-  }, [cartItems,id]);
+  }, [cartItems, id]);
 
   return (
     <Fragment>
-      <Navbar/>
+      <Navbar />
 
       <div className={styles.product_list_without_summary_wrapper}>
         <div className={styles.top_navigation}>
@@ -113,11 +111,12 @@ console.log(userProviderDistance)
           <Link
             to={{
               pathname: `/products/${id}`,
-            
             }}
             className={styles.back_text}
           >
-            <p className={styles.back_text}>{getShortName(product?.item_name??"") }</p>
+            <p className={styles.back_text}>
+              {getShortName(product?.item_name ?? "")}
+            </p>
           </Link>
         </div>
         <div className={styles.full_container}>
@@ -127,33 +126,30 @@ console.log(userProviderDistance)
             <div className="col-md-12 col-lg-6 p-3 ">
               {/* PRODUCT IMAGE  */}
               <div className={styles.left_container}>
-              <div className={styles.product_img_container}>
-                <Carousel axis={"horizontal"}>
-                  
-                 
+                <div className={styles.product_img_container}>
+                  <Carousel axis={"horizontal"}>
                     {product?.images?.map((image) => {
                       return (
-                   
                         <img
                           src={image}
                           alt={product?.item_name}
                           className={styles.product_img}
-                        
                         />
-                       
                       );
                     })}
-                 
-                </Carousel>
+                  </Carousel>
                 </div>
               </div>
             </div>
             <div className="col-md-12 col-lg-5 p-3">
               {/* NAME AND ORDERING FROM  */}
               <div className={styles.right_container}>
-                <p className={`${styles.product_name} `}>{product?.item_name}</p>
+                <p className={`${styles.product_name} `}>
+                  {product?.item_name}
+                </p>
                 <p className={styles.ordered_from}>
-                  Seller-<span className={styles.bold}>{product?.business_name}</span>
+                  Seller-
+                  <span className={styles.bold}>{product?.business_name}</span>
                 </p>
                 <div>
                   {inDeliveryDistance ? (
@@ -165,7 +161,7 @@ console.log(userProviderDistance)
                             className={`${styles.subtract_svg_wrapper} d-flex align-items-center justify-content-center`}
                             onClick={() => {
                               setQuantityCount(quantityCount - 1);
-                              onReduceQuantity(product?.id??"");
+                              onReduceQuantity(product?.id ?? "");
                               if (quantityCount - 1 === 0) {
                                 setToggleAddToCart(false);
                                 return;
@@ -186,11 +182,11 @@ console.log(userProviderDistance)
                           <div
                             className={`${styles.add_svg_wrapper} d-flex align-items-center justify-content-center`}
                             onClick={() => {
-                              console.log("test")
+                              console.log("test");
                               setQuantityCount(
                                 (quantityCount) => quantityCount + 1
                               );
-                              onAddQuantity(product?.id??"");
+                              onAddQuantity(product?.id ?? "");
                             }}
                           >
                             <Add
@@ -204,25 +200,24 @@ console.log(userProviderDistance)
                         <button
                           className={styles.add_to_cart_button}
                           onClick={() => {
-                            
                             setToggleAddToCart(true);
                             setQuantityCount(
                               (quantityCount) => quantityCount + 1
                             );
                             onAddProduct({
-                              item_id:product?.id??"",
-                              bpp_id:product?.bpp_id??"",
-                              bpp_uri:product?.bpp_uri??"",
-                              business_id:product?.business_id??"",
-                              business_name:product?.business_name??"",
-                              product_name:product?.item_name??"",
-                         
-                              price:product?.price??0,
-                              imageUrl:product?.imageUrl??"",
-                              location_id:product?.location_id??"",
-                              business_location_ids:product?.business_location_ids??[],
-                              city_code:product?.city_code??"",
-                         
+                              item_id: product?.id ?? "",
+                              bpp_id: product?.bpp_id ?? "",
+                              bpp_uri: product?.bpp_uri ?? "",
+                              business_id: product?.business_id ?? "",
+                              business_name: product?.business_name ?? "",
+                              product_name: product?.item_name ?? "",
+
+                              price: product?.price ?? 0,
+                              imageUrl: product?.imageUrl ?? "",
+                              location_id: product?.location_id ?? "",
+                              business_location_ids:
+                                product?.business_location_ids ?? [],
+                              city_code: product?.city_code ?? "",
                             });
                           }}
                         >
@@ -238,7 +233,7 @@ console.log(userProviderDistance)
                 </div>
                 <div>
                   <p className={styles.product_price}>
-                    ₹ {Number((product?.price??0)/100).toFixed(2)}
+                    ₹ {Number((product?.price ?? 0) / 100).toFixed(2)}
                   </p>
                 </div>
                 {/* if item is in delivery range then show add to cart button */}
@@ -288,7 +283,7 @@ console.log(userProviderDistance)
                       </div>
                     ) : null}
                     {/* COD  */}
-                    {product?.cod_available  ? (
+                    {product?.cod_available ? (
                       <div className={styles.product_details}>
                         <div className={styles.product_details_key}>
                           <p className={styles.prodcut_details_key_text}>
@@ -320,7 +315,7 @@ console.log(userProviderDistance)
                       </div>
                     ) : null}
                     {/* Shipping Time */}
-                    { product?.time_to_ship  ? (
+                    {product?.time_to_ship ? (
                       <div className={styles.product_details}>
                         <div className={styles.product_details_key}>
                           <p className={styles.prodcut_details_key_text}>
@@ -329,13 +324,13 @@ console.log(userProviderDistance)
                         </div>
                         <div className={styles.product_details_value}>
                           <p className={styles.prodcut_details_value_text}>
-                            {extractTimeInfo(product?.time_to_ship??"")}
+                            {extractTimeInfo(product?.time_to_ship ?? "")}
                           </p>
                         </div>
                       </div>
                     ) : null}
                     {/* Category */}
-                    { product?.category  ? (
+                    {product?.category ? (
                       <div className={styles.product_details}>
                         <div className={styles.product_details_key}>
                           <p className={styles.prodcut_details_key_text}>
@@ -387,7 +382,9 @@ console.log(userProviderDistance)
                         </p>
                       </div>
                     </div>
-                  ) : null}
+                  ) : (
+                    <></>
+                  )}
                   {typeof product?.bpp_id !== "undefined" ? (
                     <div className={styles.product_details}>
                       <div className={styles.product_details_key}>
@@ -401,7 +398,9 @@ console.log(userProviderDistance)
                         </p>
                       </div>
                     </div>
-                  ) : null}
+                  ) : (
+                    <></>
+                  )}
                   <div className="d-flex align-items-center justify-content-center py-1">
                     <Link
                       to={{
@@ -421,8 +420,8 @@ console.log(userProviderDistance)
       {/* {showCartInfo&&<CartInfo onClose={()=>setShowCartInfo(false)}/>} */}
     </Fragment>
   );
-}
-export default ProductDetails
+};
+export default ProductDetails;
 const productStyle = {
   lineStyle: { border: "1px solid #aaa" },
 };

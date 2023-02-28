@@ -32,20 +32,21 @@ type ProductKeySuggetions = {
   searchIndexes: string[];
 };
 
-
 const Homepage = () => {
   const [products, setProducts] = useState<Product[] | []>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const debounceSearchTrem: string = useDebounce(searchTerm, 500);
+
+  const debounceSearchTrem: string = useDebounce(searchTerm, 500); //this will give updated serchTerm value with delay
   const [productKeySuggetions, setProductKeySuggetions] = useState<
     string[] | []
   >([]);
-  const [businessSearchSuggetions,setBusinessSearchSuggetions]=useState([])
+  const [businessSearchSuggetions, setBusinessSearchSuggetions] = useState([]);
   const [showSuggetions, setShowSuggetions] = useState<boolean>(false);
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
-console.log(searchKeyword)
+  const [searchKeyword, setSearchKeyword] = useState<string>(""); //slected keyword from search suggetion
+
+  console.log(searchKeyword);
   useEffect(() => {
     (async () => {
       if (debounceSearchTrem) {
@@ -53,13 +54,14 @@ console.log(searchKeyword)
         const productSuggetions: string[] = await getProductKeySuggetion(
           debounceSearchTrem
         );
-         const businessSuggetion:any=await getBusinessSuggetion(debounceSearchTrem)
-         console.log(productSuggetions,businessSuggetion)
+        const businessSuggetion: any = await getBusinessSuggetion(
+          debounceSearchTrem
+        );
+        console.log(productSuggetions, businessSuggetion);
         setShowSuggetions(true);
-    
-        setProductKeySuggetions(productSuggetions);
-        setBusinessSearchSuggetions(businessSuggetion)
 
+        setProductKeySuggetions(productSuggetions);
+        setBusinessSearchSuggetions(businessSuggetion);
       }
     })();
   }, [debounceSearchTrem]);
@@ -79,9 +81,12 @@ console.log(searchKeyword)
   } = useContext(AddressContext);
 
   const cartItems = cartData?.items;
+  // close suggetions component if user click outside of search
+  // giving 500 ms delay beacuse if user click on a suggetion then we want suggetion to be closed after some delay
   const onBlur = () => {
-    console.log("test")
-     setTimeout(()=>{setShowSuggetions(false)},500)
+    setTimeout(() => {
+      setShowSuggetions(false);
+    }, 500);
   };
   const onFocus = () => {
     setShowSuggetions(true);
@@ -155,7 +160,6 @@ console.log(searchKeyword)
   //            // await addKeys(keys[i]);
   //           }
 
-
   //           console.log(product_short_name);
   //           const locations = business?.business_data?.locations ?? [];
   //           const imageUrl =
@@ -218,8 +222,6 @@ console.log(searchKeyword)
   //   })();
   // }, []);
 
-  
-
   return (
     <React.Fragment>
       {/* <Navbar /> */}
@@ -235,9 +237,8 @@ console.log(searchKeyword)
         searchTerm={searchTerm}
         isSearching={isSearching}
         setSearchKeyword={setSearchKeyword}
-        
-        
       />
+      {/* show Prodcut and business suggetion for search keyword */}
       <SearchKeyWordSuggetion
         productKeySuggetions={productKeySuggetions}
         showSuggetions={showSuggetions}
@@ -247,8 +248,8 @@ console.log(searchKeyword)
         setIsSearching={setIsSearching}
         setBusinessSearchSuggetions={setBusinessSearchSuggetions}
         businessSearchSuggetions={businessSearchSuggetions}
-        
       />
+
       <div className={"container"}>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-2">
@@ -256,10 +257,8 @@ console.log(searchKeyword)
           </div>
         </div>
       </div>
-
+      {/* show locaction modal */}
       {showSearchLocationModal && <LocationSearchModal />}
-
-      {/* show cart modal  */}
     </React.Fragment>
   );
 };

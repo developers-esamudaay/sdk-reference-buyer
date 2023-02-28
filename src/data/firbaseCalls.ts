@@ -27,7 +27,7 @@ import {
   Product,
   ProductDetailsInterface,
   BusinessDetails,
-  BusinessSearchRes
+  BusinessSearchRes,
 } from "../interfaces/ResponseInterfaces";
 const db = getFirestore(app);
 
@@ -112,7 +112,7 @@ export const getProductKeySuggetion = async (key: string) => {
   return productKeySuggetions;
 };
 export const getBusinessSuggetion = async (key: string) => {
-  console.log(key,"key")
+  console.log(key, "key");
   const q: any = query(
     collection(db, firestoreCollections.BUSINESS_NAME_INDEXES),
     limit(5),
@@ -120,9 +120,10 @@ export const getBusinessSuggetion = async (key: string) => {
     where("searchIndexes", "array-contains", key)
   );
   const querySnapshot = await getDocs(q);
-  const productKeySuggetions = querySnapshot.docs.map((doc) => doc.data()
-  ) as unknown  as BusinessSearchRes ;
-  console.log(productKeySuggetions,"key")
+  const productKeySuggetions = querySnapshot.docs.map((doc) =>
+    doc.data()
+  ) as unknown as BusinessSearchRes;
+  console.log(productKeySuggetions, "key");
   return productKeySuggetions;
 };
 
@@ -198,8 +199,8 @@ export const addBusinessKeys = async (
   indexes: string[]
 ) => {
   await setDoc(doc(db, "BusinessNameIndexes", id), {
-    id:id,
-    name:name,
+    id: id,
+    name: name,
     searchIndexes: indexes,
   });
 };
@@ -261,9 +262,8 @@ export const getBusinessDetailsById = async (
   const querySnapshot = await getDocs(q);
   const businesses = querySnapshot.docs.map((doc) =>
     doc.data()
-
   ) as BusinessDetails[];
-  console.log(businesses)
+  console.log(businesses);
   return businesses.length > 0 ? businesses[0] : null;
 };
 export const getSupportData = async (id: string) => {

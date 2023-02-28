@@ -14,23 +14,24 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 import Avatar from "react-avatar";
 import DropdownMenu from "../dropdown/DropdownMenu";
-type ShowCurrentAddressProps={
-  currentAddress:Address|null,
-  addressLoading?:boolean,
-  setShowSearchLocationModal?:(x:React.SetStateAction<boolean>)=>void
-}
-const ShowCurrentAddress:React.FC<ShowCurrentAddressProps> = ({
+import { SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
+type ShowCurrentAddressProps = {
+  currentAddress: Address | null;
+  addressLoading?: boolean;
+  setShowSearchLocationModal?: (x: React.SetStateAction<boolean>) => void;
+};
+const ShowCurrentAddress: React.FC<ShowCurrentAddressProps> = ({
   currentAddress,
   addressLoading,
   setShowSearchLocationModal,
 }) => {
-  console.log("test")
+  console.log("test");
   const {
     city = "",
 
     areaCode = "",
-   
-  } = currentAddress||{} ;
+  } = currentAddress || {};
 
   const prettyAddress = areaCode ? areaCode : city;
 
@@ -40,34 +41,40 @@ const ShowCurrentAddress:React.FC<ShowCurrentAddressProps> = ({
         <Loading />
       ) : (
         <div
-          style={{ display: "flex", cursor: "pointer" }}
-          onClick={() =>setShowSearchLocationModal&& setShowSearchLocationModal(true)}
+          className={styles.address_wrapper}
+          onClick={() =>
+            setShowSearchLocationModal && setShowSearchLocationModal(true)
+          }
         >
           <p className={styles.addres_text}>{prettyAddress}</p>
-          <EditLocationAltRoundedIcon
-            style={{ color: "#f86c08", width: "2.2rem", height: "2.2rem" }}
-          />
+          <EditLocationAltRoundedIcon style={locationEditIcon} />
         </div>
       )}
     </>
   );
 };
-type NavbarProps={
-  handleChange?: Function,
-  inlineError?:string,
-  fromProductPage?:boolean,
-  currentAddress?:Address|null,
-  addressLoading?:boolean,
-  onBlur?:()=>void,
-  onFocus?:()=>void,
-  setShowSearchLocationModal?:(x:React.SetStateAction<boolean>)=>void,
-  searchKeyword?:string,
-  searchTerm?:string,
-  isSearching?:boolean
-  setSearchKeyword?:React.Dispatch<React.SetStateAction<string>>
-}
-
-const Navbar:React.FC<NavbarProps> = ({
+type NavbarProps = {
+  handleChange?: Function;
+  inlineError?: string;
+  fromProductPage?: boolean;
+  currentAddress?: Address | null;
+  addressLoading?: boolean;
+  onBlur?: () => void;
+  onFocus?: () => void;
+  setShowSearchLocationModal?: (x: React.SetStateAction<boolean>) => void;
+  searchKeyword?: string;
+  searchTerm?: string;
+  isSearching?: boolean;
+  setSearchKeyword?: React.Dispatch<React.SetStateAction<string>>;
+};
+export type MenuItem = {
+  path: string;
+  text: string;
+  Icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+    muiName: string;
+  };
+};
+const Navbar: React.FC<NavbarProps> = ({
   handleChange,
   inlineError,
 
@@ -81,12 +88,11 @@ const Navbar:React.FC<NavbarProps> = ({
   searchKeyword,
   searchTerm,
   isSearching,
-  setSearchKeyword
-
+  setSearchKeyword,
 }) => {
-
   const { setShowCartInfo, cartData } = useContext(CartContext);
-  const menuItems = [
+  //menu items for mobile screen hamburger
+  const menuItems: MenuItem[] = [
     {
       path: "/products",
       text: "Products",
@@ -105,7 +111,7 @@ const Navbar:React.FC<NavbarProps> = ({
   return (
     <div className={styles.header}>
       <nav className={styles.navBar}>
-        <div >
+        <div>
           <img
             src={"https://developers.esamudaay.com/images/esamudaay-red.svg"}
             style={{ maxHeight: "35px", minWidth: "140px" }}
@@ -114,15 +120,15 @@ const Navbar:React.FC<NavbarProps> = ({
 
         <div className={styles.nav_right_items}>
           {fromProductPage && (
-            <div className={styles.address_wrapper}>
-              <>
-                <ShowCurrentAddress
-                  currentAddress={currentAddress?currentAddress:null}
-                  addressLoading={addressLoading}
-                  setShowSearchLocationModal={setShowSearchLocationModal&&setShowSearchLocationModal}
-                />
-              </>
-            </div>
+            <>
+              <ShowCurrentAddress
+                currentAddress={currentAddress ? currentAddress : null}
+                addressLoading={addressLoading}
+                setShowSearchLocationModal={
+                  setShowSearchLocationModal && setShowSearchLocationModal
+                }
+              />
+            </>
           )}
 
           <div className={styles.nav_item}>
@@ -162,11 +168,11 @@ const Navbar:React.FC<NavbarProps> = ({
                 }}
               >
                 <LocalMallIcon
-                  style={{
-                    color: cartData?.items?.length > 0 ? "white" : "#3D4152",
-                    width: "2.2rem",
-                    height: "2.2rem",
-                  }}
+                  style={
+                    cartData?.items?.length > 0
+                      ? cartIconStyle
+                      : emptyCartIconStyle
+                  }
                 />
                 {
                   <span
@@ -180,23 +186,20 @@ const Navbar:React.FC<NavbarProps> = ({
               </div>
             </NavLink>
           </div>
-
+          {/* hamburger menu for mobile screen*/}
           <div className={styles.avatar_dropdown_style}>
             <DropdownMenu menuItems={menuItems}>
-       
-             <div className={styles.nav_toggle_label}>
-              <span></span>
-             </div>
+              <div className={styles.nav_toggle_label}>
+                <span></span>
+              </div>
             </DropdownMenu>
-
           </div>
         </div>
 
         <div className={styles.nav_search_bar}>
           {fromProductPage && (
             <SearchBar
-              handleChange={handleChange?handleChange:null}
-           
+              handleChange={handleChange ? handleChange : null}
               handleBlur={onBlur}
               handleFocus={onFocus}
               placeholder={"What are you looking for?"}
@@ -210,13 +213,23 @@ const Navbar:React.FC<NavbarProps> = ({
             />
           )}
         </div>
-
-        {/* Location Dropdown menu  */}
-
-        {/* Search bar to search product */}
       </nav>
     </div>
   );
 };
-
+const cartIconStyle = {
+  color: "white",
+  width: "2.2rem",
+  height: "2.2rem",
+};
+const emptyCartIconStyle = {
+  color: "#3D4152",
+  width: "2.2rem",
+  height: "2.2rem",
+};
+const locationEditIcon = {
+  color: "#f86c08",
+  width: "2.2rem",
+  height: "2.2rem",
+};
 export default Navbar;

@@ -13,14 +13,14 @@ li {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: $accentColor;
+  background-color: $secondaryColor;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .page_number {
-    color: $white;
+    color: $backgroundTheme;
   }
 }
 
@@ -35,11 +35,11 @@ li {
 }
 
 .page_wrapper:hover {
-  background-color: $accentColor;
+  background-color: $secondaryColor;
   transition: background-color 0.3s;
 
   .page_number {
-    color: $white;
+    color: $backgroundTheme;
   }
 }
 
@@ -54,13 +54,13 @@ li {
 }
 
 .page_anchor:hover {
-  background-color: rgba($accentColor, $alpha: 0.3);
+  background-color: rgba($secondaryColor, $alpha: 0.3);
   transition: background-color 0.3s;
 }
 
 .page_number {
   font-size: $font-14;
-  color: $accentColor;
+  color: $secondaryColor;
 }
 
 .arrow_left {
@@ -69,7 +69,6 @@ li {
 
 .arrow_right {
   transform: rotate(-90deg);
- 
 }
 
 .disabled {
@@ -83,33 +82,33 @@ li {
   align-items: center;
   justify-content: center;
 }
-.page_number{
+.page_number {
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  background-color:$accentColor ;
+  background-color: $secondaryColor;
   display: flex;
   justify-content: center;
 
   padding-top: 3px;
 }
-.page_number_inactive{
+.page_number_inactive {
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  background-color:$white ;
+  background-color: $backgroundTheme;
   display: flex;
   justify-content: center;
 
   padding-top: 3px;
 }
-.page_number_text{
-  color:$white;
+.page_number_text {
+  color: $backgroundTheme;
   font-size: $font-14;
   font-weight: $semibold;
 }
-.page_number_text_inactive{
-  color:black;
+.page_number_text_inactive {
+  color: black;
   font-size: $font-14;
   font-weight: $semibold;
 }

@@ -14,4 +14,4 @@ const Loading: FC<any> = () => {
     </>
   );
 };
-export default Loading
+export default Loading;

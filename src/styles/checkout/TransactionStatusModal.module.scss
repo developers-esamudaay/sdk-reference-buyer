@@ -1,56 +1,53 @@
 @import "../variables.scss";
-.transaction_modal_card{
-     margin:10rem auto;
-     
-     max-width: 300px;
-     height:auto;
-     box-shadow:1px 2px 2px 1px rgb(212, 206, 206);
-   
-}
-.button_container{
-     display: flex;
-     justify-content: space-around;
-     padding:4rem 0rem 1.5rem 0rem
-}
-.normal_text_container{
-     width:300px;
+.transaction_modal_card {
+  margin: 10rem auto;
 
-    display: flex;
-    justify-content: center;
-     padding-top: 3rem;
- 
-  }
-  .normal_text{
-     font-size: $font-16;
-     font-weight: $semibold;
-     color:#3D4152
-  }
- .success_button{
-     max-width:120px;
-     height: 35px;
-     
-     border: 1px solid green;
-     border-radius: 4px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     font-size:$font-16;
-     font-weight: $semibold;
-     background-color: rgb(17, 160, 17);
-     color: $white;
- }
- .failed_button{
-     max-width:120px;
-     height: 35px;
-     
-     border: 1px soli#DC3545;
-     border-radius: 4px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     font-size:$font-16;
-     font-weight: $semibold;
-     background-color: #DC3545;
-     color: $white;
-     
- }
+  max-width: 300px;
+  height: auto;
+  box-shadow: 1px 2px 2px 1px rgb(212, 206, 206);
+}
+.button_container {
+  display: flex;
+  justify-content: space-around;
+  padding: 4rem 0rem 1.5rem 0rem;
+}
+.normal_text_container {
+  width: 300px;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+}
+.normal_text {
+  font-size: $font-16;
+  font-weight: $semibold;
+  color: $textPrimaryColor;
+}
+.success_button {
+  max-width: 120px;
+  height: 35px;
+
+  border: 1px solid $successColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-16;
+  font-weight: $semibold;
+  background-color: $successColor;
+  color: $backgroundTheme;
+}
+.failed_button {
+  max-width: 120px;
+  height: 35px;
+
+  border: 1px solid $errorColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-16;
+  font-weight: $semibold;
+  background-color: $errorColor;
+  color: $backgroundTheme;
+}

@@ -18,7 +18,7 @@ type AddressFormProps = {
   onClose: () => void;
   onSelectAddress: (x: DeliveryAddressInfo) => void;
   isEditingAddress?: boolean;
-  addressId?:string
+  addressId?: string;
 };
 const AddressForm: React.FC<AddressFormProps> = (props) => {
   console.log(props);
@@ -27,7 +27,6 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
 
     onSelectAddress,
     isEditingAddress,
-
   } = props;
 
   // STATES
@@ -115,7 +114,7 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
   }
 
   function checkLandMark() {
-    console.log(fullAddress?.address)
+    console.log(fullAddress?.address);
     if (!fullAddress?.address?.door) {
       setError((error) => ({
         ...error,
@@ -197,7 +196,7 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
       } as DeliveryAddressInfo;
       isEditingAddress
         ? editDeliveryAddress &&
-          editDeliveryAddress(props?.addressId??"", addressWithLatLng)
+          editDeliveryAddress(props?.addressId ?? "", addressWithLatLng)
         : addNewDeliveryAddresses &&
           addNewDeliveryAddresses({
             ...addressWithLatLng,
@@ -262,13 +261,6 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   required
                   placeholder="Enter Email"
                   id="email"
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
                   value={fullAddress?.email ?? ""}
                   has_error={error.email_error}
                   onChange={(event: any) => {
@@ -293,17 +285,9 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   type="text"
                   label_name="Enter Phone"
                   required
-                  maxlength="10"
                   placeholder="Enter Phone"
                   id="phone"
                   value={fullAddress?.phone}
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
                   has_error={error.phone_error}
                   onChange={(event: any) => {
                     const regexp = /^[0-9]+$/;
@@ -336,25 +320,18 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   required
                   placeholder="Enter Landmark"
                   id="landmark"
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
                   has_error={error.door_error}
-                  value={fullAddress?.address?.door}
+                  value={fullAddress?.address?.door ?? ""}
                   onChange={(event: any) => {
                     const door = event.target.value;
                     setFullAddress(
                       (address) =>
                         ({
                           ...address,
-                         address:{
-                          ...address?.address,
-                          door:door
-                         }
+                          address: {
+                            ...address?.address,
+                            door: door,
+                          },
                         } as DeliveryAddressInfo)
                     );
                     setError((error) => ({
@@ -370,18 +347,9 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   type="text"
                   label_name="Pincode"
                   required
-                  pattern="\d*"
-                  maxlength="6"
                   placeholder="Enter Pin code"
                   id="pin_code"
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
-                  value={fullAddress?.address?.areaCode ?? ""}
+                  value={fullAddress?.address?.areaCode}
                   has_error={error.areaCode_error}
                   onChange={(event: any) => {
                     const regexp = /^[0-9]+$/;
@@ -396,10 +364,10 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                       (address) =>
                         ({
                           ...address,
-                         address:{
-                          ...address?.address,
-                          areaCode:areaCode
-                         }
+                          address: {
+                            ...address?.address,
+                            areaCode: areaCode,
+                          },
                         } as DeliveryAddressInfo)
                     );
                     setError((error) => ({
@@ -417,13 +385,6 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   required
                   placeholder="Enter City"
                   id="city"
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
                   value={fullAddress?.address?.city ?? ""}
                   has_error={error.city_name_error}
                   onChange={(event: any) => {
@@ -432,10 +393,10 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                       (address) =>
                         ({
                           ...address,
-                         address:{
-                          ...address?.address,
-                           city:city
-                         }
+                          address: {
+                            ...address?.address,
+                            city: city,
+                          },
                         } as DeliveryAddressInfo)
                     );
                   }}
@@ -449,25 +410,18 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
                   required
                   placeholder="Enter State"
                   id="state"
-                  style={{
-                    borderTop: "0px solid",
-                    borderLeft: "0px solid",
-                    borderRight: "0px solid",
-                    outline: "none",
-                    borderRadius: "0px",
-                  }}
                   has_error={error.state_name_error}
-                  value={fullAddress?.address?.state}
+                  value={fullAddress?.address?.state ?? ""}
                   onChange={(event: any) => {
                     const state = event.target.value;
                     setFullAddress(
                       (address) =>
                         ({
                           ...address,
-                         address:{
-                          ...address?.address,
-                          state:state
-                         }
+                          address: {
+                            ...address?.address,
+                            state: state,
+                          },
                         } as DeliveryAddressInfo)
                     );
                   }}
@@ -495,4 +449,4 @@ const AddressForm: React.FC<AddressFormProps> = (props) => {
     </div>
   );
 };
-export default AddressForm
+export default AddressForm;

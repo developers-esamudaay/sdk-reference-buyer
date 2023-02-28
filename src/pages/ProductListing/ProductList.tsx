@@ -40,9 +40,8 @@ const ProductList: React.FC<ProductListProps> = ({ searchKeyword }) => {
   useEffect(() => {
     (async () => {
       if (!searchKeyword) {
-      
         await fetchProducts(QueryTypes.NO_QUERY, "");
-        return
+        return;
       }
 
       await fetchProducts(QueryTypes.SEARCH_QUERY, searchKeyword);
@@ -75,20 +74,23 @@ const ProductList: React.FC<ProductListProps> = ({ searchKeyword }) => {
     setLoading(false);
   }
 
-
   return (
     <div className={styles.product_list_container}>
       {loading ? (
         <Loading />
       ) : (
-
-        <div className="container" style={{ borderBottom: "1px solid gray" }}>
-          {searchKeyword&&<p className={styles.seacrh_result_text}>{`search result for ${searchKeyword}`}</p>}
+        <div className="container">
+          {searchKeyword && (
+            <p
+              className={styles.seacrh_result_text}
+            >{`search result for ${searchKeyword}`}</p>
+          )}
           {products.length === 0 && (
             <div className={styles.empty_product_view}>
               <img src={no_product_found} width={"300px"} height={"300px"} />
             </div>
           )}
+          {/* products cards */}
           <div className={`row pe-2`}>
             {products.map((product) => {
               return (
@@ -101,12 +103,9 @@ const ProductList: React.FC<ProductListProps> = ({ searchKeyword }) => {
               );
             })}
           </div>
-          {/* products cards */}
-
-          {/* pagination for prev and next page */}
         </div>
       )}
-
+      {/* pagination for prev and next page */}
       {products.length === 24 && (
         <div className={styles.pagination}>
           <Pagination
@@ -128,4 +127,5 @@ const ProductList: React.FC<ProductListProps> = ({ searchKeyword }) => {
     </div>
   );
 };
+
 export default ProductList;

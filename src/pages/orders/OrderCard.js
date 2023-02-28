@@ -372,12 +372,11 @@ const OrderCard = ({
             <span>{`: ${formatDate(orderData?.createdDate)}`}</span>
           </p>
           <div className={styles.order_info}>
-          <p className={styles.date_label}>{`items quantity:${orderData?.items?.length}`}</p>
-      
-
+            <p
+              className={styles.date_label}
+            >{`items quantity:${orderData?.items?.length}`}</p>
+          </div>
         </div>
-        </div>
-      
 
         <div className="px-5">
           <div

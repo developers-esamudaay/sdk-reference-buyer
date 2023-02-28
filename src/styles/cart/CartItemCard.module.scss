@@ -3,7 +3,7 @@
     display: flex;
     align-items: flex-start;
     gap:2.5rem;
-background-color: rgb(255, 255, 255);
+background-color: $backgroundTheme;
     padding:3.0rem 2.4rem 2.0rem 3.4rem;
     box-shadow:1px 1px 3px 0px rgb(221, 210, 210);
     margin-top: 1rem;
@@ -37,13 +37,13 @@ background-color: rgb(255, 255, 255);
 .item_name_text{
     font-size: 1.4rem;
     font-weight: $regular;
-    color:#3D4152;
+    color:$textPrimaryColor;
     padding-left: 0.2rem;
 }
 .seller_text{
     font-size: 1.4rem;
     font-weight: $regular;
-    color:#71768a 
+    color:$textLigthColor
 }
 .price_container{
     display: flex;
@@ -58,27 +58,27 @@ background-color: rgb(255, 255, 255);
 .price_text{
     font-size: 1.4rem;
     font-weight: $semibold;
-    color: #3D4152
+    color: $textPrimaryColor
 }
 .edit_address_text{
   font-size: $font-16;
   font-weight: $semibold;
   text-align: left;
-  color: #f86c08;
+  color: $primaryColor;
   margin: 0;
   cursor: pointer;
 }
 .delivery_info_text{
     font-size: 1.4rem;
     font-weight: $medium;
-    color:#3D4152
+    color:$textPrimaryColor
 }
 .quantity_count_wrapper {
    
    margin-top: 20px;
     width:70px;
     height: 25px;
-    border:solid 2px #2e3c7e;
+    border:solid 2px $secondaryColor;
   border-radius: 0.5rem;
     display: flex;
 
@@ -95,13 +95,13 @@ background-color: rgb(255, 255, 255);
   
   .subtract_svg_color,
   .add_svg_color {
-    fill: white;
+    fill: $backgroundTheme;
   }
   
   .subtract_svg_wrapper {
     
     cursor: pointer;
-    background-color:#2e3c7e ;
+    background-color:$secondaryColor ;
     padding:5px;
 
   }
@@ -109,7 +109,7 @@ background-color: rgb(255, 255, 255);
  
   
   .add_svg_wrapper {
-    background-color: #2e3c7e;
+    background-color: $secondaryColor;
     cursor: pointer;
     padding:5px;
    
@@ -119,7 +119,7 @@ background-color: rgb(255, 255, 255);
   .quantity_count {
     font-size: $font-14;
     font-weight: $medium;
-    color: #3D4152;
+    color: $textPrimaryColor;
     text-align: center;
     margin: 0;
     padding: 0rem 0.3rem;
@@ -129,7 +129,7 @@ background-color: rgb(255, 255, 255);
 
     display: flex;
       justify-content: space-between;
-     background-color: #f8f8f8;
+     background-color: $lightTheme;
     align-items: center;
     padding: 0.2rem 1rem 0.2rem 1rem;
     max-height:45px;
@@ -144,11 +144,11 @@ background-color: rgb(255, 255, 255);
 
         font-size: $font-16; 
         font-weight: $regular;  
-        color:#6d728a;
+        color:$textLigthColor;
     
 }
 .remove_wrapper{
-  background-color: #DC3545;
+  background-color: $errorColor;
   border-radius: 2rem;
 }
   .remove_text:hover{
